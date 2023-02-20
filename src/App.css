@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+/* Dandole tamaño al contenedor del mapa */
+.leaflet-container{
+  height: 100vh;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}

@@ -1,0 +1,144 @@
+.principal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: url('../Imagenes/Fondo/wallpaper.jpg') no-repeat;
+    backdrop-filter: blur(5px);
+    background-size: cover;
+    background-position: center;
+}
+
+.errmsg {
+    position: fixed;
+    display: flex;
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-top: -550px;
+    color: rgb(255, 118, 118);
+    width: 400px;
+    height: 95px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 10px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s ease;
+}
+
+.principal:focus~p,
+.principal:valid~p {
+    transition: 0.5s ease;
+}
+
+.wrapper {
+    color: aliceblue;
+    position: relative;
+    width: 450px;
+    height: 500px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.wrapper .active-popup {
+    transform: scale(1);
+}
+
+.wrapper .form-box {
+    width: 100%;
+    padding: 40px;
+}
+
+.form-box h2 {
+    font-size: 2em;
+    text-align: center;
+}
+
+.input-box {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    border-bottom: 2px solid #0f1f52;
+    margin: 30px 0;
+}
+
+.input-box label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    font-size: 1em;
+    color: #fff;
+    font-weight: 500;
+    pointer-events: none;
+    transition: 0.5s;
+}
+
+.input-box input:focus~label,
+.input-box input:valid~label {
+    top: -5px;
+}
+
+.input-box input{
+    width: 100%;
+    height: 100%;
+    font-size: 1em;
+    color: #fff;
+    font-weight: 600;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0 35px 0 5px;
+}
+
+.input-box .icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #fff;
+    line-height: 57px;
+}
+
+.forgot {
+    font-size: 0.9em;
+    color: #fff;
+    font-weight: 500;
+    margin: -15px 0 15px;
+}
+
+.forgot a {
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.forgot a:hover {
+    color: aliceblue;
+    text-decoration: underline;
+}
+
+.boton {
+    width: 100%;
+    height: 45px;
+    background-color: aliceblue;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #0f1f52;
+    font-weight: 500;
+    transition: 0.5s;
+}
+
+.boton:hover {
+    background-color: #0f1f52;
+    color: aliceblue;
+}
