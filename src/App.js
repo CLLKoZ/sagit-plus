@@ -3,6 +3,8 @@ import { Routes, Route } from 'react-router-dom';
 import MapView from './Componentes/Mapa/MapView';
 import Login from './Vistas/Login';
 import Layout from './Componentes/Layouts/Layout';
+import RequireAuth from './Componentes/Proveedores/RequireAuth';
+import RedirectLogin from './Componentes/Proveedores/RedirectLogin';
 
 function App() {
 
@@ -10,10 +12,15 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           {/* Rutas publicas */}
-          <Route path='/login' element={<Login />} />
+          <Route element={<RedirectLogin/>}>
+            <Route path='/login' element={<Login />} />
+          </Route>
 
           {/* Rutas protegidas por autorización */}
-          <Route path='/' element={<MapView />}/>
+          <Route element={<RequireAuth />}>
+            <Route path='/mapa' element={<MapView />}/>
+            <Route path='/' element={<h2> Soy la pagina principal </h2>}/>
+          </Route>
         </Route>
       </Routes> 
   );

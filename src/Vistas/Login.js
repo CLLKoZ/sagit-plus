@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate, useLocation, redirect } from "react-router-dom";
 import axios from '../API/Axios';
 import useAuth from "../Componentes/Proveedores/useAuth";
 import Header from "../Componentes/Estructura/Header";
@@ -10,6 +11,11 @@ const LOGIN_URL = '/v1/user/login';
 
 const Login = () =>{
   const { setAuth } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
+
   const userRef = useRef();
   const errRef = useRef();
 
@@ -18,7 +24,7 @@ const Login = () =>{
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [success, setSuccess] = useState(false);
+  const [user, setUser] = useState(null);
 
   /* Para que el enfoque caiga en el input de usuario */
   useEffect(() =>{
@@ -31,31 +37,53 @@ const Login = () =>{
     setErrMsg('');
   }, [username, password]);
 
-  /* Setea en blanco el usuario y la contraseña ademas
-  que cambia el estado success a true */
+  /* Envia los datos requeridos por el end point de 
+  login, valida si la respues es algun error, setea 
+  en blanco el usuario y la contraseña ademas que 
+  cambia el estado success a true */
   const handleSubmit = async(e) =>{
     e.preventDefault();
     
     try {
-      const respuesta = await axios.post(LOGIN_URL,
-        JSON.stringify({username, password}), 
+      const user = await axios.post(LOGIN_URL,
         {
+          data: {
+            'username': username,
+            'password': password
+          },
           headers: { 'Content-Type': 'application/json'},
           withCredentials: true
         }
       );
-      console.log(JSON.stringify(respuesta?.data));
-      const accessToken = respuesta?.data?.accessToken;
-      setAuth({ username, password, accessToken })
+
+      /* Creando session */
+      const session = {
+        username: user?.data?.data.user[0].username,
+        token: `Bearer ${user?.data?.token}`,
+        name: user?.data?.data.user[0].firstName
+      }
+
+      /* Guardando el token mediante LocalStorage */
+      window.localStorage.setItem(
+        'loggedUser', JSON.stringify({ session })
+      )
+
+      const accessToken = user?.data?.token;
+      const rol = user?.data?.roles;
+      setAuth({ username, password, rol, accessToken })
+      setUser(user)
+
       setUsername('');
       setPassword('');
-      setSuccess(true);
+      console.log(from)
+      navigate(from, { replace: true });
+
     } catch(err){
-      if(!err?.respuesta){
+      if(!err?.response){
         setErrMsg('El servidor no responde');
-      } else if(err?.respuesta.status === 400){
+      } else if(err?.response?.status === 400){
         setErrMsg('El usuario o la contraseña son incorrectos');
-      } else if (err?.respuesta.status === 401){
+      } else if (err?.response?.status === 401){
         setErrMsg('Usuario no autorizado');
       } else {
         setErrMsg('Falló el inicio de sesión');
@@ -63,16 +91,8 @@ const Login = () =>{
       errRef.current.focus();
     }
   }
-
+  
   return(
-    <> {success ? (
-      <div className='principal'>
-        <Header></Header>
-        <div className='wrapper'>
-          <h2>Esta logueado!!!</h2>
-        </div>
-      </div>
-    ) : (
     <div className='principal'>
       <Header></Header>
       <p ref={errRef} className={errMsg ? 'errmsg' : 'desaparece'} aria-live='assertive'>{errMsg}</p>
@@ -111,7 +131,6 @@ const Login = () =>{
         </div>
       </div>
     </div>
-    )};</>
   );
 };
 

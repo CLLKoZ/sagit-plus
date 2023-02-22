@@ -1,16 +1,18 @@
-import axios from 'axios';
+import axios from '../API/Axios';
 import { useState, useEffect } from 'react';
 
-const Login = async (username, password) => {
-  const [usuario, useUsuario] = useState(null);
+const LOGIN_URL = '/v1/user/login';
 
-  const {data} = await axios.post('http://168.232.50.15/v1/project/find', {
-    username,
-    password
-  });
-  useUsuario(data.username);
+const LoginService = async (username, password) => {
+  const {data} = await axios.post(LOGIN_URL, {data: {
+    'username': username,
+    'password': password
+  }, 
+    headers: { 'Content-Type': 'application/json'},
+    withCredentials: true});
+  return data;
 }
 
 export{
-  Login
+  LoginService
 };
