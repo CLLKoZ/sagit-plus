@@ -1,5 +1,5 @@
 header {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
@@ -7,7 +7,14 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 99;
+    z-index: 100;
+}
+
+.background {
+    position: relative;
+    z-index: 401;
+    height: 65px;
+    background-color: #0f1f52;
 }
 
 .logo {
@@ -45,7 +52,7 @@ header {
 
 .navigation .btnLogin-popup{
     width: 130px;
-    height: 50px;
+    height: 40px;
     background: transparent;
     border: 2px solid #fff;
     outline: none;
@@ -60,4 +67,11 @@ header {
 .navigation .btnLogin-popup:hover {
     background-color: #fff;
     color: #0f1f52;
+}
+
+.expand {
+    padding-top: 7px;
+    padding-right: 2px;
+    width: 130px;
+    height: 40px;
 }

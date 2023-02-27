@@ -1,18 +1,17 @@
-import axios from '../API/Axios';
-import { useState, useEffect } from 'react';
+const loggedUserJSON = window.localStorage.getItem('loggedUser')
 
-const LOGIN_URL = '/v1/user/login';
+const isLogged = () => {
+  if(loggedUserJSON){
+    return true;
+  } else return false;
+}
 
-const LoginService = async (username, password) => {
-  const {data} = await axios.post(LOGIN_URL, {data: {
-    'username': username,
-    'password': password
-  }, 
-    headers: { 'Content-Type': 'application/json'},
-    withCredentials: true});
-  return data;
+const logOut = () =>{
+  console.log("Me llaman")
+  window.localStorage.removeItem('loggedUser');
+  window.location.reload()
 }
 
 export{
-  LoginService
+  isLogged, logOut
 };

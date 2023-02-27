@@ -1,11 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate, useLocation, redirect } from "react-router-dom";
-import axios from '../API/Axios';
-import useAuth from "../Componentes/Proveedores/useAuth";
-import Header from "../Componentes/Estructura/Header";
-import '../Estilos/login.css';
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import axios from '../../API/Axios';
+import useAuth from "../Proveedores/useAuth";
+import '../../Estilos/login.css';
 
 const LOGIN_URL = '/v1/user/login';
 
@@ -24,7 +23,6 @@ const Login = () =>{
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
-  const [user, setUser] = useState(null);
 
   /* Para que el enfoque caiga en el input de usuario */
   useEffect(() =>{
@@ -71,7 +69,6 @@ const Login = () =>{
       const accessToken = user?.data?.token;
       const rol = user?.data?.roles;
       setAuth({ username, password, rol, accessToken })
-      setUser(user)
 
       setUsername('');
       setPassword('');
@@ -94,7 +91,7 @@ const Login = () =>{
   
   return(
     <div className='principal'>
-      <Header></Header>
+      {/* Mensaje de error desplegable */}
       <p ref={errRef} className={errMsg ? 'errmsg' : 'desaparece'} aria-live='assertive'>{errMsg}</p>
       <div className='wrapper'>
         <div className='form-box login'>
