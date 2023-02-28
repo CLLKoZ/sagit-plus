@@ -2,8 +2,10 @@ import React from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import Header from '../Estructura/Header';
+import { getCurrentUser } from '../../Funciones/funciones';
 
 const MapView = () =>{
+  console.log(getCurrentUser())
   return(
     <div>
       <Header isLogged={true} />

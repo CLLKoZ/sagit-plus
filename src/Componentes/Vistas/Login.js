@@ -5,6 +5,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import axios from '../../API/Axios';
 import useAuth from "../Proveedores/useAuth";
 import '../../Estilos/login.css';
+import { login, getCurrentUser } from "../../Funciones/funciones";
 
 const LOGIN_URL = '/v1/user/login';
 
@@ -43,37 +44,15 @@ const Login = () =>{
     e.preventDefault();
     
     try {
-      const user = await axios.post(LOGIN_URL,
-        {
-          data: {
-            'username': username,
-            'password': password
-          },
-          headers: { 'Content-Type': 'application/json'},
-          withCredentials: true
+      login(username, password).then(
+        () => {
+          setAuth(getCurrentUser());
+          setUsername('');
+          setPassword('');
+          navigate(from, { replace: true });
+          window.location.reload();
         }
-      );
-
-      /* Creando session */
-      const session = {
-        username: user?.data?.data.user[0].username,
-        token: `Bearer ${user?.data?.token}`,
-        name: user?.data?.data.user[0].firstName
-      }
-
-      /* Guardando el token mediante LocalStorage */
-      window.localStorage.setItem(
-        'loggedUser', JSON.stringify({ session })
       )
-
-      const accessToken = user?.data?.token;
-      const rol = user?.data?.roles;
-      setAuth({ username, password, rol, accessToken })
-
-      setUsername('');
-      setPassword('');
-      console.log(from)
-      navigate(from, { replace: true });
 
     } catch(err){
       if(!err?.response){
