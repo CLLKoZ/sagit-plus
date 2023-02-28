@@ -10,7 +10,7 @@ const isLogged = () => {
 
 const login = (username, password) => {
   return axios
-    .post("/v1/user/login", {
+    .post("/user/login", {
       data: {
         'username': username,
         'password': password
@@ -42,15 +42,22 @@ const logOut = () =>{
   window.location.reload()
 }
 
-const allInspections = async (token) => {
-  const config = {
-    headers: {
-      Authorization: token
-    }
+const allInspections = async () => {
+  console.log(getCurrentUser().session.token)
+  const headers = {
+    Authorization: getCurrentUser().session.token
+  };
+  const body = {
+    "filter": {},
+    "regex": [],
+    "populate": [],
+    "attributes": [],
+    "pageNumber": 1,
+    "limit": 5
   }
-  const peticion = await axios.get('/v1/inspection/find')
+  const peticion = await axios.post('/object-evaluation/find', body, {headers})
   console.log('Soy')
-  console.log(peticion)
+  console.log(peticion.data.data)
 }
 
 export{

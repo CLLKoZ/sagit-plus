@@ -55,6 +55,7 @@ const Login = () =>{
       )
 
     } catch(err){
+      console.log("Entré al error")
       if(!err?.response){
         setErrMsg('El servidor no responde');
       } else if(err?.response?.status === 400){
