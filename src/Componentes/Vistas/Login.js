@@ -90,12 +90,12 @@ const Login = () =>{
   }
   
   return(
+    /*Componente HTML para la vista de logueo*/
     <div className='principal'>
-      {/* Mensaje de error desplegable */}
-      <p ref={errRef} className={errMsg ? 'errmsg' : 'desaparece'} aria-live='assertive'>{errMsg}</p>
       <div className='wrapper'>
         <div className='form-box login'>
-          <h2>Inicio de Sesión</h2>
+          <h1 className="titulo">SAGIT</h1>
+          <h3>Inicio de Sesión</h3>
           <form onSubmit={handleSubmit}>
             <div className='input-box'>
               <span className='icon'><FontAwesomeIcon icon={faUser}/> </span>
@@ -124,6 +124,8 @@ const Login = () =>{
               <a href='#'>¿Olvidó su contraseña?</a>
             </div>
             <button className='boton'>Iniciar Sesión</button>
+            {/* Mensaje de error desplegable */}
+            <p ref={errRef} className={errMsg ? 'errmsg' : 'desaparece'} aria-live='assertive'>{errMsg}</p>
           </form>
         </div>
       </div>
