@@ -27,9 +27,8 @@ const login = (username, password) => {
       if (response.data.token) {
         localStorage.setItem("loggedUser", JSON.stringify({session}));
       }
-
       return response.data;
-    });
+    })
 };
 
 const getCurrentUser = () => {
@@ -48,9 +47,9 @@ const allInspections = async () => {
     Authorization: getCurrentUser().session.token
   };
   const body = {
-    "filter": {},
+    "filter": {isActive: true},
     "regex": [],
-    "populate": [],
+    "populate": ["typeObjectEvaluation"],
     "attributes": [],
     "pageNumber": 1,
     "limit": 5

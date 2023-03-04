@@ -1,13 +1,10 @@
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate, useLocation } from "react-router-dom";
-import axios from '../../API/Axios';
+import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../Proveedores/useAuth";
 import '../../Estilos/login.css';
 import { login, getCurrentUser } from "../../Funciones/funciones";
-
-const LOGIN_URL = '/v1/user/login';
 
 const Login = () =>{
   const { setAuth } = useAuth();
@@ -36,37 +33,33 @@ const Login = () =>{
     setErrMsg('');
   }, [username, password]);
 
-  /* Envia los datos requeridos por el end point de 
-  login, valida si la respues es algun error, setea 
+  /* Envia los datos requeridos por el endpoint de 
+  login, valida si la respuesta es algun error, setea 
   en blanco el usuario y la contraseña ademas que 
-  cambia el estado success a true */
+  redirige a la direccion solicitada anteriormente. */
   const handleSubmit = async(e) =>{
     e.preventDefault();
     
-    try {
-      login(username, password).then(
-        () => {
-          setAuth(getCurrentUser());
-          setUsername('');
-          setPassword('');
-          navigate(from, { replace: true });
-          window.location.reload();
-        }
-      )
-
-    } catch(err){
-      console.log("Entré al error")
-      if(!err?.response){
+    login(username, password).then(
+      () => {
+        setAuth(getCurrentUser());
+        setUsername('');
+        setPassword('');
+        navigate(from, { replace: true });
+        window.location.reload();
+      }
+    ).catch((error)=>{
+      if(!error?.response){
         setErrMsg('El servidor no responde');
-      } else if(err?.response?.status === 400){
+      } else if(error?.response?.status === 400){
         setErrMsg('El usuario o la contraseña son incorrectos');
-      } else if (err?.response?.status === 401){
+      } else if (error?.response?.status === 401){
         setErrMsg('Usuario no autorizado');
       } else {
         setErrMsg('Falló el inicio de sesión');
       }
       errRef.current.focus();
-    }
+    })
   }
   
   return(
