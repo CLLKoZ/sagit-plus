@@ -1,18 +1,11 @@
-header {
-    position: absolute;
-    top: 0;
-    left: 0;
+.background {
+    position: fixed;
+    z-index: 50000;
     width: 100%;
     padding: 20px 100px;
-    display: flex;
     justify-content: space-between;
+    display: flex;
     align-items: center;
-    z-index: 100;
-}
-
-.background {
-    position: relative;
-    z-index: 401;
     height: 65px;
     background-color: #0f1f52;
 }
@@ -22,7 +15,9 @@ header {
     color: #fff;
     user-select: none;
 }
-
+.navigation{
+    display:  flex;
+}
 .navigation a{
     position: relative;
     font-size: 1.1em;
@@ -74,4 +69,10 @@ header {
     padding-right: 2px;
     width: 130px;
     height: 40px;
+}
+.contenido{
+    position:relative;
+    margin: 0%;
+    margin-top: 65px;
+    padding: 0%;
 }
