@@ -1,14 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet';
 import Header from '../Estructura/Header';
-import { getObjectEvaluation } from '../../Funciones/ObjectEvaluation';
+import { getObjectEvaluation, getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { Icon } from 'leaflet';
 
 
 const MapView = () =>{
 
   const [markers, setMarker] = useState(null);
+  const [polygon, setPolygon] = useState(null);
+  let NorthEast
+  let NorthWest
+  let SouthWest
+  let SouthEast
+
   const customIcon = new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/5737/5737612.png",
     iconSize: [30, 30]
@@ -17,6 +23,19 @@ const MapView = () =>{
   useEffect(() =>{
     getObjectEvaluation(setMarker)
   }, [])
+
+  function GetPolygon(){
+    const map = useMapEvents({
+      move() {
+        NorthEast = map.getBounds().getNorthEast();
+        NorthWest = map.getBounds().getNorthWest();
+        SouthWest = map.getBounds().getSouthWest();
+        SouthEast = map.getBounds().getSouthEast();
+      },
+      click(){getObjectEvaluationByViewPort(NorthEast, NorthWest, SouthWest, SouthEast)}
+    })
+  }
+
   console.log(markers)
 
   return(
