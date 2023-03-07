@@ -1,28 +1,28 @@
-header {
-    position: absolute;
-    top: 0;
-    left: 0;
+/*ESTILOS PARA EL NAV DEL HEADER*/
+.background {
+    position: fixed;
+    z-index: 50000;
     width: 100%;
     padding: 20px 100px;
-    display: flex;
     justify-content: space-between;
+    display: flex;
     align-items: center;
-    z-index: 100;
-}
-
-.background {
-    position: relative;
-    z-index: 401;
     height: 65px;
     background-color: #0f1f52;
 }
 
-.logo {
+.logo{
     font-size: 2em;
     color: #fff;
     user-select: none;
+    text-decoration: none;
 }
-
+.logo:hover{
+    color: #fff;
+}
+.navigation{
+    display:  flex;
+}
 .navigation a{
     position: relative;
     font-size: 1.1em;
@@ -39,8 +39,6 @@ header {
     bottom: -6px;
     width: 100%;
     height: 3px;
-    background: #fff;
-    border-radius: 5px;
     transform: scaleX(0);
     transition: transform .5s;
 }
@@ -54,19 +52,11 @@ header {
     width: 130px;
     height: 40px;
     background: transparent;
-    border: 2px solid #fff;
-    outline: none;
-    border-radius: 6px;
-    font-size: 1.1em;
     color: #fff;
     font-weight: 500;
     margin-left: 40px;
     transition: 0.5s;
-}
-
-.navigation .btnLogin-popup:hover {
-    background-color: #fff;
-    color: #0f1f52;
+    text-decoration: none;
 }
 
 .expand {
@@ -74,4 +64,63 @@ header {
     padding-right: 2px;
     width: 130px;
     height: 40px;
+}
+
+/*ESTILO PARA CONTENIDO DEL SITIO*/
+.contenido{
+    position:relative;
+    margin: 0%;
+    margin-top: 65px;
+    padding: 0%;
+}
+
+/*ESTILO PARA PANEL LATERAL DERECHO*/
+.filtro{
+    color: #fff;
+}
+#btnFiltro{
+    display: none;
+}
+.container-filtro{
+    position: fixed;
+    width: 400px;
+    height: 100vh;
+    top: 65px;
+    transition: all 500ms ease;
+    z-index: 46000;
+    visibility: hidden;
+    right: 0px;
+}
+#btnFiltro:checked ~ .container-filtro{
+    opacity: 1;
+    visibility: visible;
+}
+.cont-filtro{
+    width: 100%;
+    background-color: #fff;
+    height: 100vh;
+    padding: 1%;
+    position: relative;
+    transform: translateX(100%);
+    transition: all 500ms ease;
+}
+#btnFiltro:checked ~ .container-filtro .cont-filtro{
+   transform: translateX(0%);
+}
+.cont-filtro nav{
+    transform: translateY(70%);
+}
+.cont-filtro nav form{
+    display: block;
+    text-decoration: none;
+
+}
+.cont-filtro .closeFiltro{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    color: #0f1f52;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 48000;
 }

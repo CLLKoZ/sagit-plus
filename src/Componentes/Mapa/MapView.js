@@ -20,24 +20,26 @@ const MapView = () =>{
   console.log(markers)
 
   return(
-    <section>
+    <body>
       <Header isLogged={true}></Header>
-      { markers != null ? (<MapContainer center={[-89.18718, 13.68935].reverse()} zoom={15} >
-        <TileLayer 
-          attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contribuidores'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-        {markers.map(marker=>(
-          <div key={marker._id}>
-            {
-              <Marker position={marker.address.location.coordinates} icon={customIcon}>
-                <Popup><h5>{marker.name}</h5></Popup>
-              </Marker>
-            }
-          </div>
-        ))
-        }
-      </MapContainer>) : ('Cargando...')}
-    </section>
+      <section className='contenido'>
+        { markers != null ? (<MapContainer center={[-89.18718, 13.68935].reverse()} zoom={15} >
+          <TileLayer 
+            attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contribuidores'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+          {markers.map(marker=>(
+            <div key={marker._id}>
+              {
+                <Marker position={marker.address.location.coordinates} icon={customIcon}>
+                  <Popup><h5>{marker.name}</h5></Popup>
+                </Marker>
+              }
+            </div>
+          ))
+          }
+        </MapContainer>) : ('Cargando...')}
+      </section>
+    </body>
   );
 };
 

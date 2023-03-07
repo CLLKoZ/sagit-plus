@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { allInspections } from '../../Funciones/funciones';
+import Header from '../Estructura/Header';
+
 
 const Inspecciones = () => {
     useEffect(() => {
@@ -7,7 +9,12 @@ const Inspecciones = () => {
     }, [])
 
     return(
-        <div>Inspecciones</div>
+        <body>
+            <Header isLogged={true}></Header>
+            <section className='contenido'>
+                <div>Inspecciones</div>
+            </section>
+        </body>
     )
 }
 
