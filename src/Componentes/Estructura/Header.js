@@ -2,25 +2,32 @@ import React from 'react';
 import '../../Estilos/header.css'
 import { logOut } from '../../Funciones/funciones';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faFilter, faCircleXmark, faFile } from '@fortawesome/free-solid-svg-icons';
+import { NavLink } from 'react-router-dom';
+import { getCurrentUser } from '../../Funciones/funciones';
 
-const Header = ({isLogged}) => {
+/* Estructura de Header ocupada en todas las pantallas que lo neceten */
+const Header = () => {
 
   return(
     <section>
-      <header className={isLogged ? 'background' : ''}>
-        <a className='logo' href='/'>SAGIT</a>
+      <header className={'background'}>
+        <NavLink to='/' className='logo'>SAGIT</NavLink>
         <nav className='navigation'>
-          {
-            isLogged 
-            ? <div>
-                <label for='btnFiltro' class="filtro" type="button">Filtros</label>
-                <label type="button" className='btnLogin-popup'>
-                  <p className='expand' onClick={logOut} >Cerrar Sesión</p>
-                </label>
-              </div>
-            : <div></div>
-          }
+          <div>
+            <label htmlFor='btnFiltro' className="filtro" type="button">
+              <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
+              &nbsp;Filtros
+            </label>
+            <label className="btnLogin-popup" type="button">
+              <FontAwesomeIcon icon={faFile}></FontAwesomeIcon>
+              &nbsp;Reportes</label>
+            <label type="button" className='btnLogin-popup'>
+              <p className='expand' onClick={logOut} >
+              <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>
+              &nbsp;{getCurrentUser().session.username}</p>
+            </label>
+          </div>
         </nav>
       </header>
       <input type="checkbox" id="btnFiltro"/>
@@ -39,7 +46,7 @@ const Header = ({isLogged}) => {
               <button type='submit'>Filtrar</button>
             </form>
           </nav>
-          <label for='btnFiltro' className='closeFiltro'>C</label>
+          <label htmlFor='btnFiltro' className='closeFiltro'><FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon></label>
         </div>
       </div>
     </section>

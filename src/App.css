@@ -39,7 +39,7 @@
 
 /* Dandole tamaño al contenedor del mapa */
 .leaflet-container{
-  height: 100vh;
+  height: 93vh;
 }
 
 @import url('https://fonts.googleapis.com/css?family=Poppins');

@@ -1,13 +1,12 @@
 /*ESTILOS PARA EL NAV DEL HEADER*/
 .background {
-    position: fixed;
     z-index: 50000;
     width: 100%;
     padding: 20px 100px;
     justify-content: space-between;
     display: flex;
     align-items: center;
-    height: 65px;
+    height: 7vh;
     background-color: #0f1f52;
 }
 
@@ -70,7 +69,6 @@
 .contenido{
     position:relative;
     margin: 0%;
-    margin-top: 65px;
     padding: 0%;
 }
 
@@ -97,7 +95,9 @@
 }
 .cont-filtro{
     width: 100%;
-    background-color: #fff;
+    background-color: rgba(13, 28, 75, 0.892);
+    backdrop-filter: blur(5px);
+    color: #fff;
     height: 100vh;
     padding: 1%;
     position: relative;
@@ -105,7 +105,7 @@
     transition: all 500ms ease;
 }
 #btnFiltro:checked ~ .container-filtro .cont-filtro{
-   transform: translateX(0%);
+    transform: translateX(0%);
 }
 .cont-filtro nav{
     transform: translateY(70%);
@@ -117,10 +117,18 @@
 }
 .cont-filtro .closeFiltro{
     position: absolute;
-    right: 20px;
-    top: 20px;
-    color: #0f1f52;
+    right: 10px;
+    top: 10px;
+    color: #D1D4D8;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 30px;
     z-index: 48000;
+}
+
+.icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #fff;
+    line-height: 57px;
 }

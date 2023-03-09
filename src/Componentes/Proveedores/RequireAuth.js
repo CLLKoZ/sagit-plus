@@ -1,6 +1,4 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
-import useAuth from "./useAuth";
-
 
 /* Se encarga de enviar al usuario al login sino está logeado o de
 redireccionarlo a la pagina en la que estaba si intenta entrar al

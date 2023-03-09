@@ -1,7 +1,6 @@
 import axios from '../API/Axios'
 import { getCurrentUser } from './funciones';
-
-const RUTA = '/object-evaluation/'
+import { debounce } from './utilidades';
 
 const getObjectEvaluation = async (state) => {
   const headers = {
@@ -30,11 +29,11 @@ const getObjectEvaluation = async (state) => {
   state(peticionReverse())
 };
 
-const getObjectEvaluationByViewPort = async (coor1, coor2, coor3, coor4) => {
-  console.log()
+const getObjectEvaluationByViewPort = debounce(150, async (coor1, coor2, coor3, coor4) => {
   const headers = {
-    Authorization: getCurrentUser().session.token
-  };
+    Authorization: getCurrentUser().session.token,
+    "Access-Control-Allow-Origin": "*"
+    };
   const body = {
     "data": {
       "polygon": [
@@ -64,7 +63,7 @@ const getObjectEvaluationByViewPort = async (coor1, coor2, coor3, coor4) => {
     })
   }
   console.log(peticionReverse())
-};
+});
 
 export {
   getObjectEvaluation,

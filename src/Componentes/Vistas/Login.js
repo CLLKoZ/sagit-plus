@@ -16,8 +16,8 @@ const Login = () =>{
   const userRef = useRef();
   const errRef = useRef();
 
-  /* Cargar los estados de los inputs que estaran
-  en el longin y uno para un posible error */
+  /* Cargar los estados de los inputs que estaran en el longin y uno para un 
+  posible error */
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errMsg, setErrMsg] = useState('');
@@ -27,16 +27,16 @@ const Login = () =>{
     userRef.current.focus();
   }, []);
 
-  /* Limpía el mensaje de error una ves que el usurio
-  se ubique en uno de los inputs */
+  /* Limpía el mensaje de error una ves que el usurio se ubique en uno de los 
+  inputs */
   useEffect(() =>{
     setErrMsg('');
   }, [username, password]);
 
-  /* Envia los datos requeridos por el endpoint de 
-  login, valida si la respuesta es algun error, setea 
-  en blanco el usuario y la contraseña ademas que 
-  redirige a la direccion solicitada anteriormente. */
+  /* Envia los datos requeridos por la funcion de login, si la respuesta no es un 
+  error asigna los datos del usuario al setAuth para que lo autorice, setea en 
+  blanco el estado usuario y la contraseña, en cambio si la respuesta es un error, 
+  ademas que redirige a la direccion solicitada anteriormente. */
   const handleSubmit = async(e) =>{
     e.preventDefault();
     
@@ -63,7 +63,7 @@ const Login = () =>{
   }
   
   return(
-    /*Componente HTML para la vista de logueo*/
+    /*Componente HTML para la vista de login*/
     <div className='principal'>
       <div className='wrapper'>
         <div className='form-box login'>
