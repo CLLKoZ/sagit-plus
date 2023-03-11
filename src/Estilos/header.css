@@ -83,7 +83,7 @@
     position: fixed;
     width: 400px;
     height: 100vh;
-    top: 65px;
+    top: 7vh;
     transition: all 500ms ease;
     z-index: 46000;
     visibility: hidden;
@@ -98,7 +98,7 @@
     background-color: rgba(13, 28, 75, 0.892);
     backdrop-filter: blur(5px);
     color: #fff;
-    height: 100vh;
+    height: 93vh;
     padding: 1%;
     position: relative;
     transform: translateX(100%);
