@@ -1,0 +1,129 @@
+/*ESTILO PARA PANEL LATERAL DERECHO DE FILTROS*/
+.filtro{
+    color: #fff;
+}
+#btnFiltro{
+    display: none;
+}
+.container-filtro{
+    position: fixed;
+    width: 400px;
+    height: 100vh;
+    top: 7vh;
+    transition: all 500ms ease;
+    z-index: 46000;
+    visibility: hidden;
+    right: 0px;
+}
+#btnFiltro:checked ~ .container-filtro{
+    opacity: 1;
+    visibility: visible;
+}
+.cont-filtro{
+    width: 100%;
+    background-color: rgba(13, 28, 75, 0.892);
+    backdrop-filter: blur(5px);
+    color: #fff;
+    height: 93vh;
+    padding: 1%;
+    position: relative;
+    transform: translateX(100%);
+    transition: all 500ms ease;
+}
+#btnFiltro:checked ~ .container-filtro .cont-filtro{
+    transform: translateX(0%);
+}
+.cont-filtro form{
+    transform: translateY(5%);
+}
+.cont-filtro form{
+    display: block;
+    text-decoration: none;
+
+}
+.cont-filtro .closeFiltro{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    color: #D1D4D8;
+    cursor: pointer;
+    font-size: 30px;
+    z-index: 48000;
+}
+.icon {
+    position: absolute;
+    right: 8px;
+    font-size: 1.2em;
+    color: #fff;
+    line-height: 57px;
+}
+
+/*DISEÑO DE COMPONENTES DEL FORMULARIO DE FILTROS*/
+
+.cont-filtro form{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.cont-filtro .labelFiltro{
+    font-size: 1.1em;
+    color: #fff;
+    text-align: left;
+    display: block;
+    padding-top: 10%;
+    padding-bottom: 1%;
+}
+
+.cont-filtro .inputFiltro{
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    color: #dee2e7;
+    border-color: #00ECE9;
+    background: transparent;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+.cont-filtro .selectFiltro{
+    display: block;
+    width: 100%;
+    font-size: 1em;
+    color: #dee2e7;
+    background: transparent;
+    border-color: #00ECE9;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+}
+.cont-filtro .selectFiltro option{
+    color: #000;
+    background-color: #D1D4D8;
+}
+.inputFiltro:focus {
+    outline: none;
+    padding-left: 10px;
+    border-radius: 5px;
+    border-color: #00ECE9;
+    background-color: rgba(13, 28, 75, 0.892);
+    line-height: 40px;
+    transition: 0.5s;
+  }
+.contenedorBoton {
+    margin-top: 15%;
+}
+.btnFiltrar {
+    width: 60%;
+    height: 45px;
+    background-color: aliceblue;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    color: #0f1f52;
+    transition: 0.5s;
+}
+
+.btnFiltrar:hover {
+    background-color: #0f1f52;
+    color: aliceblue;
+}

@@ -1,29 +1,35 @@
 import React from 'react';
-import '../../Estilos/header.css'
+import '../../Estilos/panelFiltroMapa.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
 
-/* Estructura de Filtro para datos en el mapa */
-const FiltroMapa = () => {
+const PanelFiltroMapa = () => {
 
   return(
+    /* Estructura de Filtro para datos en el mapa */
     <section>
       <input type="checkbox" id="btnFiltro"/>
       <div className='container-filtro'>
         <div className='cont-filtro'>
-          <nav>
+          <div>
             <form>
-              <label>Prueba 1</label>
-              <input type="text"></input>
-              <label>Prueba 2</label>
-              <input type="text"></input>
-              <label>Prueba 3</label>
-              <input type="text"></input>
-              <label>Prueba 4</label>
-              <input type="text"></input>
-              <button type='submit'>Filtrar</button>
+              <label className='labelFiltro'>Prueba 1</label>
+              <input className='inputFiltro' type="text"></input>
+              <label className='labelFiltro'>Prueba 2</label>
+              <input className='inputFiltro' type="text"></input>
+              <label className='labelFiltro'>Prueba 3</label>
+              <select className='selectFiltro'>
+                <option>Valor 1</option>
+                <option>Valor 2</option>
+                <option>Valor 3</option>
+              </select>
+              <label className='labelFiltro'>Prueba 4</label>
+              <input className='inputFiltro' type="text"></input>
+              <div className='contenedorBoton'>
+                <button className="btnFiltrar" type='submit'>Filtrar</button>
+              </div>
             </form>
-          </nav>
+          </div>
           <label htmlFor='btnFiltro' className='closeFiltro'><FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon></label>
         </div>
       </div>
@@ -31,4 +37,4 @@ const FiltroMapa = () => {
   );
 };
 
-export default FiltroMapa;
+export default PanelFiltroMapa;

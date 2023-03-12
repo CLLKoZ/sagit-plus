@@ -8,7 +8,6 @@ import { getCurrentUser } from '../../Funciones/funciones';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = () => {
-
   return(
     <section>
       <header className={'background'}>
@@ -30,8 +29,7 @@ const Header = () => {
           </div>
         </nav>
       </header>
-    </section>
-      
+    </section>     
   );
 };
 
