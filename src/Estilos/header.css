@@ -72,59 +72,6 @@
     padding: 0%;
 }
 
-/*ESTILO PARA PANEL LATERAL DERECHO*/
-.filtro{
-    color: #fff;
-}
-#btnFiltro{
-    display: none;
-}
-.container-filtro{
-    position: fixed;
-    width: 400px;
-    height: 100vh;
-    top: 65px;
-    transition: all 500ms ease;
-    z-index: 46000;
-    visibility: hidden;
-    right: 0px;
-}
-#btnFiltro:checked ~ .container-filtro{
-    opacity: 1;
-    visibility: visible;
-}
-.cont-filtro{
-    width: 100%;
-    background-color: rgba(13, 28, 75, 0.892);
-    backdrop-filter: blur(5px);
-    color: #fff;
-    height: 100vh;
-    padding: 1%;
-    position: relative;
-    transform: translateX(100%);
-    transition: all 500ms ease;
-}
-#btnFiltro:checked ~ .container-filtro .cont-filtro{
-    transform: translateX(0%);
-}
-.cont-filtro nav{
-    transform: translateY(70%);
-}
-.cont-filtro nav form{
-    display: block;
-    text-decoration: none;
-
-}
-.cont-filtro .closeFiltro{
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    color: #D1D4D8;
-    cursor: pointer;
-    font-size: 30px;
-    z-index: 48000;
-}
-
 .icon {
     position: absolute;
     right: 8px;

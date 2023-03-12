@@ -2,6 +2,7 @@ import React, { useEffect, useState} from 'react';
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import Header from '../Estructura/Header';
+import PanelFiltroMapa from '../FiltroMapa/FiltroM';
 import { getObjectEvaluation } from '../../Funciones/ObjectEvaluation';
 import { Icon } from 'leaflet';
 import {GetInit, GetPolygon} from '../../Funciones/map'
@@ -24,6 +25,7 @@ const MapView = () =>{
     <section>
       <div>
         <Header></Header>
+        <PanelFiltroMapa></PanelFiltroMapa>
       </div>
       <div className='contenido'>
         { markers != null ? (<MapContainer ref={setMapRef} center={[-89.18718, 13.68935].reverse()} zoom={15} >
