@@ -1,5 +1,7 @@
 /*ESTILO PARA PANEL LATERAL DERECHO DE FILTROS*/
 .filtro{
+    width: 130px;
+    height: 40px;
     color: #fff;
 }
 #btnFiltro{
