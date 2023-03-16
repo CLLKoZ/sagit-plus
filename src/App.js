@@ -6,7 +6,7 @@ import Layout from './Componentes/Layouts/Layout';
 import RequireAuth from './Componentes/Proveedores/RequireAuth';
 import RedirectLogin from './Componentes/Proveedores/RedirectLogin';
 import Inspecciones from './Componentes/Vistas/Inspecciones';
-import ExternalStateMap from './Componentes/Mapa/MapTest';
+import MapByViewport from './Componentes/Mapa/MapByViewport';
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
 
           {/* Rutas protegidas por autorización */}
           <Route element={<RequireAuth />}>
-            <Route path='/demo' element={<ExternalStateMap />}/>
+            <Route path='/demo' element={<MapByViewport />}/>
             <Route path='/mapa' element={<MapView />}/>
             <Route path='/' element={<Inspecciones />}/>
           </Route>

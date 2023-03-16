@@ -1,27 +1,16 @@
-import { useMap, useMapEvents } from 'react-leaflet';
+import { useMapEvents } from 'react-leaflet';
 import { getObjectEvaluationByViewPort } from './ObjectEvaluation';
 
-/* Cargaria las coordenadas necesarios para obtener los objetos
-de evaluacion por viewport al iniciar el mapa */
-export function GetInit(){
-    const map = useMap()
-    const NorthEast = map.getBounds().getNorthEast();
-    const NorthWest = map.getBounds().getNorthWest();
-    const SouthWest = map.getBounds().getSouthWest();
-    const SouthEast = map.getBounds().getSouthEast();
-    getObjectEvaluationByViewPort(NorthEast, NorthWest, SouthWest, SouthEast)
-}
-
-/* Cargaria las coordenadas necesarios para obtener los objetos
+/* Carga las coordenadas necesarios para obtener los objetos
 de evaluacion por viewport al mover el mapa */
-export function GetPolygon(){
+export function GetPolygon({estado}){
   const map = useMapEvents({
     moveend() {
       const NorthEast = map.getBounds().getNorthEast();
       const NorthWest = map.getBounds().getNorthWest();
       const SouthWest = map.getBounds().getSouthWest();
       const SouthEast = map.getBounds().getSouthEast();
-      getObjectEvaluationByViewPort(NorthEast, NorthWest, SouthWest, SouthEast)
+      getObjectEvaluationByViewPort(estado, NorthEast, NorthWest, SouthWest, SouthEast)
     }
   })
 }
