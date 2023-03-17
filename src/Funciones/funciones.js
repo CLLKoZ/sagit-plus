@@ -22,7 +22,8 @@ const login = (username, password) => {
       const session = {
         username: response.data.data.user[0].username,
         token: `Bearer ${response.data.token}`,
-        nombre: response.data.data.user[0].firstName
+        nombre: response.data.data.user[0].firstName,
+        forms: response.data.data.forms
       }
       if (response.data.token) {
         localStorage.setItem("loggedUser", JSON.stringify({session}));
@@ -42,7 +43,7 @@ const logOut = () =>{
 }
 
 const allInspections = async () => {
-  console.log(getCurrentUser().session.token)
+  console.log(getCurrentUser().session)
   const headers = {
     Authorization: getCurrentUser().session.token
   };
@@ -55,8 +56,6 @@ const allInspections = async () => {
     "limit": 5
   }
   const peticion = await axios.post('/object-evaluation/find', body, {headers})
-  console.log('Soy')
-  console.log(peticion.data.data)
 }
 
 export{

@@ -1,9 +1,24 @@
-import React from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import '../../Estilos/panelFiltroMapa.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
+import {getCurrentUser} from '../../Funciones/funciones'
+import { setForm } from '../../Funciones/ObjectEvaluation';
 
 const PanelFiltroMapa = () => {
+
+  const [forms, setForms] = useState(null);
+  const selectRef = useRef();
+
+  useEffect(() => {
+    setForms(getCurrentUser().session.forms)
+  }, []);
+
+  useEffect(() =>{
+    
+  }, [])
+
+  console.log(forms)
 
   return(
     /* Estructura de Filtro para datos en el mapa */
@@ -19,9 +34,12 @@ const PanelFiltroMapa = () => {
               <input className='inputFiltro' type="text"></input>
               <label className='labelFiltro'>Prueba 3</label>
               <select className='selectFiltro'>
-                <option>Valor 1</option>
-                <option>Valor 2</option>
-                <option>Valor 3</option>
+                <option ref={selectRef} onSelect={setForm(null)}>Seleccione una opción</option>
+                {
+                  forms != null ? (forms.map(form=>(
+                    <option ref={selectRef} onSelect={setForm(form._id)} key={form._id}>{form.name}</option>
+                  ))) : "Cargando..."
+                }
               </select>
               <label className='labelFiltro'>Prueba 4</label>
               <input className='inputFiltro' type="text"></input>

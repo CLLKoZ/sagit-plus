@@ -2,6 +2,9 @@ import axios from '../API/Axios'
 import { getCurrentUser } from './funciones';
 import { debounce } from './utilidades';
 
+let formInspect = null
+let formInspection = null
+
 const getObjectEvaluation = async (state) => {
   const headers = {
     Authorization: getCurrentUser().session.token
@@ -29,7 +32,16 @@ const getObjectEvaluation = async (state) => {
   state(peticionReverse())
 };
 
+const setForm = (id) =>{
+  formInspection = id
+}
+
+const getForm = () =>{
+  return formInspection
+}
+
 const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4) => {
+
   if (coor1){
     const headers = {
       Authorization: getCurrentUser().session.token,
@@ -45,7 +57,8 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
                 [coor4.lng, coor4.lat ],
                 [coor1.lng, coor1.lat]
               ]
-            ]
+            ],
+        "formInspection" : formInspect
       },
       "populate": [],
       "attributes": [],
@@ -69,5 +82,5 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
 
 export {
   getObjectEvaluation,
-  getObjectEvaluationByViewPort
+  getObjectEvaluationByViewPort, setForm
 };
