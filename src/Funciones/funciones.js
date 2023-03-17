@@ -37,28 +37,11 @@ const getCurrentUser = () => {
 };
 
 const logOut = () =>{
-  console.log("Me llaman")
   window.localStorage.removeItem('loggedUser');
   window.location.reload()
 }
 
-const allInspections = async () => {
-  console.log(getCurrentUser().session)
-  const headers = {
-    Authorization: getCurrentUser().session.token
-  };
-  const body = {
-    "filter": {isActive: true},
-    "regex": [],
-    "populate": ["typeObjectEvaluation"],
-    "attributes": [],
-    "pageNumber": 1,
-    "limit": 5
-  }
-  const peticion = await axios.post('/object-evaluation/find', body, {headers})
-}
-
 export{
-  isLogged, logOut, allInspections,
+  isLogged, logOut,
   login, getCurrentUser
 };

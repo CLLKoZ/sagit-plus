@@ -5,7 +5,7 @@ import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
 import {getCurrentUser} from '../../Funciones/funciones'
 import { setForm } from '../../Funciones/ObjectEvaluation';
 
-const PanelFiltroMapa = () => {
+const PanelFiltroMapa = ({state}) => {
 
   const [forms, setForms] = useState(null);
   const [selects, setSelects] = useState();
@@ -18,9 +18,6 @@ const PanelFiltroMapa = () => {
     setForm(selects)
   }, [selects]);
 
-  //console.log(forms)
-  console.log( selects)
-
   return(
     /* Estructura de Filtro para datos en el mapa */
     <section>
@@ -29,12 +26,10 @@ const PanelFiltroMapa = () => {
         <div className='cont-filtro'>
           <div>
             <form>
-              <label className='labelFiltro'>Prueba 1</label>
-              <input className='inputFiltro' type="text"></input>
-              <label className='labelFiltro'>Prueba 2</label>
-              <input className='inputFiltro' type="text"></input>
-              <label className='labelFiltro'>Prueba 3</label>
-              <select className='selectFiltro' onChange={e => setSelects(e.target.value)}>
+              <label className='labelFiltro'>Formularios:</label>
+              <select className='selectFiltro' onChange={e => {
+                setSelects(e.target.value)
+                state(e.target.value)}}>
                 <option value="" key="" >Seleccione una opción</option>
                 {
                   forms != null ? (forms.map(form=>(

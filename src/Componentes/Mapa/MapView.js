@@ -11,6 +11,7 @@ const MapView = () =>{
 
   const [markers, setMarker] = useState(null);
   const [mapRef, setMapRef] = useState(null);
+  const [filtro, setFiltro] = useState(null);
 
   const customIcon = new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/5737/5737612.png",
@@ -25,16 +26,17 @@ const MapView = () =>{
       const SouthEast = mapRef.getBounds().getSouthEast();
       getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
     }
-  }, [mapRef])
+    if(filtro){console.log(filtro)}
+  }, [mapRef, filtro])
 
   return(
     <section>
       <div>
         <Header></Header>
-        <PanelFiltroMapa></PanelFiltroMapa>
+        <PanelFiltroMapa state={setFiltro}></PanelFiltroMapa>
       </div>
       <div className='contenido'>
-      <MapContainer ref={setMapRef} center={[-89.18718, 13.68935].reverse()} zoom={15} >
+      <MapContainer ref={setMapRef} center={[13.72023, -89.202182]} zoom={15} >
         <TileLayer 
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contribuidores'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>

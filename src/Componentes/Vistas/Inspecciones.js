@@ -1,13 +1,8 @@
-import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { allInspections } from '../../Funciones/funciones';
 import Header from '../Estructura/Header';
 
 
 const Inspecciones = () => {
-    useEffect(() => {
-        allInspections();
-    }, [])
 
     return(
         <section>
