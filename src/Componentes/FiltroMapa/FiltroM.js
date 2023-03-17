@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import '../../Estilos/panelFiltroMapa.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
@@ -8,17 +8,18 @@ import { setForm } from '../../Funciones/ObjectEvaluation';
 const PanelFiltroMapa = () => {
 
   const [forms, setForms] = useState(null);
-  const selectRef = useRef();
+  const [selects, setSelects] = useState();
 
   useEffect(() => {
     setForms(getCurrentUser().session.forms)
   }, []);
 
   useEffect(() =>{
-    
-  }, [])
+    setForm(selects)
+  }, [selects]);
 
-  console.log(forms)
+  //console.log(forms)
+  console.log( selects)
 
   return(
     /* Estructura de Filtro para datos en el mapa */
@@ -33,11 +34,11 @@ const PanelFiltroMapa = () => {
               <label className='labelFiltro'>Prueba 2</label>
               <input className='inputFiltro' type="text"></input>
               <label className='labelFiltro'>Prueba 3</label>
-              <select className='selectFiltro'>
-                <option ref={selectRef} onSelect={setForm(null)}>Seleccione una opción</option>
+              <select className='selectFiltro' onChange={e => setSelects(e.target.value)}>
+                <option value="" key="" >Seleccione una opción</option>
                 {
                   forms != null ? (forms.map(form=>(
-                    <option ref={selectRef} onSelect={setForm(form._id)} key={form._id}>{form.name}</option>
+                    <option value={form._id} key={form._id}>{form.name}</option>
                   ))) : "Cargando..."
                 }
               </select>

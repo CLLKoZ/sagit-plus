@@ -2,7 +2,6 @@ import axios from '../API/Axios'
 import { getCurrentUser } from './funciones';
 import { debounce } from './utilidades';
 
-let formInspect = null
 let formInspection = null
 
 const getObjectEvaluation = async (state) => {
@@ -33,11 +32,11 @@ const getObjectEvaluation = async (state) => {
 };
 
 const setForm = (id) =>{
-  formInspection = id
-}
-
-const getForm = () =>{
-  return formInspection
+  if(id === ""){
+    formInspection = null
+  } else {
+    formInspection = id
+  }
 }
 
 const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4) => {
@@ -58,7 +57,7 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
                 [coor1.lng, coor1.lat]
               ]
             ],
-        "formInspection" : formInspect
+        "formInspection" : formInspection
       },
       "populate": [],
       "attributes": [],
