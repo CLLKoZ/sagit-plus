@@ -6,6 +6,7 @@ import Layout from './Componentes/Layouts/Layout';
 import RequireAuth from './Componentes/Proveedores/RequireAuth';
 import RedirectLogin from './Componentes/Proveedores/RedirectLogin';
 import Inspecciones from './Componentes/Vistas/Inspecciones';
+import Inspeccion from './Componentes/Estructura/Inspeccion';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
 
           {/* Rutas protegidas por autorización */}
           <Route element={<RequireAuth />}>
+            <Route path='/inspeccion' element={<Inspeccion></Inspeccion>}></Route>
             <Route path='/mapa' element={<MapView />}/>
             <Route path='/' element={<Inspecciones />}/>
           </Route>

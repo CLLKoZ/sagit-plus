@@ -1,0 +1,31 @@
+.inspeccionesContenedor {
+    display: flex;
+    width: 100%;
+}
+
+.inspeccionesLista {
+    position: sticky;
+    padding-top: 2px;
+    width: 400px;
+    top: 0;
+}
+
+.inspeccionesContenido {
+    position: relative;
+    overflow-y: scroll;
+    padding-top: 2px;
+    min-width: 70%;
+    margin-left: 50px;
+}
+
+.card{
+    margin-top: 5px;
+}
+
+.icon{
+    font-size: 35px;
+    cursor: pointer;
+    margin-top: 25px;
+    color: #0f1f52;
+    position: absolute;
+}
