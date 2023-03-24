@@ -5,27 +5,43 @@
 }
 
 .modal-dialog {
-    max-width: 80vw !important;
+    max-width: 90vw !important;
 }
 .modal-content{
   display: flex;
   height: 80vh;
 }
 .modal-body{
-  height: 77.5vh;
+  height: 78%;
 }
 .modal-title{
   font-size: 22px;
-  height: 2.5vh;
+}
+
+/*  BLOQUE DE MENU DE INSPECCIONES  */
+.menu-inspection{
+  width: 25%;
+  height: 100% !important;
+  margin: 0% !important;
+  display: inline-block;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+/*  BLOQUE DE CONTENIDO DE INSPECCION*/
+.bloc-inspection{
+  position: relative !important;
+  display: inline-block !important;
+  border: none !important;
+  width: 75%;
+  padding-left: 3%;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  height: 100%;
 }
 .titulo-inspeccion{
-  height: 2vh;
-  margin: 40px 0px 0px 0px;
   font-size: 19px;
-}
-.card{
-  height: 60vh !important;
-  border: none !important;
+  margin: 0px;
 }
 .card-container {
   width: 100%;
@@ -40,31 +56,18 @@
   flex-wrap: wrap;
   justify-content: left;
   align-items: center;
+  padding: 0% !important;
 }
 .card-elemento{  
-  width: 200px; 
-  height: auto !important;
+  width: 250px; 
+  max-height: 120px !important;
   margin: 10px;
   border: none !important;
-  padding: 1%;
+  padding-top: 10px;
   align-items: left;
-  justify-content:start;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
 }
 .card-text{
   color: #9e9a9a;
-}
-.contenido_scrollable {
-  overflow-y: auto !important;
-  overflow-x: auto !important;
-  height: 80%;
-}
-.selectInspeccion{
-  height: 5vh;
-  width: 100%;
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  background-color: #fff;
-  color: #333;
 }
