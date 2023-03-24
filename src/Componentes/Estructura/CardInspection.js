@@ -5,7 +5,7 @@ import '../../Estilos/modalInspection.css';
 
   const CardInspection = () => {
   return (
-    <div className='card'>
+    <div>
       <Card className="card-container">
           <CardHeader>General</CardHeader>
         <CardBody className='card-content'>
@@ -19,7 +19,16 @@ import '../../Estilos/modalInspection.css';
             <CardText>Nombre edificio</CardText>
             <Button>Button</Button>
           </Card>
-          
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificioIdentificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio Identificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+        </CardBody>
+      </Card>
+      <Card className="card-container">
+          <CardHeader>General</CardHeader>
+        <CardBody className='card-content'>
           <Card className='card-elemento'>
             <CardSubtitle>Identificacion del edificio</CardSubtitle>
             <CardText>Nombre edificio</CardText>
@@ -28,6 +37,71 @@ import '../../Estilos/modalInspection.css';
           <Card className='card-elemento'>
             <CardSubtitle>Identificacion del edificio</CardSubtitle>
             <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificioIdentificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio Identificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+        </CardBody>
+      </Card>
+      <Card className="card-container">
+          <CardHeader>General</CardHeader>
+        <CardBody className='card-content'>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificioIdentificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio Identificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+        </CardBody>
+      </Card>
+      <Card className="card-container">
+          <CardHeader>General</CardHeader>
+        <CardBody className='card-content'>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificioIdentificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio Identificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+        </CardBody>
+      </Card>
+      <Card className="card-container">
+          <CardHeader>General</CardHeader>
+        <CardBody className='card-content'>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificioIdentificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio Identificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardText>
             <Button>Button</Button>
           </Card>
         </CardBody>
