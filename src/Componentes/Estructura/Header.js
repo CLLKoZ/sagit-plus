@@ -58,7 +58,7 @@ const Header = () => {
               <Dropdown isOpen={dropdownOpenUser} toggle={toggleDropdownUser}>
                 <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenUser ? "transparent" : "transparent" }}>
                     <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>
-                    &nbsp;{getCurrentUser().session.username}
+                    &nbsp;{getCurrentUser().user}
                 </DropdownToggle>
                 <DropdownMenu>
                   <DropdownItem onClick={logOut}>

@@ -4,7 +4,6 @@ import { useLocation, Navigate, Outlet } from "react-router-dom";
 vez este ya inició sesión y lo redirecciona a la pagina de /mapa */
 const RedirectLogin = () =>{
   const location = useLocation();
-
   const loggedUserJSON = window.localStorage.getItem('loggedUser')
 
   return(

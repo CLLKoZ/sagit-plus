@@ -8,28 +8,53 @@ const isLogged = () => {
   } else return false;
 }
 
-const login = (username, password) => {
-  return axios
+const login = async (username, password) => {
+  const response = await axios
     .post("/user/login", {
       data: {
         'username': username,
         'password': password
       },
-      headers: { 'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       withCredentials: true
+    });
+
+    const user = response.data.data.user[0].username
+    const accessToken = `Bearer ${response.data.token}`
+    const nombre = response.data.data.user[0].firstName
+    const forms = response.data.data.forms
+
+  if (response.data.token) {
+    localStorage.setItem("loggedUser", JSON.stringify({ user, accessToken, nombre, forms }));
+  }
+  return response.data;
+};
+
+const getObjectEvaluation = async (state) => {
+  const headers = {
+    Authorization: getCurrentUser().session.token
+  };
+  const body = {
+    "filter": {isActive: true},
+    "regex": [{name: 'name', value: ''}],
+    "populate": ["typeObjectEvaluation"],
+    "attributes": [],
+    "pageNumber": 1,
+    "limit": 50000
+  }
+  const peticion = await axios.post('/object-evaluation/find', 
+  body, {headers}
+  )
+
+  const peticionReverse = () =>{
+    return peticion.data.data.map(item=>{
+      let peticionTemp = Object.assign({}, item);
+      peticionTemp.address.location.coordinates = item.address.location.coordinates.reverse()
+      return peticionTemp
     })
-    .then((response) => {
-      const session = {
-        username: response.data.data.user[0].username,
-        token: `Bearer ${response.data.token}`,
-        nombre: response.data.data.user[0].firstName,
-        forms: response.data.data.forms
-      }
-      if (response.data.token) {
-        localStorage.setItem("loggedUser", JSON.stringify({session}));
-      }
-      return response.data;
-    })
+  }
+
+  state(peticionReverse())
 };
 
 const getCurrentUser = () => {
@@ -38,7 +63,7 @@ const getCurrentUser = () => {
 
 const logOut = () =>{
   window.localStorage.removeItem('loggedUser');
-  window.location.reload()
+  window.location.assign('/login');
 }
 
 export{
