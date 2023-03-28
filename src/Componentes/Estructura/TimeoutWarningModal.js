@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Modal } from 'reactstrap';
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import '../../Estilos/timeOutModal.css'
 
 const TimeoutWarningModal = ({isOpen, onRequestClose}) => {
   const onLogOffCall = () => {
@@ -10,16 +11,21 @@ const TimeoutWarningModal = ({isOpen, onRequestClose}) => {
 
   return (
     <> 
-      <Modal
-        isOpen={isOpen}
-      >
-        <h2>Session Timeout</h2>
-        <p>Tu sesión está por expirar</p>
-        <p>¿Deseas extender o cerrar la sesión?</p>
-        <br/>
-        <Button color='primary' onClick={onRequestClose}>Extender</Button>
-        <br></br>
-        <Button  onClick={onLogOffCall}>Cerrar Sesión</Button>
+      <Modal centered isOpen={isOpen} contentClassName='modal-size' style={{minWidth: '300px', maxWidth: '700px', width: '30%'}}>
+        <ModalHeader className='modal-header-size'>La sesión expirará pronto</ModalHeader>
+        <ModalBody >
+          Ha permanecido mucho tiempo inactivo
+          <br></br>
+          ¿Desea extender o cerrar la sesión?
+        </ModalBody>
+        <ModalFooter>
+          <button className='btn-color btn-custom' onClick={onRequestClose}>
+            Extender
+          </button>{' '}
+          <Button color="danger" outline onClick={onLogOffCall}>
+            Cerrar sesión
+          </Button>
+        </ModalFooter>
       </Modal>
     </>  
   );

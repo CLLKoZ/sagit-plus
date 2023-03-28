@@ -7,6 +7,7 @@ import PanelFiltroMapa from '../FiltroMapa/FiltroM';
 import { Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map'
+import TimeOut from '../Estructura/TimeOut';
 
 const MapView = () =>{
 
