@@ -8,7 +8,7 @@ const TimeOut = () => {
   useEffect(() => {
     const createTimeout1 = () => setTimeout(()=>{ 
       setWarningModalOpen(true);
-    }, 5000)
+    }, 900000)
 
     const createTimeout2 = () => setTimeout(() => {
       // Implement a sign out function here

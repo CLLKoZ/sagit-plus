@@ -6,7 +6,6 @@ import { faUserCircle, faFilter,faRightFromBracket, faFile } from '@fortawesome/
 import { NavLink } from 'react-router-dom';
 import { getCurrentUser } from '../../Funciones/funciones';
 import {Dropdown,DropdownItem,DropdownMenu,DropdownToggle} from 'reactstrap';
-import TimeOut from './TimeOut';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = () => {
@@ -29,7 +28,6 @@ const Header = () => {
   
   return(
     <section>
-      <TimeOut />
       <header className={'background'}>
         <NavLink to='/' className='logo'>SAGIT</NavLink>
         <nav className='navigation'>

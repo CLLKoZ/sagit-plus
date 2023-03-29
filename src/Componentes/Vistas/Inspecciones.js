@@ -3,7 +3,6 @@ import { Button} from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import Header from '../Estructura/Header';
 import ModalInspection from '../Estructura/ModalInspection';
-import TimeOut from '../Estructura/TimeOut';
 
 const Inspecciones = () => {
   /*Elementos necesarios para invocar un modal*/
