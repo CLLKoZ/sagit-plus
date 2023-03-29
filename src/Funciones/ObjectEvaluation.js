@@ -59,7 +59,7 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
             ],
         "formInspection" : formInspection
       },
-      "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
+      "populate": [],
       "attributes": [],
       "pageNumber": 0,
       "limit": 0
