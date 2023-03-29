@@ -7,7 +7,7 @@ import PanelFiltroMapa from '../FiltroMapa/FiltroM';
 import { Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map'
-import TimeOut from '../Estructura/TimeOut';
+import ModalInspection from '../Estructura/ModalInspection';
 
 const MapView = () =>{
 
@@ -15,6 +15,8 @@ const MapView = () =>{
   const [mapRef, setMapRef] = useState(null);
   const [filtro, setFiltro] = useState(null);
 
+  /*Elementos necesarios para invocar un modal*/
+  const [modal, setModal] = useState(false);
   useEffect(() =>{
     if(mapRef){
       const NorthEast = mapRef.getBounds().getNorthEast();
@@ -26,6 +28,10 @@ const MapView = () =>{
     if(filtro){console.log(filtro)}
   }, [mapRef, filtro])
 
+  /* Esta función ayuda a cambiar el estado del modal para abrirlo */
+  const openModal=()=>{
+    setModal(!modal);
+  };
 
   return(
     <section>
@@ -46,8 +52,11 @@ const MapView = () =>{
                 <Marker 
                   position={marker.address.location.coordinates} 
                   icon={getIconMarker(marker.type_object[0].icon)}>
-                  <Popup><h5>{marker.name}</h5></Popup>
+                  <Popup><h5 onClick={openModal}>{marker.name}</h5></Popup>
                 </Marker>
+              },
+              {
+                <ModalInspection modal={modal} toggle={openModal} state={setFiltro} idForm={filtro} marcador={marker.inspection}/>
               }
             </div>
           ))

@@ -20,6 +20,26 @@ import '../../Estilos/modalInspection.css';
             <Button>Button</Button>
           </Card>
           <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
+            <CardSubtitle>Identificacion del edificio</CardSubtitle>
+            <CardText>Nombre edificio</CardText>
+            <Button>Button</Button>
+          </Card>
+          <Card className='card-elemento'>
             <CardSubtitle>Identificacion del edificioIdentificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardSubtitle>
             <CardText>Nombre edificio Identificacion del edificioIdentificacion del edificioIdentificacion del edificio</CardText>
             <Button>Button</Button>
