@@ -1,7 +1,6 @@
 import React from 'react';
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 import CardInspection from '../Estructura/CardInspection';
-import MenuInspection from '../Estructura/MenuInspection';
 import '../../Estilos/modalInspection.css';
 
 const ModalInspection = (props) => {
@@ -9,11 +8,13 @@ const ModalInspection = (props) => {
   return (
     <div>
       <Modal className="modal-dialog-centered" isOpen={props.modal} toggle={props.toggle}>
-        <ModalHeader toggle={props.toggle}>Inspecciones Realizadas en Módulo de inspección:&nbsp;Prueba</ModalHeader>
-
+        <ModalHeader toggle={props.toggle}>Inspecciones Realizadas</ModalHeader>
         <ModalBody>
-          <div className='menu-inspection'><MenuInspection/></div>
-          <div className='bloc-inspection'><CardInspection/></div>
+          <select className='selectInspeccion'>
+            <option value="" key="" >Seleccione una opción prueba prueba </option>
+          </select>
+          <h5 className='titulo-inspeccion'>Módulo de inspección:&nbsp;Prueba</h5>
+          <div className='card contenido_scrollable'><CardInspection/></div>
         </ModalBody>
       </Modal>
     </div>
