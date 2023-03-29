@@ -59,3 +59,7 @@
   color: #fff;
   line-height: 57px;
 }
+
+.filtro{
+  user-select: none;
+}

@@ -1,0 +1,73 @@
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-dialog {
+    max-width: 90vw !important;
+}
+.modal-content{
+  display: flex;
+  height: 80vh;
+}
+.modal-body{
+  height: 78%;
+}
+.modal-title{
+  font-size: 22px;
+}
+
+/*  BLOQUE DE MENU DE INSPECCIONES  */
+.menu-inspection{
+  width: 25%;
+  height: 100% !important;
+  margin: 0% !important;
+  display: inline-block;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+/*  BLOQUE DE CONTENIDO DE INSPECCION*/
+.bloc-inspection{
+  position: relative !important;
+  display: inline-block !important;
+  border: none !important;
+  width: 75%;
+  padding-left: 3%;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  height: 100%;
+}
+.titulo-inspeccion{
+  font-size: 19px;
+  margin: 0px;
+}
+.card-container {
+  width: 100%;
+  border: none !important;
+}
+.card-header{
+  background: white !important;
+  font-size: 19px;
+}
+.card-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  align-items: center;
+  padding: 0% !important;
+}
+.card-elemento{  
+  width: 250px; 
+  max-height: 120px !important;
+  margin: 10px;
+  border: none !important;
+  padding-top: 10px;
+  align-items: left;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+}
+.card-text{
+  color: #9e9a9a;
+}

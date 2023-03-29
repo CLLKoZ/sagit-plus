@@ -1,0 +1,86 @@
+.alerta {
+    z-index: 46000;
+    background-color: #172e78;
+    padding: 15px 40px;
+    min-width: 300px;
+    position: absolute;
+    right: 0px;
+    top: 70px;
+    overflow: hidden;
+    border-radius: 7px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
+    border-left: 8px solid #eaab00;
+}
+
+.alerta .show {
+    animation: show_slide 1s ease forwards;
+}
+
+@keyframes show_slide {
+    0% {
+        transform: translateX(100%);
+    }
+    40% {
+        transform: translateX(-10%);
+    }
+    80% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-10px);
+    }
+}
+
+.alerta .hide {
+    animation: hide_slide 1s ease forwards;
+}
+
+@keyframes hide_slide {
+    0% {
+        transform: translateX(-10px);
+    }
+    40% {
+        transform: translateX(0%);
+    }
+    80% {
+        transform: translateX(-10%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.alerta .alerta-icon{
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #d29a00;
+    font-size: 30px;
+}
+
+.alerta .msg {
+    padding: 0 20px;
+    font-size: 18px;
+    color: white;
+}
+
+.alerta .btn-cerrar {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #132663;
+    padding: 20px 18px;
+    cursor: pointer;
+}
+
+.btn-cerrar:hover {
+    background-color: #0f1f52;
+}
+
+.btn-cerrar .close-icon {
+    color: white;
+    font-size: 22px;
+    line-height: 40px;
+}

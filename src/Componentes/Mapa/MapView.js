@@ -1,23 +1,23 @@
 import React, { useEffect, useState} from 'react';
 import 'leaflet/dist/leaflet.css';
+import '../../Estilos/mapa.css'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import Header from '../Estructura/Header';
 import PanelFiltroMapa from '../FiltroMapa/FiltroM';
+import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
-import { Icon } from 'leaflet';
-import { GetPolygon } from '../../Funciones/map'
+import { getIconMarker, GetPolygon } from '../../Funciones/map'
+import ModalInspection from '../Estructura/ModalInspectionNew';
 
 const MapView = () =>{
 
   const [markers, setMarker] = useState(null);
   const [mapRef, setMapRef] = useState(null);
   const [filtro, setFiltro] = useState(null);
+  const [inspection, setInspection] = useState(null);
 
-  const customIcon = new Icon({
-    iconUrl: "https://cdn-icons-png.flaticon.com/512/5737/5737612.png",
-    iconSize: [30, 30]
-  })
-
+  /*Elementos necesarios para invocar un modal*/
+  const [modal, setModal] = useState(false);
   useEffect(() =>{
     if(mapRef){
       const NorthEast = mapRef.getBounds().getNorthEast();
@@ -29,11 +29,37 @@ const MapView = () =>{
     if(filtro){console.log(filtro)}
   }, [mapRef, filtro])
 
+  /* Esta función ayuda a cambiar el estado del modal para abrirlo */
+  const openModal=(ins)=>{
+    setModal(!modal);
+    if(!modal){
+      setInspection(ins);
+    } else {
+      setInspection(null);
+    }
+  };
+
   return(
     <section>
       <div>
         <Header></Header>
         <PanelFiltroMapa state={setFiltro}></PanelFiltroMapa>
+        {
+          filtro ? (
+            <ModalInspection 
+              isOpenM={modal} 
+              toggleM={openModal} 
+              inspectionModal={inspection} 
+              idForm={filtro}
+            />
+          ) : (
+            <Modal contentClassName='modal-map-size' centered isOpen={modal} toggle={openModal}>
+              <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
+                <strong>No ha seleccionado ningun filtro</strong>
+              </ModalHeader>
+            </Modal>
+          )
+        }
       </div>
       <div className='contenido'>
       <MapContainer ref={setMapRef} center={[13.72023, -89.202182]} zoom={15} >
@@ -45,13 +71,19 @@ const MapView = () =>{
           markers.map(marker=>(
             <div key={marker._id} >
               {
-                <Marker className='marknimation' position={marker.address.location.coordinates} icon={customIcon}>
-                  <Popup ><h5>{marker.name}</h5></Popup>
+                <Marker 
+                  position={marker.address.location.coordinates} 
+                  icon={getIconMarker(marker.type_object[0].icon)}>
+                  <Popup><h5 onClick={() => {openModal(marker)}}>{marker.name}</h5></Popup>
                 </Marker>
               }
             </div>
           ))
-        ) : ('Cargando...')}
+        ) : <div className='spinner'>
+              <Spinner color='primary'>
+                Loading...
+              </Spinner>
+            </div>}
       </MapContainer>
       </div>
     </section>
