@@ -43,7 +43,7 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
 
   if (coor1){
     const headers = {
-      Authorization: getCurrentUser().session.token,
+      Authorization: getCurrentUser().accessToken,
       "Access-Control-Allow-Origin": "*"
       };
     const body = {

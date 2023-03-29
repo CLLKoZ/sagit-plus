@@ -8,28 +8,26 @@ const isLogged = () => {
   } else return false;
 }
 
-const login = (username, password) => {
-  return axios
+const login = async (username, password) => {
+  const response = await axios
     .post("/user/login", {
       data: {
         'username': username,
         'password': password
       },
-      headers: { 'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       withCredentials: true
-    })
-    .then((response) => {
-      const session = {
-        username: response.data.data.user[0].username,
-        token: `Bearer ${response.data.token}`,
-        nombre: response.data.data.user[0].firstName,
-        forms: response.data.data.forms
-      }
-      if (response.data.token) {
-        localStorage.setItem("loggedUser", JSON.stringify({session}));
-      }
-      return response.data;
-    })
+    });
+
+    const user = response.data.data.user[0].username
+    const accessToken = `Bearer ${response.data.token}`
+    const nombre = response.data.data.user[0].firstName
+    const forms = response.data.data.forms
+
+  if (response.data.token) {
+    localStorage.setItem("loggedUser", JSON.stringify({ user, accessToken, nombre, forms }));
+  }
+  return response.data;
 };
 
 const getCurrentUser = () => {
@@ -38,7 +36,7 @@ const getCurrentUser = () => {
 
 const logOut = () =>{
   window.localStorage.removeItem('loggedUser');
-  window.location.reload()
+  window.location.assign('/login');
 }
 
 export{

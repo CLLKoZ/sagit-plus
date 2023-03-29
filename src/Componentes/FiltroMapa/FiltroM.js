@@ -11,7 +11,7 @@ const PanelFiltroMapa = ({state}) => {
   const [selects, setSelects] = useState();
 
   useEffect(() => {
-    setForms(getCurrentUser().session.forms)
+    setForms(getCurrentUser().forms)
   }, []);
 
   useEffect(() =>{

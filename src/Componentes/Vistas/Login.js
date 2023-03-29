@@ -2,13 +2,10 @@ import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate, useLocation } from "react-router-dom";
-import useAuth from "../Proveedores/useAuth";
 import '../../Estilos/login.css';
-import { login, getCurrentUser } from "../../Funciones/funciones";
+import { login } from "../../Funciones/funciones";
 
 const Login = () =>{
-  const { setAuth } = useAuth();
-
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -42,7 +39,6 @@ const Login = () =>{
     
     login(username, password).then(
       () => {
-        setAuth(getCurrentUser());
         setUsername('');
         setPassword('');
         navigate(from, { replace: true });
