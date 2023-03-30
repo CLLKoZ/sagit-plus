@@ -4,7 +4,7 @@ import '../../Estilos/mapa.css'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import Header from '../Estructura/Header';
 import PanelFiltroMapa from '../FiltroMapa/FiltroM';
-import { Spinner } from 'reactstrap';
+import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map'
 import ModalInspection from '../Estructura/ModalInspection';
@@ -14,6 +14,7 @@ const MapView = () =>{
   const [markers, setMarker] = useState(null);
   const [mapRef, setMapRef] = useState(null);
   const [filtro, setFiltro] = useState(null);
+  const [inspection, setInspection] = useState(null);
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
@@ -29,8 +30,13 @@ const MapView = () =>{
   }, [mapRef, filtro])
 
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
-  const openModal=()=>{
+  const openModal=(ins)=>{
     setModal(!modal);
+    if(!modal){
+      setInspection(ins);
+    } else {
+      setInspection(null);
+    }
   };
 
   return(
@@ -38,6 +44,22 @@ const MapView = () =>{
       <div>
         <Header></Header>
         <PanelFiltroMapa state={setFiltro}></PanelFiltroMapa>
+        {
+          filtro ? (
+            <ModalInspection 
+              isOpenM={modal} 
+              toggleM={openModal} 
+              inspectionModal={inspection} 
+              idForm={filtro}
+            />
+          ) : (
+            <Modal contentClassName='modal-map-size' centered isOpen={modal} toggle={openModal}>
+              <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
+                <strong>No ha seleccionado ningun filtro</strong>
+              </ModalHeader>
+            </Modal>
+          )
+        }
       </div>
       <div className='contenido'>
       <MapContainer ref={setMapRef} center={[13.72023, -89.202182]} zoom={15} >
@@ -52,11 +74,8 @@ const MapView = () =>{
                 <Marker 
                   position={marker.address.location.coordinates} 
                   icon={getIconMarker(marker.type_object[0].icon)}>
-                  <Popup><h5 onClick={openModal}>{marker.name}</h5></Popup>
+                  <Popup><h5 onClick={() => {openModal(marker)}}>{marker.name}</h5></Popup>
                 </Marker>
-              },
-              {
-                <ModalInspection modal={modal} toggle={openModal} state={setFiltro} idForm={filtro} marcador={marker.inspection}/>
               }
             </div>
           ))
