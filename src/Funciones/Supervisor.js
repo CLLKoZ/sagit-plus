@@ -31,9 +31,6 @@ const Supervisor = ({inspectionID}) => {
   function formatSupervisor(supervisor){
     return supervisor.firstName + ' ' + supervisor.lastName; 
   }
-  console.log(inspectionID);
-
-  console.log(supervisor);
   return (<>{supervisor ? (formatSupervisor(supervisor[0].group.supervisor)):('No hay')}</>);
 
 }

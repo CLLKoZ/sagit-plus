@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion,AccordionHeader,AccordionItem,} from 'reactstrap';
-import Axios from '../../API/Axios';
-import {getCurrentUser} from '../../Funciones/funciones';
 import '../../Estilos/modalInspection.css';
 import Supervisor from '../../Funciones/Supervisor';
 
 const MenuInspection = (props) => {
     const [open, setOpen] = useState('1');
     const [inspection, setInspection] = useState(null);
-    const [supervisor, setSupervisor] = useState(null);
     const toggle = (id) => {
       if (open === id) {
         setOpen();
@@ -21,26 +18,6 @@ const MenuInspection = (props) => {
       setInspection(sortedInspection);
     }, [props.inspection]);
     
-    /*const getSupervisor = async(ins_id) => {
-      const headers={
-        Authorization: getCurrentUser().session.token
-      }
-      const body={
-        "filter": {"_id": ins_id},
-        "regex": [],
-        "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
-        "attributes": [],
-        "pageNumber": 1,
-        "limit": 5
-      }
-      try {
-        const response = await Axios.post('/inspection/find', body, {headers});
-        setSupervisor(response.data.data.group.supervisor);
-      } catch (error) {
-        
-      }
-    }*/
-
     const getStatus = (isFull) => {
       if (isFull > 0){
         return 'Finalizada'
@@ -57,12 +34,7 @@ const MenuInspection = (props) => {
       const tiempo = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:${segundo.toString().padStart(2, '0')}`;
       return date.toLocaleDateString()+', '+tiempo;
     }
-    
-    function formatSupervisor(supervisor){
-      return supervisor.firstName + ' ' + supervisor.lastName; 
-    }
-  
-    console.log(props.inspection);
+      
     return (
       <section>
         { 
