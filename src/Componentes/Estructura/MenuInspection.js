@@ -25,7 +25,7 @@ const MenuInspection = (props) => {
           Authorization: getCurrentUser().session.token
         }
         const body={
-          "filter": {"formInspection":props.marcador.formInspection},
+          "filter": {"formInspection":props.inspection.formInspection},
           "regex": [],
           "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
           "attributes": [],
@@ -40,7 +40,7 @@ const MenuInspection = (props) => {
         }
       }
       getInspection()
-    }, [props.marcador.formInspection]);
+    }, [props.inspection.formInspection]);
 
     const getStatus = (isFull) => {
       if (isFull > 0){
@@ -63,7 +63,7 @@ const MenuInspection = (props) => {
       return supervisor.firstName + ' ' + supervisor.lastName; 
     }
   
-    console.log(inspection);
+    console.log(props.marcador);
     return (
       <section>
         { 
