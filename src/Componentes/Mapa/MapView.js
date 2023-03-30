@@ -4,7 +4,7 @@ import '../../Estilos/mapa.css'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import Header from '../Estructura/Header';
 import PanelFiltroMapa from '../FiltroMapa/FiltroM';
-import { Spinner } from 'reactstrap';
+import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map'
 import ModalInspection from '../Estructura/ModalInspection';

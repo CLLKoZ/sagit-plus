@@ -3,10 +3,12 @@ import { Accordion,AccordionHeader,AccordionItem,} from 'reactstrap';
 import Axios from '../../API/Axios';
 import {getCurrentUser} from '../../Funciones/funciones';
 import '../../Estilos/modalInspection.css';
+import Supervisor from '../../Funciones/Supervisor';
 
 const MenuInspection = (props) => {
     const [open, setOpen] = useState('1');
     const [inspection, setInspection] = useState(null);
+    const [supervisor, setSupervisor] = useState(null);
     const toggle = (id) => {
       if (open === id) {
         setOpen();
@@ -14,33 +16,30 @@ const MenuInspection = (props) => {
         setOpen(id);
       }
     };
-    /*useEffect(()=>{
+    useEffect(()=>{
       const sortedInspection = [...props.inspection].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setInspection(sortedInspection);
-    }, [props.inspection]);*/
+    }, [props.inspection]);
     
-    useEffect(()=>{
-      const getInspection = async() => {
-        const headers={
-          Authorization: getCurrentUser().session.token
-        }
-        const body={
-          "filter": {"formInspection":props.inspection.formInspection},
-          "regex": [],
-          "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
-          "attributes": [],
-          "pageNumber": 1,
-          "limit": 5
-        }
-        try {
-          const response = await Axios.post('/inspection/find', body, {headers});
-          setInspection(response.data.data);
-        } catch (error) {
-          
-        }
+    /*const getSupervisor = async(ins_id) => {
+      const headers={
+        Authorization: getCurrentUser().session.token
       }
-      getInspection()
-    }, [props.inspection.formInspection]);
+      const body={
+        "filter": {"_id": ins_id},
+        "regex": [],
+        "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
+        "attributes": [],
+        "pageNumber": 1,
+        "limit": 5
+      }
+      try {
+        const response = await Axios.post('/inspection/find', body, {headers});
+        setSupervisor(response.data.data.group.supervisor);
+      } catch (error) {
+        
+      }
+    }*/
 
     const getStatus = (isFull) => {
       if (isFull > 0){
@@ -63,7 +62,7 @@ const MenuInspection = (props) => {
       return supervisor.firstName + ' ' + supervisor.lastName; 
     }
   
-    console.log(props.marcador);
+    console.log(props.inspection);
     return (
       <section>
         { 
@@ -72,7 +71,7 @@ const MenuInspection = (props) => {
               <div key={item._id}>
                 <Accordion open={open} toggle={toggle}>
                   <AccordionItem>
-                    <AccordionHeader targetId = {item._id}>{getStatus(item.inspectionFull.length)}<br/>Creada: {formatDate(item.createdAt)}<br/>Inspector: {formatSupervisor(item.group.supervisor)}</AccordionHeader>
+                    <AccordionHeader targetId = {item._id}>{getStatus(item.inspectionFull.length)}<br/>Creada: {formatDate(item.createdAt)}<br/>Inspector: <Supervisor inspectionID={item._id}></Supervisor></AccordionHeader>
                   </AccordionItem>
                 </Accordion>
               </div>
