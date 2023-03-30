@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion,AccordionHeader,AccordionItem,} from 'reactstrap';
-
+import Axios from '../../API/Axios';
+import {getCurrentUser} from '../../Funciones/funciones';
 import '../../Estilos/modalInspection.css';
 
 const MenuInspection = (props) => {
@@ -13,25 +14,34 @@ const MenuInspection = (props) => {
         setOpen(id);
       }
     };
-    
     /*useEffect(()=>{
-      setInspection(props.inspection);
-    }, [props.inspection]);*/
-
-    useEffect(()=>{
       const sortedInspection = [...props.inspection].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setInspection(sortedInspection);
-    }, [props.inspection]);
+    }, [props.inspection]);*/
     
-   
-      /*const body={
-        "filter": {"formInspection":"5fb2af9bcc5689333335f33e"},
-        "regex": [],
-        "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
-        "attributes": [],
-        "pageNumber": 1,
-        "limit": 5
-      }*/
+    useEffect(()=>{
+      const getInspection = async() => {
+        const headers={
+          Authorization: getCurrentUser().session.token
+        }
+        const body={
+          "filter": {"formInspection":props.marcador.formInspection},
+          "regex": [],
+          "populate": [{"path": "group.supervisor", "select": ["lastName", "firstName"]}],
+          "attributes": [],
+          "pageNumber": 1,
+          "limit": 5
+        }
+        try {
+          const response = await Axios.post('/inspection/find', body, {headers});
+          setInspection(response.data.data);
+        } catch (error) {
+          
+        }
+      }
+      getInspection()
+    }, [props.marcador.formInspection]);
+
     const getStatus = (isFull) => {
       if (isFull > 0){
         return 'Finalizada'
@@ -46,18 +56,17 @@ const MenuInspection = (props) => {
       const minuto = date.getUTCMinutes(); // obtiene los minutos de acuerdo a la zona horaria local del equipo
       const segundo = date.getUTCSeconds(); // obtiene los segundos de acuerdo a la zona horaria local del equipo
       const tiempo = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:${segundo.toString().padStart(2, '0')}`;
-      
       return date.toLocaleDateString()+', '+tiempo;
-
     }
     
     function formatSupervisor(supervisor){
       return supervisor.firstName + ' ' + supervisor.lastName; 
     }
   
+    console.log(inspection);
     return (
       <section>
-        {
+        { 
           inspection ? (
             inspection.map(item => (
               <div key={item._id}>
