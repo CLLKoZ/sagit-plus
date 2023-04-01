@@ -1,35 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardText, CardBody, CardSubtitle, Button } from 'reactstrap';
-
 import '../../Estilos/modalInspection.css';
 
-const CardInspection = ({inspection, selectedOptionMenu}) => {
-  const [contId, setContentId]=useState(null);
-  useEffect (() => {
-    setContentId(selectedOptionMenu);
-  }, [selectedOptionMenu])
+const CardInspection = ({selectedInspection=null, firstInspection}) => {
+  const [selectInspection, setSelectInspection] = useState();
 
-  console.log(selectedOptionMenu);
-  console.log(inspection);
+  /*
+    Este useEffect se utiliza para cambiar el estado de selectInspection cuando firstInspection o selectedInspection cambian
+    designando la primera inspeccion si no hay una inspeccin seleccionada todavia
+  */
+  useEffect(() => {
+    if (!selectedInspection) {
+      setSelectInspection(firstInspection);
+    } else {
+      setSelectInspection(selectedInspection);
+    }
+  }, [firstInspection, selectedInspection])
 
   return (
-    <div>
+    <section>
       { 
-       contId === '62436daaf36acd905e936e7e' ? (
-              <Card className="card-container">
-                <CardHeader>General</CardHeader>
-                <CardBody className='card-content'>
-                  <Card className='card-elemento'>
-                    <CardSubtitle>Identificacion del edificio </CardSubtitle>
-                    <CardText>{selectedOptionMenu}</CardText>
-                    <Button>Button</Button>
-                  </Card>
-                </CardBody>
+        /*
+          
+        */
+        selectInspection ? ( 
+          <Card className="card-container">
+            <CardHeader>General</CardHeader>
+            <CardBody className='card-content'>
+              <Card className='card-elemento'>
+                <CardSubtitle>Identificacion del edificio </CardSubtitle>
+                <CardText>{selectInspection._id}</CardText>
+                <Button>Button</Button>
               </Card>
-        ):('Seleccione una inspección')
+            </CardBody>
+          </Card>
+        ) : ("Seleccione una inspección")
       }
-    </div>
-      //elseif(selectedOptionMenu === '623d503af36acd905e936196')
+    </section>
   );
 };
 

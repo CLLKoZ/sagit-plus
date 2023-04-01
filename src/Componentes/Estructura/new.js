@@ -27,7 +27,7 @@ const MapView = () =>{
     }
     if(filtro){console.log(filtro)}
   }, [mapRef, filtro])
-  
+
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
   const openModal=(ins)=>{
     setModal(!modal);
@@ -37,7 +37,7 @@ const MapView = () =>{
       setInspection(null);
     }
   };
-  
+
   return(
     <section>
       <div>

@@ -4,7 +4,7 @@ import {getCurrentUser} from './funciones';
 const Supervisor = ({inspectionID}) => {
   const [supervisor, setSupervisor] = useState(null);
 
-
+  /* Este useEffect se utiliza para hacer una peticion del nombre y apellido del supervisor deacuerdo al id de la inspeccion seleccionada denominada inspectionID */
   useEffect(()=>{
     const getSupervisor = async() => {
       const headers={
@@ -28,9 +28,13 @@ const Supervisor = ({inspectionID}) => {
     getSupervisor();
   }, [inspectionID])
 
+  /* Esta función da el formato para presentar el nombre del supervisor de la inspeccion */
   function formatSupervisor(supervisor){
     return supervisor.firstName + ' ' + supervisor.lastName; 
   }
+  /*
+    Aqui se renderiza el nombre del supervisor de la inspeccion seleccionada
+  */
   return (<>{supervisor ? (formatSupervisor(supervisor[0].group.supervisor)):('Sin Asignar')}</>);
 
 }
