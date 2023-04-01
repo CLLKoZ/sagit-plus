@@ -5,18 +5,19 @@ import MenuInspection from '../Estructura/MenuInspection';
 import Axios from '../../API/Axios';
 import {getCurrentUser} from '../../Funciones/funciones';
 import '../../Estilos/modalInspection.css';
-const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm, optionMenu, obtenerOptionMenu}) => {
+
+const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
   const [currentInspection, setCurrentInspection] = useState(null);
   const [currentForm, setCurrentForm] = useState(null);
-
-  //Funcion que llena el estado de la opcion del menu seleccionada
-  const handleOptionMenuSelect = (targetid) => {
-    obtenerOptionMenu(targetid);
-  };
+  const [optionMenu, setOptionMenu] = useState(null);
 
   useEffect(()=>{
     setCurrentInspection(inspectionModal)
   }, [inspectionModal])
+
+  useEffect(()=>{
+
+  }, [optionMenu])
 
   useEffect(()=>{
     const getCurrentForm = async() => {
@@ -41,8 +42,7 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm, optio
     }
     getCurrentForm();
   }, [idForm])
-//console.log(optionMenu);
-console.log(optionMenu);
+  
   return (
     <section>
       { 
@@ -52,8 +52,8 @@ console.log(optionMenu);
               Inspecciones de {currentInspection.name} en el formulario {currentForm[0].name}
             </ModalHeader>
             <ModalBody>
-              <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={handleOptionMenuSelect}/></div>
-              <div className='bloc-inspection'><CardInspection inspection={currentInspection.inspection} selectedOptionMenu={optionMenu}/></div>
+              <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={setOptionMenu}/></div>
+              <div className='bloc-inspection'><CardInspection  selectedInspection={optionMenu} firstInspection={currentInspection.inspection[0]}/></div>
             </ModalBody>
           </Modal>) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>

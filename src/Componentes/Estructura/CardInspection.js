@@ -3,33 +3,34 @@ import { Card, CardHeader, CardText, CardBody, CardSubtitle, Button } from 'reac
 
 import '../../Estilos/modalInspection.css';
 
-const CardInspection = ({inspection, selectedOptionMenu}) => {
-  const [contId, setContentId]=useState(null);
-  useEffect (() => {
-    setContentId(selectedOptionMenu);
-  }, [selectedOptionMenu])
+const CardInspection = ({selectedInspection, firstInspection=null}) => {
+  const [selectInspection, setSelectInspection] = useState();
 
-  console.log(selectedOptionMenu);
-  console.log(inspection);
+  useEffect(() => {
+    if (!selectedInspection) {
+      setSelectInspection(firstInspection);
+    } else {
+      setSelectInspection(selectedInspection);
+    }
+  }, [firstInspection, selectedInspection])
 
   return (
-    <div>
+    <section>
       { 
-       contId === '62436daaf36acd905e936e7e' ? (
-              <Card className="card-container">
-                <CardHeader>General</CardHeader>
-                <CardBody className='card-content'>
-                  <Card className='card-elemento'>
-                    <CardSubtitle>Identificacion del edificio </CardSubtitle>
-                    <CardText>{selectedOptionMenu}</CardText>
-                    <Button>Button</Button>
-                  </Card>
-                </CardBody>
+        selectInspection ? ( 
+          <Card className="card-container">
+            <CardHeader>General</CardHeader>
+            <CardBody className='card-content'>
+              <Card className='card-elemento'>
+                <CardSubtitle>Identificacion del edificio </CardSubtitle>
+                <CardText>{selectInspection._id}</CardText>
+                <Button>Button</Button>
               </Card>
-        ):('Seleccione una inspección')
+            </CardBody>
+          </Card>
+        ) : ("Seleccione una inspección")
       }
-    </div>
-      //elseif(selectedOptionMenu === '623d503af36acd905e936196')
+    </section>
   );
 };
 

@@ -7,7 +7,7 @@ import PanelFiltroMapa from '../FiltroMapa/FiltroM';
 import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map'
-import ModalInspection from '../Estructura/ModalInspection';
+import ModalInspection from '../Estructura/ModalInspectionNew';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
@@ -27,7 +27,7 @@ const MapView = () =>{
     }
     if(filtro){console.log(filtro)}
   }, [mapRef, filtro])
-  
+
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
   const openModal=(ins)=>{
     setModal(!modal);
@@ -37,7 +37,7 @@ const MapView = () =>{
       setInspection(null);
     }
   };
-  
+
   return(
     <section>
       <div>

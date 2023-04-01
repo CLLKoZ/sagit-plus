@@ -10,16 +10,9 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
     const position=(ins.length)-1;
     const [open, setOpen] = useState(ins[position]?._id); //Asignamos el primer id como estado
     const [inspection, setInspection] = useState(null);
-    //const [selectedAccordion, setSelectedAccordion] = useState(null);
-
-    /*const handleAccordionSelect = (id) => {
-      setSelectedAccordion(id);
-      handleOptionMenuClick(id);
-    };*/
 
     const toggle = (id) => {
       setOpen(id);
-      handleOptionMenuClick(id);
     };
     useEffect(()=>{
       const sortedInspection = [...ins].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
