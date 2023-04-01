@@ -3,7 +3,7 @@ import { Card, CardHeader, CardText, CardBody, CardSubtitle, Button } from 'reac
 
 import '../../Estilos/modalInspection.css';
 
-const CardInspection = ({selectedInspection, firstInspection=null}) => {
+const CardInspection = ({selectedInspection=null, firstInspection=null}) => {
   const [selectInspection, setSelectInspection] = useState();
 
   useEffect(() => {
@@ -14,6 +14,8 @@ const CardInspection = ({selectedInspection, firstInspection=null}) => {
     }
   }, [firstInspection, selectedInspection])
 
+  console.log(selectInspection?._id);
+  console.log(firstInspection._id);
   return (
     <section>
       { 

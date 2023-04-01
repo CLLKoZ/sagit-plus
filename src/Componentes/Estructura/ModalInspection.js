@@ -43,6 +43,7 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
     getCurrentForm();
   }, [idForm])
   
+  console.log(optionMenu?._id);
   return (
     <section>
       { 
@@ -53,7 +54,7 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
             </ModalHeader>
             <ModalBody>
               <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={setOptionMenu}/></div>
-              <div className='bloc-inspection'><CardInspection  selectedInspection={optionMenu} firstInspection={currentInspection.inspection[0]}/></div>
+              <div className='bloc-inspection'><CardInspection  selectedInspection={optionMenu} firstInspection={currentInspection.inspection[currentInspection.inspection.length-1]}/></div>
             </ModalBody>
           </Modal>) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>

@@ -40,7 +40,7 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
       const tiempo = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:${segundo.toString().padStart(2, '0')}`;
       return date.toLocaleDateString()+', '+tiempo;
     }
-    
+
     return (
       <section>
         { 
