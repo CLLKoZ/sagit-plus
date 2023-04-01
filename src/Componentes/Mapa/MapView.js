@@ -1,13 +1,13 @@
 import React, { useEffect, useState} from 'react';
-import 'leaflet/dist/leaflet.css';
-import '../../Estilos/mapa.css'
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import Header from '../Estructura/Header';
 import PanelFiltroMapa from '../FiltroMapa/FiltroM';
-import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
-import { getIconMarker, GetPolygon } from '../../Funciones/map'
-import ModalInspection from '../Estructura/ModalInspectionNew';
+import { getIconMarker, GetPolygon } from '../../Funciones/map';
+import ModalInspection from '../Estructura/ModalInspection';
+import 'leaflet/dist/leaflet.css';
+import '../../Estilos/mapa.css';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
