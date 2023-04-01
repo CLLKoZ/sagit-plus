@@ -11,12 +11,14 @@ const CardInspection = ({selectedInspection=null, firstInspection}) => {
   */
   useEffect(() => {
     if (!selectedInspection) {
-      setSelectInspection(firstInspection);
+      setSelectInspection(firstInspection)
     } else {
-      setSelectInspection(selectedInspection);
+      setSelectInspection(selectedInspection)
     }
   }, [firstInspection, selectedInspection])
 
+  console.log('Card Inicio: '+firstInspection._id);
+  console.log('Card Seleccionado: '+selectInspection?._id);
   return (
     <section>
       { 

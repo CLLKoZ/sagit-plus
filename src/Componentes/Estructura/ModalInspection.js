@@ -13,8 +13,8 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
 
   /* Este useEffect se utiliza para cambiar el estado de optionMenu y currentInspection cada vez que el parametro inspectionModal cambie */
   useEffect(()=>{
-    setCurrentInspection(inspectionModal);
-    setOptionMenu(null);
+    setCurrentInspection(inspectionModal)
+    setOptionMenu(null)
   }, [inspectionModal])
 
   /* Este useEffect se utiliza para cambiar el estado de currentForm cada vez que cambia el parámetro idForm */
@@ -42,6 +42,7 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
     getCurrentForm();
   }, [idForm])
 
+  console.log('Modal id: '+optionMenu?._id);
   return (
     <section>
       { 
