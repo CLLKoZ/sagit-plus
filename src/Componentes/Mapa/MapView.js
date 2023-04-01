@@ -10,11 +10,11 @@ import { getIconMarker, GetPolygon } from '../../Funciones/map'
 import ModalInspection from '../Estructura/ModalInspection';
 
 const MapView = () =>{
-
   const [markers, setMarker] = useState(null);
   const [mapRef, setMapRef] = useState(null);
   const [filtro, setFiltro] = useState(null);
   const [inspection, setInspection] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null); //Estado de la opcion del menu seleccionada, básicamente se guarda el ID
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
@@ -28,17 +28,24 @@ const MapView = () =>{
     }
     if(filtro){console.log(filtro)}
   }, [mapRef, filtro])
+  
+  const optionMenu = (optionId) => {
+    setSelectedOption(optionId);  //Nos llena el estado selectedOption con el ID seleccionado en el menu de inspecciones
+  }
 
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
   const openModal=(ins)=>{
+    //const position=(ins.inspection.length)-1;
     setModal(!modal);
     if(!modal){
       setInspection(ins);
+      //optionMenu(ins[position]?._id);
     } else {
       setInspection(null);
+      optionMenu(null); //Asignamos un valor para reiniciar la variable cuando se cierra el modal
     }
   };
-
+  console.log(selectedOption);
   return(
     <section>
       <div>
@@ -51,6 +58,8 @@ const MapView = () =>{
               toggleM={openModal} 
               inspectionModal={inspection} 
               idForm={filtro}
+              optionMenu={selectedOption}
+              obtenerOptionMenu={optionMenu}
             />
           ) : (
             <Modal contentClassName='modal-map-size' centered isOpen={modal} toggle={openModal}>

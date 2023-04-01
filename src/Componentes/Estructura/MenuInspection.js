@@ -3,20 +3,28 @@ import { Accordion,AccordionHeader,AccordionItem,} from 'reactstrap';
 import '../../Estilos/modalInspection.css';
 import Supervisor from '../../Funciones/Supervisor';
 
-const MenuInspection = (props) => {
-    const [open, setOpen] = useState('1');
+/*Se pasa el Parametro ins que es la inspeccion seleccionada en el mapa
+  También Pasamos como un parametro al componente MenuInspection la función handleOptionMenuClick para obtener el id de la seleccion
+*/
+const MenuInspection = ({ins, handleOptionMenuClick}) => {
+    const position=(ins.length)-1;
+    const [open, setOpen] = useState(ins[position]?._id); //Asignamos el primer id como estado
     const [inspection, setInspection] = useState(null);
+    //const [selectedAccordion, setSelectedAccordion] = useState(null);
+
+    /*const handleAccordionSelect = (id) => {
+      setSelectedAccordion(id);
+      handleOptionMenuClick(id);
+    };*/
+
     const toggle = (id) => {
-      if (open === id) {
-        setOpen();
-      } else {
         setOpen(id);
-      }
+        handleOptionMenuClick(id);
     };
     useEffect(()=>{
-      const sortedInspection = [...props.inspection].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      const sortedInspection = [...ins].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setInspection(sortedInspection);
-    }, [props.inspection]);
+    }, [ins]);
     
     const getStatus = (isFull) => {
       if (isFull > 0){
@@ -34,12 +42,12 @@ const MenuInspection = (props) => {
       const tiempo = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:${segundo.toString().padStart(2, '0')}`;
       return date.toLocaleDateString()+', '+tiempo;
     }
-      
+    //console.log(open);
     return (
       <section>
         { 
           inspection ? (
-            inspection.map(item => (
+            inspection.map((item) => (
               <div key={item._id}>
                 <Accordion open={open} toggle={toggle}>
                   <AccordionItem>
