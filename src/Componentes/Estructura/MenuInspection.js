@@ -14,6 +14,11 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
     const toggle = (id) => {
       setOpen(id);
     };
+    
+    const setSelectedInspection = (selectedIns) => {
+      handleOptionMenuClick(selectedIns);
+    }
+
     useEffect(()=>{
       const sortedInspection = [...ins].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setInspection(sortedInspection);
@@ -42,7 +47,7 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
           inspection ? (
             inspection.map((item) => (
               <div key={item._id}>
-                <Accordion open={open} toggle={toggle}>
+                <Accordion open={open} toggle={toggle} onClick={() => {setSelectedInspection(item)}}>
                   <AccordionItem>
                     <AccordionHeader targetId = {item._id}>{getStatus(item.inspectionFull.length)}<br/>Creada: {formatDate(item.createdAt)}<br/>Inspector: <Supervisor inspectionID={item._id}></Supervisor></AccordionHeader>
                   </AccordionItem>
