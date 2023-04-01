@@ -18,8 +18,8 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
     };*/
 
     const toggle = (id) => {
-        setOpen(id);
-        handleOptionMenuClick(id);
+      setOpen(id);
+      handleOptionMenuClick(id);
     };
     useEffect(()=>{
       const sortedInspection = [...ins].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
@@ -42,7 +42,7 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
       const tiempo = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:${segundo.toString().padStart(2, '0')}`;
       return date.toLocaleDateString()+', '+tiempo;
     }
-    //console.log(open);
+    
     return (
       <section>
         { 

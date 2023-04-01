@@ -41,8 +41,8 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm, optio
     }
     getCurrentForm();
   }, [idForm])
+//console.log(optionMenu);
 console.log(optionMenu);
-//console.log(isOpenM);
   return (
     <section>
       { 

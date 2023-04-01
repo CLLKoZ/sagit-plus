@@ -35,17 +35,15 @@ const MapView = () =>{
 
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
   const openModal=(ins)=>{
-    //const position=(ins.inspection.length)-1;
     setModal(!modal);
     if(!modal){
       setInspection(ins);
-      //optionMenu(ins[position]?._id);
     } else {
       setInspection(null);
       optionMenu(null); //Asignamos un valor para reiniciar la variable cuando se cierra el modal
     }
   };
-  console.log(selectedOption);
+  console.log(markers);
   return(
     <section>
       <div>
