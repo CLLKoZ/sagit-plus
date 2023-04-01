@@ -8,17 +8,16 @@ import '../../Estilos/modalInspection.css';
 
 const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
   const [currentInspection, setCurrentInspection] = useState(null);
-  const [currentForm, setCurrentForm] = useState(null);
-  const [optionMenu, setOptionMenu] = useState(null);
+  const [currentForm, setCurrentForm] = useState(null); 
+  const [optionMenu, setOptionMenu] = useState(null); //Este estado guarda la inspeccion seleccionada en el menu
 
+  /* Este useEffect se utiliza para cambiar el estado de optionMenu y currentInspection cada vez que el parametro inspectionModal cambie */
   useEffect(()=>{
-    setCurrentInspection(inspectionModal)
+    setCurrentInspection(inspectionModal);
+    setOptionMenu(null);
   }, [inspectionModal])
 
-  useEffect(()=>{
-
-  }, [optionMenu])
-
+  /* Este useEffect se utiliza para cambiar el estado de currentForm cada vez que cambia el parámetro idForm */
   useEffect(()=>{
     const getCurrentForm = async() => {
       const headers={
@@ -36,17 +35,26 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
         const response = await Axios.post('/form-inspection/find', body, {headers});
         setCurrentForm(response.data.data);
       } catch (error) {
-        console.log("algo salió mal");
+        console.log("Algo salió mal");
         console.log(error);
       }
     }
     getCurrentForm();
   }, [idForm])
-  
-  console.log(optionMenu?._id);
+
   return (
     <section>
       { 
+        /*
+          Aqui se renderiza la información que se presenta en el modal al querer ver un punto de inspección
+          En el componente MenuInspection se pasan los siguiente parámetros:
+            ins = El arreglo de inspecciones del objeto de evaluacion actual
+            handleOptionMenuClick = La funcion que obtendrá la inspeccion seleccionada en el menu
+          En el componente CardInspection se pasan los siguientes parámetros:
+            selectedInspection = Es la inspeccion seleccionada en el menu que fue obtenida con la funcion handleOptionMenuClick en el componente MenuInspection
+            firstInspection = Manda la última inspeccion del arreglo de inspecciones, debido a que en la vista se muestran de forma descendente,
+                              y por lo tanto se desea que la primera inspeccion esté activa
+        */
         currentInspection ?
           (<Modal centered isOpen={isOpenM} toggle={toggleM}>
             <ModalHeader toggle={toggleM}>

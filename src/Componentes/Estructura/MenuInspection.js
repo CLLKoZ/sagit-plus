@@ -7,23 +7,26 @@ import Supervisor from '../../Funciones/Supervisor';
   También Pasamos como un parametro al componente MenuInspection la función handleOptionMenuClick para obtener el id de la seleccion
 */
 const MenuInspection = ({ins, handleOptionMenuClick}) => {
-    const position=(ins.length)-1;
-    const [open, setOpen] = useState(ins[position]?._id); //Asignamos el primer id como estado
+    const [open, setOpen] = useState(ins[ins.length-1]?._id); //Asignamos el primer id del arreglo como estado cn valor inicial
     const [inspection, setInspection] = useState(null);
 
+    /*Esta función se utiliza para recibir el id de la opción seleccionada en el menu de inspecciones/Accordion y asignarselo a un estado de opción activa*/
     const toggle = (id) => {
       setOpen(id);
     };
     
+    /*En esta funcion recibe el parámetro del id seleccionado*/
     const setSelectedInspection = (selectedIns) => {
       handleOptionMenuClick(selectedIns);
     }
 
+    /* Este useEffect se utiliza para actualizar en orden descendente la lista de inspecciones, cuando el arreglo de inspecciones denominado ins cambie su valor*/ 
     useEffect(()=>{
       const sortedInspection = [...ins].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setInspection(sortedInspection);
     }, [ins]);
     
+    /* Esta función recibe de parametro del tamaño del arreglo isFull, para determinar el estado de la inspección*/
     const getStatus = (isFull) => {
       if (isFull > 0){
         return 'Finalizada'
@@ -32,6 +35,7 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
       }
     }
     
+    /* Esta función se utiliza para dar el formato de la fecha de la inspección, teniendo en cuenta la zona horaria del equipo y un formato de 24 horas */
     function formatDate(fecha){
       const date = new Date(fecha);
       const hora = date.getUTCHours(); // obtiene la hora en formato de 24 horas de acuerdo a la zona horaria local del equipo
@@ -44,6 +48,11 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
     return (
       <section>
         { 
+          /*
+            Aqui se renderiza todas las inspecciones pertenecientes al objeto de evaluación seleccionado
+            En el componente Supervisor se pasan los siguiente parámetros:
+              inspectionID = Es el id de la inspeccion seleccionada en el menu para poder obtener el arreglo los supervisores de la inspeccion
+          */
           inspection ? (
             inspection.map((item) => (
               <div key={item._id}>
