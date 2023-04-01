@@ -5,9 +5,14 @@ import MenuInspection from '../Estructura/MenuInspection';
 import Axios from '../../API/Axios';
 import {getCurrentUser} from '../../Funciones/funciones';
 import '../../Estilos/modalInspection.css';
-const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
+const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm, optionMenu, obtenerOptionMenu}) => {
   const [currentInspection, setCurrentInspection] = useState(null);
   const [currentForm, setCurrentForm] = useState(null);
+
+  //Funcion que llena el estado de la opcion del menu seleccionada
+  const handleOptionMenuSelect = (targetid) => {
+    obtenerOptionMenu(targetid);
+  };
 
   useEffect(()=>{
     setCurrentInspection(inspectionModal)
@@ -36,7 +41,8 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
     }
     getCurrentForm();
   }, [idForm])
-
+console.log(optionMenu);
+//console.log(isOpenM);
   return (
     <section>
       { 
@@ -46,8 +52,8 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
               Inspecciones de {currentInspection.name} en el formulario {currentForm[0].name}
             </ModalHeader>
             <ModalBody>
-              <div className='menu-inspection'><MenuInspection inspection={currentInspection.inspection}/></div>
-                <div className='bloc-inspection'><CardInspection/></div>
+              <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={handleOptionMenuSelect}/></div>
+              <div className='bloc-inspection'><CardInspection inspection={currentInspection.inspection} selectedOptionMenu={optionMenu}/></div>
             </ModalBody>
           </Modal>) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>
