@@ -7,7 +7,7 @@ import PanelFiltroMapa from '../FiltroMapa/FiltroM';
 import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map'
-import ModalInspection from '../Estructura/ModalInspection';
+import ModalInspection from '../Estructura/ModalInspectionNew';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
