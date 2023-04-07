@@ -25,7 +25,7 @@ const MapView = () =>{
       const SouthEast = mapRef.getBounds().getSouthEast();
       getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
     }
-    if(filtro){console.log(filtro)}
+    console.log(filtro)
   }, [mapRef, filtro])
   
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
@@ -41,7 +41,7 @@ const MapView = () =>{
   return(
     <section>
       <div>
-        <Header></Header>
+        <Header evaluationHeader={markers} form={filtro}></Header>
         <PanelFiltroMapa state={setFiltro}></PanelFiltroMapa>
         {
           filtro ? (

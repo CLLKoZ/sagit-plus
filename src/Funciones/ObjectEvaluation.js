@@ -31,7 +31,7 @@ const getObjectEvaluation = async (state) => {
   state(peticionReverse())
 };
 
-const setForm = (id) =>{
+const setFormID = (id) =>{
   if(id === ""){
     formInspection = null
   } else {
@@ -67,7 +67,7 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
     const peticion = await axios.post('/object-evaluation/viewport', 
     body, {headers}
     )
-  
+  console.log(peticion.data.data)
     const peticionReverse = () =>{
       return peticion.data.data.map(item=>{
         let peticionTemp = Object.assign({}, item);
@@ -81,5 +81,5 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
 
 export {
   getObjectEvaluation,
-  getObjectEvaluationByViewPort, setForm
+  getObjectEvaluationByViewPort, setFormID
 };

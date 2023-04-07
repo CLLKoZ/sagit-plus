@@ -3,7 +3,8 @@ import '../../Estilos/panelFiltroMapa.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
 import {getCurrentUser} from '../../Funciones/funciones'
-import { setForm } from '../../Funciones/ObjectEvaluation';
+import { setFormID } from '../../Funciones/ObjectEvaluation';
+import Axios from '../../API/Axios';
 
 const PanelFiltroMapa = ({state}) => {
 
@@ -15,8 +16,38 @@ const PanelFiltroMapa = ({state}) => {
   }, []);
 
   useEffect(() =>{
-    setForm(selects)
-  }, [selects]);
+    setFormID(selects)
+    if (selects){
+      const getCurrentForm = async() => {
+        const headers={
+          Authorization: getCurrentUser().session.token
+        }
+        const body={
+          "filter": {"_id": selects},
+          "regex": [],
+          "populate": [],
+          "attributes": [],
+          "pageNumber": 1,
+          "limit": 5
+        }
+        try {
+          const response = await Axios.post('/form-inspection/find', body, {headers});
+          const formData = {
+            id: response.data.data[0]._id,
+            sections: response.data.data[0].sections,
+            name: response.data.data[0].name,
+            isActive: response.data.data[0].isActive,
+          }
+          state(formData)
+        } catch (error) {
+          console.log("algo salió mal");
+          console.log(error);
+        }
+      };
+  
+      getCurrentForm();
+    }
+  }, [selects, state]);
 
   return(
     /* Estructura de Filtro para datos en el mapa */
@@ -28,8 +59,7 @@ const PanelFiltroMapa = ({state}) => {
             <form>
               <label className='labelFiltro'>Formularios:</label>
               <select className='selectFiltro' onChange={e => {
-                setSelects(e.target.value)
-                state(e.target.value)}}>
+                setSelects(e.target.value)}}>
                 <option value="" key="" >Seleccione una opción</option>
                 {
                   forms != null ? (forms.map(form=>(
