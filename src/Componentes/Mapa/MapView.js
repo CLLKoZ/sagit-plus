@@ -2,7 +2,7 @@ import React, { useEffect, useState} from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import Header from '../Estructura/Header';
-import PanelFiltroMapa from '../FiltroMapa/FiltroM';
+import PanelFiltroMapa from '../FiltroMapa/PanelFiltro';
 import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map';
 import ModalInspection from '../Estructura/ModalInspection';
@@ -12,8 +12,10 @@ import '../../Estilos/mapa.css';
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
   const [mapRef, setMapRef] = useState(null);
-  const [filtro, setFiltro] = useState(null);
+  const [formInspection, setFormInspection] = useState(null);
   const [inspection, setInspection] = useState(null);
+  const [filtroMap, setFiltroMap] = useState(null);
+  const [change, setChange] = useState(false);
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
@@ -23,10 +25,29 @@ const MapView = () =>{
       const NorthWest = mapRef.getBounds().getNorthWest();
       const SouthWest = mapRef.getBounds().getSouthWest();
       const SouthEast = mapRef.getBounds().getSouthEast();
-      getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
+      if(filtroMap) {
+        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast, filtroMap)
+      } else {
+        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
+      }
     }
-    console.log(filtro)
-  }, [mapRef, filtro])
+  }, [mapRef, formInspection, filtroMap, change])
+
+  useEffect(() => {
+    if (filtroMap) {
+      markers.forEach(mark => {
+        //console.log(mark)
+        mark.inspection.forEach(inspection => {
+          inspection.inspectionFull.forEach((full, index) => {
+            //console.log(index)
+            if (full !== undefined) {
+              //console.log('No es indefinido')
+            }
+          })
+        })
+      })
+    }
+  }, [markers, filtroMap])
   
   /* Esta función ayuda a cambiar el estado del modal para abrirlo */
   const openModal=(ins)=>{
@@ -37,19 +58,19 @@ const MapView = () =>{
       setInspection(null);
     }
   };
-  
+
   return(
     <section>
       <div>
-        <Header evaluationHeader={markers} form={filtro}></Header>
-        <PanelFiltroMapa state={setFiltro}></PanelFiltroMapa>
+        <Header evaluationHeader={markers} form={formInspection} />
+        <PanelFiltroMapa state={setFormInspection} setFiltro={setFiltroMap} setChangeMap={setChange}/>
         {
-          filtro ? (
+          formInspection ? (
             <ModalInspection 
               isOpenM={modal} 
               toggleM={openModal} 
               inspectionModal={inspection} 
-              idForm={filtro}
+              idForm={formInspection.id}
             />
           ) : (
             <Modal contentClassName='modal-map-size' centered isOpen={modal} toggle={openModal}>

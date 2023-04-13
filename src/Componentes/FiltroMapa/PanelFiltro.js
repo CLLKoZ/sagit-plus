@@ -5,15 +5,24 @@ import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
 import {getCurrentUser} from '../../Funciones/funciones'
 import { setFormID } from '../../Funciones/ObjectEvaluation';
 import Axios from '../../API/Axios';
+import Filtros from './Filtros';
 
-const PanelFiltroMapa = ({state}) => {
+const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
 
   const [forms, setForms] = useState(null);
   const [selects, setSelects] = useState();
+  const [formFiltro, setFormFiltro] = useState(null);
+  const [currentFilter, setCurrentFilter] = useState(null);
+  const [change, setChange] = useState(false);
 
   useEffect(() => {
     setForms(getCurrentUser().session.forms)
   }, []);
+
+  useEffect(() => {
+    setChangeMap(change)
+    setFiltro(currentFilter)
+  }, [currentFilter, setFiltro, change, setChangeMap])
 
   useEffect(() =>{
     setFormID(selects)
@@ -39,6 +48,7 @@ const PanelFiltroMapa = ({state}) => {
             isActive: response.data.data[0].isActive,
           }
           state(formData)
+          setFormFiltro(formData)
         } catch (error) {
           console.log("algo salió mal");
           console.log(error);
@@ -55,26 +65,26 @@ const PanelFiltroMapa = ({state}) => {
       <input type="checkbox" id="btnFiltro"/>
       <div className='container-filtro'>
         <div className='cont-filtro'>
-          <div>
-            <form>
-              <label className='labelFiltro'>Formularios:</label>
-              <select className='selectFiltro' onChange={e => {
-                setSelects(e.target.value)}}>
-                <option value="" key="" >Seleccione una opción</option>
-                {
-                  forms != null ? (forms.map(form=>(
-                    <option value={form._id} key={form._id}>{form.name}</option>
-                  ))) : "Cargando..."
-                }
-              </select>
-              <label className='labelFiltro'>Prueba 4</label>
-              <input className='inputFiltro' type="text"></input>
-              <div className='contenedorBoton'>
-                <button className="btnFiltrar" type='submit'>Filtrar</button>
-              </div>
-            </form>
+          <div className='formulario'>
+            <label className='labelFiltro'>Formularios:</label>
+            <select className='selectFiltro' onChange={e => {
+              setSelects(e.target.value)
+              if(e.target.value === "") {
+                setFormFiltro(null)
+                state(null)
+              }}}>
+              <option value="" key="" >Seleccione una opción</option>
+              {
+                forms != null && (forms.map(form=>(
+                  <option value={form._id} key={form._id}>{form.name}</option>
+                )))
+              }
+            </select>
           </div>
-          <label htmlFor='btnFiltro' className='closeFiltro'><FontAwesomeIcon icon={faCircleXmark}></FontAwesomeIcon></label>
+          <div className='filtro-select'>
+            <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter} setChangePanel={setChange}/>
+          </div>
+          <label htmlFor='btnFiltro' className='closeFiltro'><FontAwesomeIcon icon={faCircleXmark} /></label>
         </div>
       </div>
     </section>
