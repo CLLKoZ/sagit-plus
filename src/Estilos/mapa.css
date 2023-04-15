@@ -3,3 +3,7 @@
     align-items: center;
     justify-content: center;
 }
+
+.index-tile {
+    z-index: 500 !important;
+}

@@ -31,7 +31,7 @@ const getObjectEvaluation = async (state) => {
   state(peticionReverse())
 };
 
-const setForm = (id) =>{
+const setFormID = (id) =>{
   if(id === ""){
     formInspection = null
   } else {
@@ -39,8 +39,8 @@ const setForm = (id) =>{
   }
 }
 
-const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4) => {
-
+const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4, filtro) => {
+  console.log(filtro)
   if (coor1){
     const headers = {
       Authorization: getCurrentUser().session.token,
@@ -67,7 +67,6 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
     const peticion = await axios.post('/object-evaluation/viewport', 
     body, {headers}
     )
-  
     const peticionReverse = () =>{
       return peticion.data.data.map(item=>{
         let peticionTemp = Object.assign({}, item);
@@ -75,11 +74,40 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
         return peticionTemp
       })
     }
-    state(peticionReverse())
+
+    if(filtro) {
+      console.log(peticionReverse())
+      const peticionFiltrada = () =>{
+        return peticionReverse().map(item=>{
+          item.inspection.forEach((ins, index) => {
+            let bandera = true
+            if(ins.inspectionFull.length > 0) {
+              filtro.forEach(fil => {
+                // console.log(ins.inspectionFull[0][`s${fil.section}`][fil.fieldName])
+                if (fil.type === 'select' && bandera) {
+                  if (fil.value === ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
+                    bandera = true;
+                  } else {
+                    bandera = false;
+                  }
+                }
+              })
+              if(bandera){
+                let peticionTemp = Object.assign({}, item);
+                console.log(peticionTemp.name)
+              }
+            }
+          })
+        })
+      }
+      peticionFiltrada()
+    } else {
+      state(peticionReverse())
+    }
   }
 });
 
 export {
   getObjectEvaluation,
-  getObjectEvaluationByViewPort, setForm
+  getObjectEvaluationByViewPort, setFormID
 };
