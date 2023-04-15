@@ -42,7 +42,8 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
     getCurrentForm();
   }, [idForm])
 
-  console.log('Modal id: '+optionMenu?._id);
+  //console.log(currentInspection);
+  //console.log(currentForm[0].sections[1].items[1].options.webLabel);
   return (
     <section>
       { 
@@ -63,7 +64,7 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
             </ModalHeader>
             <ModalBody>
               <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={setOptionMenu}/></div>
-              <div className='bloc-inspection'><CardInspection  selectedInspection={optionMenu} firstInspection={currentInspection.inspection[currentInspection.inspection.length-1]}/></div>
+              <div className='bloc-inspection'><CardInspection form={currentForm[0].sections} selectedInspection={optionMenu} firstInspection={currentInspection.inspection[currentInspection.inspection.length-1]}/></div>
             </ModalBody>
           </Modal>) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>
