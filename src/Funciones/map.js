@@ -5,14 +5,19 @@ import { getFieldValue, getFilledForm } from './formInspection';
 
 /* Carga las coordenadas necesarios para obtener los objetos
 de evaluacion por viewport al mover el mapa */
-export function GetPolygon({estado}){
+export function GetPolygon({estado, filtroMove}){
   const map = useMapEvents({
     moveend() {
       const NorthEast = map.getBounds().getNorthEast();
       const NorthWest = map.getBounds().getNorthWest();
       const SouthWest = map.getBounds().getSouthWest();
       const SouthEast = map.getBounds().getSouthEast();
-      getObjectEvaluationByViewPort(estado, NorthEast, NorthWest, SouthWest, SouthEast)
+      if (filtroMove)
+      {
+        getObjectEvaluationByViewPort(estado, NorthEast, NorthWest, SouthWest, SouthEast, filtroMove)
+      } else {
+        getObjectEvaluationByViewPort(estado, NorthEast, NorthWest, SouthWest, SouthEast)
+      }
     }
   })
 };
@@ -36,11 +41,13 @@ export const getIconMarker = (marker) =>{
 };
 
 const getLatestInspection = (objectEvaluation) => {
-  const latestInspection = objectEvaluation.inspection
+  if (objectEvaluation) {
+    const latestInspection = objectEvaluation.inspection
     .filter((inspection) => inspection.inspectionFull.length > 0)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
 
   return latestInspection;
+  }
 };
 
 export const getCSV = (objectsEvaluation, formCSV) => {

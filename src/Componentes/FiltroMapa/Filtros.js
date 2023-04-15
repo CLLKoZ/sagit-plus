@@ -56,7 +56,7 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
       })
     } else if (!itemsFilter && checked) {
       setItemsFilter([{fieldName: fieldName, value: value, section: section, type: type}])
-    } else if (!checked) {
+    } else if (!checked && itemsFilter) {
       const itemToRemove = {fieldName: fieldName, value: value, section: section, type: type}
       itemsFilter.splice(itemsFilter.findIndex(a => a.fieldName === itemToRemove.fieldName), 1)
       setChange(!change)
@@ -70,7 +70,7 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
       })
     } else if (!itemsFilter && checked) {
       setItemsFilter([{fieldName: fieldName, value: value, type: type, section: section}])
-    } else if (!checked) {
+    } else if (!checked && itemsFilter) {
       const itemToRemove = {fieldName: fieldName, value: value, type: type, section: section}
       itemsFilter.splice(itemsFilter.findIndex(a => a.value === itemToRemove.value), 1)
       setChange(!change)

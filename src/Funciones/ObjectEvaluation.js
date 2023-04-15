@@ -40,7 +40,6 @@ const setFormID = (id) =>{
 }
 
 const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4, filtro) => {
-  console.log(filtro)
   if (coor1){
     const headers = {
       Authorization: getCurrentUser().session.token,
@@ -74,33 +73,64 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
         return peticionTemp
       })
     }
+    let bandera = true
 
     if(filtro) {
-      console.log(peticionReverse())
       const peticionFiltrada = () =>{
         return peticionReverse().map(item=>{
+          let inspectionTemp = []
           item.inspection.forEach((ins, index) => {
-            let bandera = true
+            bandera = true
             if(ins.inspectionFull.length > 0) {
               filtro.forEach(fil => {
-                // console.log(ins.inspectionFull[0][`s${fil.section}`][fil.fieldName])
                 if (fil.type === 'select' && bandera) {
                   if (fil.value === ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
                     bandera = true;
                   } else {
                     bandera = false;
                   }
+                } else if (fil.type === 'checkBox' && bandera) {
+                  if(ins.inspectionFull[0][`s${fil.section}`][fil.fieldName] === true) {
+                    bandera = true;
+                  } else {
+                    bandera = false;
+                  }
+                } else if (fil.type === 'multiCheckFS' && bandera){
+                  bandera = false
+                  if (ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
+                    let multiArray = ins.inspectionFull[0][`s${fil.section}`][fil.fieldName].find((multi) => {
+                      return multi === fil.value
+                    })
+                    if(multiArray) {
+                      bandera = true;
+                    }
+                  }
                 }
               })
-              if(bandera){
-                let peticionTemp = Object.assign({}, item);
-                console.log(peticionTemp.name)
-              }
+            }
+            if (bandera && ins.inspectionFull.length > 0){
+              inspectionTemp.push(ins)
             }
           })
+          if(inspectionTemp.length > 0){
+            let objectEvaluation = {
+              _id: item._id,
+              name: item.name,
+              address: item.address,
+              contacts: item.contacts,
+              eventHistory: item.eventHistory,
+              inspection: inspectionTemp,
+              isActive: item.isActive,
+              projects: item.projects,
+              type_object: item.type_object,
+            }
+            return objectEvaluation
+          } else {
+            return undefined
+          }
         })
       }
-      peticionFiltrada()
+      state(peticionFiltrada())
     } else {
       state(peticionReverse())
     }

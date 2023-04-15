@@ -33,23 +33,6 @@ const MapView = () =>{
     }
   }, [mapRef, formInspection, filtroMap, change])
 
-  useEffect(() => {
-    if (filtroMap) {
-      markers.forEach(mark => {
-        //console.log(mark)
-        mark.inspection.forEach(inspection => {
-          inspection.inspectionFull.forEach((full, index) => {
-            //console.log(index)
-            if (full !== undefined) {
-              //console.log('No es indefinido')
-            }
-          })
-        })
-      })
-    }
-  }, [markers, filtroMap])
-  
-  /* Esta función ayuda a cambiar el estado del modal para abrirlo */
   const openModal=(ins)=>{
     setModal(!modal);
     if(!modal){
@@ -86,9 +69,10 @@ const MapView = () =>{
         <TileLayer 
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contribuidores'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-        <GetPolygon estado={setMarker}></GetPolygon>
+        <GetPolygon estado={setMarker} filtroMove={filtroMap}></GetPolygon>
         { markers != null ? (
           markers.map(marker=>(
+            marker !== undefined && (
             <div key={marker._id} >
               {
                 <Marker 
@@ -97,7 +81,7 @@ const MapView = () =>{
                   <Popup><h5 onClick={() => {openModal(marker)}}>{marker.name}</h5></Popup>
                 </Marker>
               }
-            </div>
+            </div>)
           ))
         ) : <div className='spinner'>
               <Spinner color='primary'>
