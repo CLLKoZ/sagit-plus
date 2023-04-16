@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardText, CardBody, CardSubtitle} from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter } from '@fortawesome/free-solid-svg-icons';
+import { faFilter,faCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import '../../Estilos/modalInspection.css';
 
 const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
@@ -36,15 +36,25 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
                             section.items.map((item) => (
                                 item.fields === undefined ? (
                                   <Card className='card-elemento'>
-                                    <CardSubtitle><FontAwesomeIcon icon={faFilter}></FontAwesomeIcon> {item.primaryText}</CardSubtitle>
-                                    <CardText>{selectInspection._id}</CardText>
+                                    <div className='iconCard'>
+                                      <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
+                                    </div> 
+                                    <div className='sub-Text'>
+                                      <CardSubtitle>{item.primaryText}</CardSubtitle>
+                                      <CardText>{selectInspection._id}</CardText>
+                                    </div>  
                                   </Card>
                                 ):(
                                     item.fields !== undefined ? (
                                       <Card className='card-elemento'>
                                         {console.log(item.fields)}
-                                        <CardSubtitle><FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>{item.fields[0].options.webLabel}</CardSubtitle>
-                                        <CardText></CardText>
+                                        <div className='iconCard'>
+                                          <FontAwesomeIcon icon={faCircleQuestion}></FontAwesomeIcon>
+                                        </div> 
+                                        <div className='sub-Text'>
+                                          <CardSubtitle>{item.fields[0].options.webLabel}</CardSubtitle>
+                                          <CardText>{selectInspection._id}</CardText>
+                                        </div>
                                       </Card>
                                     ):('Algo salió mal')
                                   )
