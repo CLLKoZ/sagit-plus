@@ -20,7 +20,6 @@ function App() {
           {/* Rutas protegidas por autorización */}
           <Route element={<RequireAuth />}>
             <Route path='/mapa' element={<MapView />}/>
-            <Route path='/' element={<Inspecciones />}/>
           </Route>
         </Route>
       </Routes> 

@@ -87,3 +87,17 @@
   overflow-y: auto !important;
   overflow-x: auto !important;
 }
+
+.Message-InspectionFull{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.Message-InspectionFull-Icon{
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+  color: #0f1f52;
+}

@@ -64,7 +64,7 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
             </ModalHeader>
             <ModalBody>
               <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={setOptionMenu}/></div>
-              <div className='bloc-inspection'><CardInspection form={currentForm[0].sections} selectedInspection={optionMenu} firstInspection={currentInspection.inspection[currentInspection.inspection.length-1]}/></div>
+              <div className='bloc-inspection'><CardInspection form={currentForm[0]} selectedInspection={optionMenu} firstInspection={currentInspection.inspection[currentInspection.inspection.length-1]}/></div>
             </ModalBody>
           </Modal>) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>
