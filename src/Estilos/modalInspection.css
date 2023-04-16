@@ -59,16 +59,31 @@
   align-items: center;
   padding: 0% !important;
 }
-.card-elemento{  
-  width: 250px; 
-  max-height: 120px !important;
+.card-elemento{
+  display: flex;
+  flex-direction: row !important;
   margin: 10px;
+  padding-top: 10px;  
+  width: 300px; 
   border: none !important;
-  padding-top: 10px;
-  align-items: left;
-  overflow-y: auto !important;
-  overflow-x: auto !important;
 }
 .card-text{
   color: #9e9a9a;
+}
+
+.iconCard{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 30px;
+  padding-right: 5px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.sub-Text{  
+  width: 200px; 
+  max-height: 120px !important;
+  align-items: left;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
 }
