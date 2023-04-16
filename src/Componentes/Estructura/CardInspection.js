@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Card, CardHeader, CardText, CardBody, CardSubtitle, Button } from 'reactstrap';
+import { Card, CardHeader, CardText, CardBody, CardSubtitle} from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import '../../Estilos/modalInspection.css';
 
-const CardInspection = ({selectedInspection=null, firstInspection}) => {
+const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
   const [selectInspection, setSelectInspection] = useState();
-
   /*
     Este useEffect se utiliza para cambiar el estado de selectInspection cuando firstInspection o selectedInspection cambian
     designando la primera inspeccion si no hay una inspeccin seleccionada todavia
@@ -17,26 +18,45 @@ const CardInspection = ({selectedInspection=null, firstInspection}) => {
     }
   }, [firstInspection, selectedInspection])
 
-  console.log('Card Inicio: '+firstInspection._id);
-  console.log('Card Seleccionado: '+selectInspection?._id);
+  console.log(form);
+  //console.log(selectInspection);
   return (
     <section>
       { 
-        /*
-          
-        */
-        selectInspection ? ( 
-          <Card className="card-container">
-            <CardHeader>General</CardHeader>
-            <CardBody className='card-content'>
-              <Card className='card-elemento'>
-                <CardSubtitle>Identificacion del edificio </CardSubtitle>
-                <CardText>{selectInspection._id}</CardText>
-                <Button>Button</Button>
-              </Card>
-            </CardBody>
-          </Card>
-        ) : ("Seleccione una inspección")
+      /*{section.items[item].fields[0].options.webLabel}*/
+        form ? (
+          form.map((section) => (
+            <div>
+              {
+                selectInspection ? (
+                  <Card className="card-container">
+                    <CardHeader>{section.sectionName}</CardHeader>
+                      <CardBody className='card-content'>
+                          {
+                            section.items.map((item) => (
+                                item.fields === undefined ? (
+                                  <Card className='card-elemento'>
+                                    <CardSubtitle><FontAwesomeIcon icon={faFilter}></FontAwesomeIcon> {item.primaryText}</CardSubtitle>
+                                    <CardText>{selectInspection._id}</CardText>
+                                  </Card>
+                                ):(
+                                    item.fields !== undefined ? (
+                                      <Card className='card-elemento'>
+                                        {console.log(item.fields)}
+                                        <CardSubtitle><FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>{item.fields[0].options.webLabel}</CardSubtitle>
+                                        <CardText></CardText>
+                                      </Card>
+                                    ):('Algo salió mal')
+                                  )
+                            ))
+                          }
+                    </CardBody>
+                  </Card>
+                ) : ('Seleccione una inspección')
+              }
+            </div>
+          ))
+        ):('Algo salió mal')
       }
     </section>
   );

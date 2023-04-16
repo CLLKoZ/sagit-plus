@@ -46,6 +46,7 @@
 .card-container {
   width: 100%;
   border: none !important;
+  margin-bottom: 3%;
 }
 .card-header{
   background: white !important;
