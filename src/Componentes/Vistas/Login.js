@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
-import { useNavigate, useLocation } from "react-router-dom";
+import { NavLink,  useNavigate } from "react-router-dom";
 import useAuth from "../Proveedores/useAuth";
 import '../../Estilos/login.css';
 import { login, getCurrentUser } from "../../Funciones/funciones";
@@ -10,8 +10,6 @@ const Login = () =>{
   const { setAuth } = useAuth();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
   const userRef = useRef();
   const errRef = useRef();
@@ -45,8 +43,7 @@ const Login = () =>{
         setAuth(getCurrentUser());
         setUsername('');
         setPassword('');
-        navigate(from, { replace: true });
-        window.location.reload();
+        navigate('/mapa');
       }
     ).catch((error)=>{
       if(!error?.response){
@@ -94,7 +91,7 @@ const Login = () =>{
               <label>&nbsp;Contraseña</label>
             </div>
             <div className='forgot'>
-              <a href='#'>¿Olvidó su contraseña?</a>
+              <NavLink to='/forgot'>¿Olvidó su contraseña?</NavLink>
             </div>
             <button className='boton'>Iniciar Sesión</button>
             {/* Mensaje de error desplegable */}

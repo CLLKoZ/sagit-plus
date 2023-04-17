@@ -5,7 +5,8 @@ import Login from './Componentes/Vistas/Login';
 import Layout from './Componentes/Layouts/Layout';
 import RequireAuth from './Componentes/Proveedores/RequireAuth';
 import RedirectLogin from './Componentes/Proveedores/RedirectLogin';
-import Inspecciones from './Componentes/Vistas/Inspecciones';
+import NotFound from './Componentes/Vistas/NotFound';
+import Forgot from './Componentes/Vistas/Forgot';
 
 function App() {
 
@@ -15,11 +16,16 @@ function App() {
           {/* Rutas publicas */}
           <Route element={<RedirectLogin/>}>
             <Route path='/login' element={<Login />} />
+            <Route path='/forgot' element={<Forgot />} />
           </Route>
 
           {/* Rutas protegidas por autorización */}
           <Route element={<RequireAuth />}>
             <Route path='/mapa' element={<MapView />}/>
+            <Route element={<RedirectLogin />}>
+              <Route path='/' element={<div></div>}/>
+            </Route>
+            <Route path='*' element={<NotFound />}/>
           </Route>
         </Route>
       </Routes> 

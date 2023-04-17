@@ -9,7 +9,7 @@ const RequireAuth = () => {
     const loggedUserJSON = window.localStorage.getItem('loggedUser')
 
     return(
-        loggedUserJSON ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />
+        loggedUserJSON || location.pathname === '/' ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />
     );
 }
 

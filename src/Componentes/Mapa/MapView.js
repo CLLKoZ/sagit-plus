@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Modal, ModalHeader, Spinner } from 'reactstrap';
 import Header from '../Estructura/Header';
 import PanelFiltroMapa from '../FiltroMapa/PanelFiltro';
-import { getObjectEvaluationByViewPort } from '../../Funciones/ObjectEvaluation';
+import { getObjectEvaluationByViewPort, markerCounter } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map';
 import ModalInspection from '../Estructura/ModalInspection';
 import 'leaflet/dist/leaflet.css';
@@ -16,6 +16,7 @@ const MapView = () =>{
   const [inspection, setInspection] = useState(null);
   const [filtroMap, setFiltroMap] = useState(null);
   const [change, setChange] = useState(false);
+  const [counter, setCounter] = useState(null);
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
@@ -33,6 +34,12 @@ const MapView = () =>{
     }
   }, [mapRef, formInspection, filtroMap, change])
 
+  useEffect(() => {
+    if (markers) {
+      setCounter(markerCounter(markers))
+    }
+  }, [markers])
+
   const openModal=(ins)=>{
     setModal(!modal);
     if(!modal){
@@ -45,7 +52,7 @@ const MapView = () =>{
   return(
     <section>
       <div>
-        <Header evaluationHeader={markers} form={formInspection} />
+        <Header evaluationHeader={markers} form={formInspection} counter={counter}/>
         <PanelFiltroMapa state={setFormInspection} setFiltro={setFiltroMap} setChangeMap={setChange}/>
         {
           formInspection ? (

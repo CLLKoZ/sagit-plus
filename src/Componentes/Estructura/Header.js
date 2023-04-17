@@ -2,15 +2,15 @@ import React, {useEffect,useState} from 'react';
 import '../../Estilos/header.css'
 import { logOut } from '../../Funciones/funciones';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faFilter,faRightFromBracket, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faFilter,faRightFromBracket, faFile, faArrowUp19 } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { getCurrentUser } from '../../Funciones/funciones';
-import {Dropdown,DropdownItem,DropdownMenu,DropdownToggle} from 'reactstrap';
+import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import { getCSV } from '../../Funciones/map';
 import { printCSV } from '../../Funciones/utilidades';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
-const Header = ({evaluationHeader=null, form=null}) => {
+const Header = ({evaluationHeader=null, form=null, counter=null}) => {
   /* Se crea un estado local, que permite controlar los estados 
   de los Dropdowns*/
   const [dropdownOpenReport, setDropdownOpenReport] = useState(false);
@@ -22,13 +22,14 @@ const Header = ({evaluationHeader=null, form=null}) => {
 
   /*Se crea un estado local, que permite controlar los estados de 
   la aparicion de reportes y filtros solo en el mapa*/
-  const [hideElement, setHideElement] = useState(false);
+  const [hideElement, setHideElement] = useState(true);
 
   const [objectEvaluation, setObjectEvaluation] = useState(null);
 
   useEffect(() => {
-    setObjectEvaluation(evaluationHeader);
-  }, [evaluationHeader])
+    if (form)
+      setObjectEvaluation(evaluationHeader);
+  }, [evaluationHeader, form])
 
   /*Esta funcion cambia el estado para la aparicion de reportes y 
   filtros solo en el mapa*/
@@ -49,15 +50,22 @@ const Header = ({evaluationHeader=null, form=null}) => {
   
   return(
     <section>
-      <header className={'background'}>
-        <NavLink to='/' className='logo'>SAGIT</NavLink>
+      <header className='background'>
+        <NavLink to='/mapa' className='logo'>SAGIT</NavLink>
         <nav className='navigation'>
           <div>
             {
               !hideElement &&
+              <label className="filtro">
+                <FontAwesomeIcon className='header-icon' icon={faArrowUp19} />
+                Markers {counter}
+              </label>
+            }
+            {
+              !hideElement &&
               <label htmlFor='btnFiltro' className="filtro" type="button">
-                <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
-                &nbsp;Filtros
+                <FontAwesomeIcon className='header-icon' icon={faFilter} />
+                Filtros
               </label>
             }
             {
@@ -65,10 +73,10 @@ const Header = ({evaluationHeader=null, form=null}) => {
               <label>
                 <Dropdown isOpen={dropdownOpenReport} toggle={toggleDropdownReport}>
                   <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenReport ? "transparent" : "transparent" }}>
-                    <FontAwesomeIcon icon={faFile}></FontAwesomeIcon>
-                    &nbsp;Reportes
+                    <FontAwesomeIcon className='header-icon' icon={faFile} />
+                    Reportes
                   </DropdownToggle>
-                  <DropdownMenu>
+                  <DropdownMenu style={{zIndex: 1002}}>
                     <DropdownItem onClick={()=>{downloadCSV(objectEvaluation)}}>CSV</DropdownItem>
                     <DropdownItem>PDF</DropdownItem>
                   </DropdownMenu>
@@ -78,12 +86,12 @@ const Header = ({evaluationHeader=null, form=null}) => {
             <label type="button">
               <Dropdown isOpen={dropdownOpenUser} toggle={toggleDropdownUser}>
                 <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenUser ? "transparent" : "transparent" }}>
-                    <FontAwesomeIcon icon={faUserCircle}></FontAwesomeIcon>
-                    &nbsp;{getCurrentUser().session.username}
+                    <FontAwesomeIcon className='header-icon' icon={faUserCircle} />
+                    {getCurrentUser().session.username}
                 </DropdownToggle>
-                <DropdownMenu>
+                <DropdownMenu style={{zIndex: 1002}}>
                   <DropdownItem onClick={logOut}>
-                    <FontAwesomeIcon icon={faRightFromBracket}></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faRightFromBracket} />
                     &nbsp;Cerrar Sesión
                   </DropdownItem>
                 </DropdownMenu>

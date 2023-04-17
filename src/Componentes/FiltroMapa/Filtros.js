@@ -122,7 +122,7 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
                           <div key={field.name}>
                             <label className='label-filtro'>{field.options.webLabel}</label>
                             {field.options.items.map(opItem=> (
-                              <label className='label-multicheck'>
+                              <label key={opItem.label} className='label-multicheck'>
                                 <input 
                                   className='form-check-input' 
                                   type='checkbox' 

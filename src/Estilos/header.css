@@ -1,8 +1,8 @@
 /*ESTILOS PARA EL NAV DEL HEADER*/
 .background {
-  z-index: 50000;
+  z-index: 5000;
   width: 100%;
-  padding: 20px 100px;
+  padding: 20px 50px;
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -16,9 +16,11 @@
   user-select: none;
   text-decoration: none;
 }
+
 .logo:hover{
   color: #fff;
 }
+
 .navigation{
   display: flex;
   flex-direction: column;
@@ -26,6 +28,7 @@
   align-items: center;
   text-align: center;
 }
+
 .navigation a:hover::after{
   transform-origin: left;
   transform: scaleX(1);
@@ -58,6 +61,12 @@
   font-size: 1.2em;
   color: #fff;
   line-height: 57px;
+}
+
+.header-icon {
+  padding-right: 5px;
+  font-size: 1.1em;
+  color: #fff;
 }
 
 .filtro{

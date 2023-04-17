@@ -1,0 +1,45 @@
+.contenido-found {
+    margin-top: 150px;
+    display: grid;
+    place-items: center;
+    color: #0f1f52;
+}
+
+.title-found {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.contenido-found .texto-found {
+    font-size: 1.3rem;
+}
+
+.link-container {
+    display: grid;
+    place-items: center;
+    border: 2px solid #0f1f52;
+    margin-top: 10px;
+    border-radius: 50px;
+    height: 50px;
+    width: 200px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
+.link-container:hover {
+    background-color: #0f1f52;
+}
+
+.link-found {
+    font-size: 1.1rem;
+    color: #0f1f52;
+    height: 50px;
+    width: 200px;
+    padding-top: 5%;
+    text-decoration: none;
+    transition: 0.4s ease;
+}
+
+.link-found:hover {
+    color: azure;
+}

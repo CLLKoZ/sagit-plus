@@ -137,7 +137,21 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
   }
 });
 
+const markerCounter = (objectEvaluation) => {
+  let acumulator = 0;
+  
+  objectEvaluation.forEach(object => {
+    if (object)
+      acumulator = acumulator + 1;
+  })
+
+  if (acumulator > 0)
+    return acumulator
+  return 0;
+}
+
 export {
   getObjectEvaluation,
-  getObjectEvaluationByViewPort, setFormID
+  getObjectEvaluationByViewPort, 
+  setFormID, markerCounter
 };
