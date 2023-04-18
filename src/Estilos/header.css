@@ -3,11 +3,25 @@
   z-index: 5000;
   width: 100%;
   padding: 20px 50px;
-  justify-content: space-between;
   display: flex;
+  justify-content:space-between;
   align-items: center;
   height: 7vh;
   background-color: #0f1f52;
+}
+
+.cabecera-Nav{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+}
+.marcadores{
+  margin-left:30px ;
+  height: 40px;
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 12px;
 }
 
 .logo{
@@ -23,8 +37,7 @@
 
 .navigation{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  flex-direction: row;
   align-items: center;
   text-align: center;
 }
@@ -47,7 +60,9 @@
 .navigation .menuDrop:hover{
   background: transparent;
 }
-
+.navigation .menuDrop .dropdown-item{
+  z-index: 1 !important;
+}
 /*ESTILO PARA CONTENIDO DEL SITIO*/
 .contenido{
   position:relative;
@@ -70,5 +85,10 @@
 }
 
 .filtro{
-  user-select: none;
+  cursor: pointer !important;
+  margin: 0px;
+  height: 40px;
+  color: #fff;
+  font-size: 1rem;
+  padding: 8px 12px;
 }
