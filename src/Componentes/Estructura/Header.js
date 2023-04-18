@@ -2,7 +2,7 @@ import React, {useEffect,useState} from 'react';
 import '../../Estilos/header.css'
 import { logOut } from '../../Funciones/funciones';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faFilter,faRightFromBracket, faFile, faArrowUp19 } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faFilter,faRightFromBracket, faFile, faLocationDot} from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { getCurrentUser } from '../../Funciones/funciones';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
@@ -51,53 +51,53 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
   return(
     <section>
       <header className='background'>
-        <NavLink to='/mapa' className='logo'>SAGIT</NavLink>
+        <section className='cabecera-Nav'>
+          <NavLink to='/mapa' className='logo'>SAGIT</NavLink>
+          {
+            !hideElement &&
+            <label className="marcadores">
+              <FontAwesomeIcon className='header-icon' icon={faLocationDot} />
+              Marcadores: {counter}
+            </label>
+          }
+        </section>
         <nav className='navigation'>
-          <div>
-            {
-              !hideElement &&
-              <label className="filtro">
-                <FontAwesomeIcon className='header-icon' icon={faArrowUp19} />
-                Markers {counter}
-              </label>
-            }
-            {
-              !hideElement &&
-              <label htmlFor='btnFiltro' className="filtro" type="button">
-                <FontAwesomeIcon className='header-icon' icon={faFilter} />
-                Filtros
-              </label>
-            }
-            {
-              !hideElement &&
-              <label>
-                <Dropdown isOpen={dropdownOpenReport} toggle={toggleDropdownReport}>
-                  <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenReport ? "transparent" : "transparent" }}>
-                    <FontAwesomeIcon className='header-icon' icon={faFile} />
-                    Reportes
-                  </DropdownToggle>
-                  <DropdownMenu style={{zIndex: 1002}}>
-                    <DropdownItem onClick={()=>{downloadCSV(objectEvaluation)}}>CSV</DropdownItem>
-                    <DropdownItem>PDF</DropdownItem>
-                  </DropdownMenu>
-                </Dropdown>
-              </label>
-            }
-            <label type="button">
-              <Dropdown isOpen={dropdownOpenUser} toggle={toggleDropdownUser}>
-                <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenUser ? "transparent" : "transparent" }}>
-                    <FontAwesomeIcon className='header-icon' icon={faUserCircle} />
-                    {getCurrentUser().session.username}
+          {
+            !hideElement &&
+            <label htmlFor='btnFiltro' className="filtro">
+              <FontAwesomeIcon className='header-icon' icon={faFilter} />
+              Filtros
+            </label>
+          }
+          {
+            !hideElement &&
+            <label>
+              <Dropdown isOpen={dropdownOpenReport} toggle={toggleDropdownReport}>
+                <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenReport ? "transparent" : "transparent" }}>
+                  <FontAwesomeIcon className='header-icon' icon={faFile} />
+                  Reportes
                 </DropdownToggle>
                 <DropdownMenu style={{zIndex: 1002}}>
-                  <DropdownItem onClick={logOut}>
-                    <FontAwesomeIcon icon={faRightFromBracket} />
-                    &nbsp;Cerrar Sesión
-                  </DropdownItem>
+                  <DropdownItem onClick={()=>{downloadCSV(objectEvaluation)}}>CSV</DropdownItem>
+                  <DropdownItem>PDF</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
-            </label>   
-          </div>
+            </label>
+          }
+          <label>
+            <Dropdown isOpen={dropdownOpenUser} toggle={toggleDropdownUser}>
+              <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenUser ? "transparent" : "transparent" }}>
+                  <FontAwesomeIcon className='header-icon' icon={faUserCircle} />
+                  {getCurrentUser().session.username}
+              </DropdownToggle>
+              <DropdownMenu style={{zIndex: 1002}}>
+                <DropdownItem onClick={logOut}>
+                  <FontAwesomeIcon icon={faRightFromBracket} />
+                  &nbsp;Cerrar Sesión
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </label>   
         </nav>
       </header>
     </section>     
