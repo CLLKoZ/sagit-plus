@@ -7,3 +7,7 @@
 .index-tile {
     z-index: 500 !important;
 }
+
+.toasty-bg {
+    background: #0f1f52;
+}

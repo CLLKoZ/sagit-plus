@@ -153,5 +153,6 @@
 .filtro-select {
     margin-top: 8%;
     overflow-y: auto;
-    height: 76vh;
+    height: 79%;
+    padding-bottom: 10px;
 }

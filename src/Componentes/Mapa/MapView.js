@@ -1,13 +1,16 @@
 import React, { useEffect, useState} from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import { Modal, ModalHeader, Spinner } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 import Header from '../Estructura/Header';
 import PanelFiltroMapa from '../FiltroMapa/PanelFiltro';
 import { getObjectEvaluationByViewPort, markerCounter } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map';
 import ModalInspection from '../Estructura/ModalInspection';
+import { ToastContainer, toast } from 'react-toastify';
+
 import 'leaflet/dist/leaflet.css';
 import '../../Estilos/mapa.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
@@ -41,11 +44,15 @@ const MapView = () =>{
   }, [markers])
 
   const openModal=(ins)=>{
-    setModal(!modal);
-    if(!modal){
-      setInspection(ins);
+    if (formInspection){
+      setModal(!modal);
+      if(!modal){
+        setInspection(ins);
+      } else {
+        setInspection(null);
+      }
     } else {
-      setInspection(null);
+      toast.warn("Seleccione un formulario", {style: {background: '#0f1f52'}})
     }
   };
 
@@ -63,11 +70,18 @@ const MapView = () =>{
               idForm={formInspection.id}
             />
           ) : (
-            <Modal contentClassName='modal-map-size' centered isOpen={modal} toggle={openModal}>
-              <ModalHeader cssModule={{'modal-title': 'w-100 text-center'}}>
-                <strong>No ha seleccionado ningun filtro</strong>
-              </ModalHeader>
-            </Modal>
+            <ToastContainer position="bottom-left"
+              autoClose={3000}
+              limit={3}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
           )
         }
       </div>

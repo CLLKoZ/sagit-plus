@@ -6,6 +6,7 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
 
   const [itemsFilter, setItemsFilter] = useState();
   const [change, setChange] = useState(false);
+  const [include, setInclude] = useState(null);
 
   useEffect(() => {
     setChangePanel(change)
@@ -115,7 +116,7 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
                                   e => saveFilterCheck(e.target.checked, field.options.webLabel, field.name, index, field.type)
                                 } 
                                 value={field.options.webLabel}/>
-                              {field.options.webLabel}
+                              &nbsp;{field.options.webLabel}
                             </label>
                           </div>
                         ) : field.type === 'multiCheckFS' && (
@@ -130,7 +131,7 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
                                     e => saveFilterMultiCheck(e.target.checked, opItem.value, field.name, field.type, index)
                                   }
                                   value={opItem.label}/>
-                                {opItem.label}
+                                &nbsp;{opItem.label}
                               </label>
                             ))}
                           </div>

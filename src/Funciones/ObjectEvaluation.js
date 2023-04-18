@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import axios from '../API/Axios'
 import { getCurrentUser } from './funciones';
 import { debounce } from './utilidades';
@@ -65,7 +66,22 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
       }
     const peticion = await axios.post('/object-evaluation/viewport', 
     body, {headers}
-    )
+    ).catch(error => {
+      if(error?.response?.status === 401){
+        window.localStorage.removeItem('loggedUser');
+        window.location.reload()
+        toast.info('La sesión a expirado', {
+          position: "bottom-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+          });
+      }
+    })
     const peticionReverse = () =>{
       return peticion.data.data.map(item=>{
         let peticionTemp = Object.assign({}, item);
