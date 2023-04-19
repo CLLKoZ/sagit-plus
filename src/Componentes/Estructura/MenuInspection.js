@@ -38,12 +38,12 @@ const MenuInspection = ({ins, handleOptionMenuClick}) => {
     /* Esta función se utiliza para dar el formato de la fecha de la inspección, teniendo en cuenta la zona horaria del equipo y un formato de 24 horas */
     function formatDate(fecha){
       const date = new Date(fecha);
-      const hora = date.getUTCHours(); // obtiene la hora en formato de 24 horas de acuerdo a la zona horaria local del equipo
-      const minuto = date.getUTCMinutes(); // obtiene los minutos de acuerdo a la zona horaria local del equipo
-      const segundo = date.getUTCSeconds(); // obtiene los segundos de acuerdo a la zona horaria local del equipo
+      const hora = date.getHours(); // obtiene la hora en formato de 24 horas de acuerdo a la zona horaria local del equipo
+      const minuto = date.getMinutes(); // obtiene los minutos de acuerdo a la zona horaria local del equipo
+      const segundo = date.getSeconds(); // obtiene los segundos de acuerdo a la zona horaria local del equipo
       const tiempo = `${hora.toString().padStart(2, '0')}:${minuto.toString().padStart(2, '0')}:${segundo.toString().padStart(2, '0')}`;
       return date.toLocaleDateString()+', '+tiempo;
-    }
+    }   
 
     return (
       <section>
