@@ -57,10 +57,11 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
               ...formu,
               [field.options.webLabel]:{value: value, type: field.type, icon: field.icon}
             }
-            
         });
-        arraySection.push({section:`s${index}`, name: section.name, value: formu})
-        formu = {}
+        if (Object.keys(formu).length > 0) {
+          arraySection.push({section:`s${index}`, name: section.name, value: formu})
+          formu = {}
+        }
       });
       setArrayInfo(arraySection)
     }
@@ -80,8 +81,8 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
   }
   
   
-  console.log(arrayInfo);
   
+  console.log(arrayInfo);
   return (
     <section>
       { 
