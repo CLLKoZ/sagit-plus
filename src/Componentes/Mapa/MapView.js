@@ -38,6 +38,7 @@ const MapView = () =>{
   }, [mapRef, formInspection, filtroMap, change])
 
   useEffect(() => {
+    document.title = "SAGIT | Mapa"
     if (markers) {
       setCounter(markerCounter(markers))
     }
@@ -99,7 +100,7 @@ const MapView = () =>{
                 <Marker 
                   position={marker.address.location.coordinates} 
                   icon={getIconMarker(marker.type_object[0].icon)}>
-                  <Popup><h5 onClick={() => {openModal(marker)}}>{marker.name}</h5></Popup>
+                  <Popup><span className='pop-up' onClick={() => {openModal(marker)}}>{marker.name}</span></Popup>
                 </Marker>
               }
             </div>)

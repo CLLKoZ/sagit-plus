@@ -1,13 +1,14 @@
 import React, {useEffect,useState} from 'react';
 import '../../Estilos/header.css'
 import { logOut } from '../../Funciones/funciones';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle, faFilter,faRightFromBracket, faFile, faLocationDot} from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import { getCurrentUser } from '../../Funciones/funciones';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import { getCSV } from '../../Funciones/map';
 import { printCSV } from '../../Funciones/utilidades';
+import TimeOut from '../Layouts/TimeOut';
+import Icon from '@mdi/react';
+import { mdiAccountCircle, mdiFileDocument, mdiFilterCog, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {
@@ -50,14 +51,15 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
   
   return(
     <section>
+      <TimeOut></TimeOut>
       <header className='background'>
         <section className='cabecera-Nav'>
-          <NavLink to='/mapa' className='logo'>SAGIT</NavLink>
+          <NavLink to='/mapa' className='logo'><strong>SAGIT</strong></NavLink>
           {
             !hideElement &&
             <label className="marcadores">
-              <FontAwesomeIcon className='header-icon' icon={faLocationDot} />
-              Marcadores: {counter}
+              <Icon path={mdiMapMarkerMultiple} size={1} />
+              &nbsp;Marcadores: {counter}
             </label>
           }
         </section>
@@ -65,8 +67,8 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
           {
             !hideElement &&
             <label htmlFor='btnFiltro' className="filtro">
-              <FontAwesomeIcon className='header-icon' icon={faFilter} />
-              Filtros
+              <Icon path={mdiFilterCog} size={1} />
+              &nbsp;Filtros
             </label>
           }
           {
@@ -74,12 +76,11 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
             <label>
               <Dropdown isOpen={dropdownOpenReport} toggle={toggleDropdownReport}>
                 <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenReport ? "transparent" : "transparent" }}>
-                  <FontAwesomeIcon className='header-icon' icon={faFile} />
-                  Reportes
+                <Icon path={mdiFileDocument} size={1} />
+                  &nbsp;Reportes
                 </DropdownToggle>
                 <DropdownMenu style={{zIndex: 1002}}>
-                  <DropdownItem onClick={()=>{downloadCSV(objectEvaluation)}}>CSV</DropdownItem>
-                  <DropdownItem>PDF</DropdownItem>
+                  <DropdownItem onClick={()=>{downloadCSV(objectEvaluation)}}><Icon path={mdiMicrosoftExcel} size={1} /> CSV</DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </label>
@@ -87,12 +88,12 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
           <label>
             <Dropdown isOpen={dropdownOpenUser} toggle={toggleDropdownUser}>
               <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenUser ? "transparent" : "transparent" }}>
-                  <FontAwesomeIcon className='header-icon' icon={faUserCircle} />
-                  {getCurrentUser().session.username}
+              <Icon path={mdiAccountCircle} size={1} />
+                  &nbsp;{getCurrentUser().session.username}
               </DropdownToggle>
               <DropdownMenu style={{zIndex: 1002}}>
                 <DropdownItem onClick={logOut}>
-                  <FontAwesomeIcon icon={faRightFromBracket} />
+                  <Icon path={mdiLogout} size={1} />
                   &nbsp;Cerrar Sesión
                 </DropdownItem>
               </DropdownMenu>

@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faLock } from '@fortawesome/free-solid-svg-icons';
 import { NavLink,  useNavigate } from "react-router-dom";
 import useAuth from "../Proveedores/useAuth";
 import '../../Estilos/login.css';
 import { login, getCurrentUser } from "../../Funciones/funciones";
+import Icon from "@mdi/react";
+import { mdiAccountHardHat, mdiLock } from "@mdi/js";
 
 const Login = () =>{
   const { setAuth } = useAuth();
@@ -23,6 +23,7 @@ const Login = () =>{
   /* Para que el enfoque caiga en el input de usuario */
   useEffect(() =>{
     userRef.current.focus();
+    document.title = "SAGIT | Inicio de sesión"
   }, []);
 
   /* Limpía el mensaje de error una ves que el usurio se ubique en uno de los 
@@ -68,7 +69,7 @@ const Login = () =>{
           <h3>Inicio de Sesión</h3>
           <form onSubmit={handleSubmit}>
             <div className='input-box'>
-              <span className='icon'><FontAwesomeIcon icon={faUser}/> </span>
+              <span className='icon'><Icon path={mdiAccountHardHat} size={1.2} /> </span>
               <input 
               type='text'
               id='username'
@@ -81,7 +82,7 @@ const Login = () =>{
               <label>&nbsp;Usuario</label>
             </div>
             <div className='input-box'>
-              <span className='icon'><FontAwesomeIcon icon={faLock}/> </span>
+              <span className='icon'><Icon path={mdiLock} size={1.1} /> </span>
               <input type='password' 
               id='password'
               onChange={(e) => setPassword(e.target.value)}

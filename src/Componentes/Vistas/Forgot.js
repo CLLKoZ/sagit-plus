@@ -1,9 +1,9 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import '../../Estilos/login.css';
+import Icon from '@mdi/react';
+import { mdiAccountHardHat, mdiArrowULeftBottomBold } from '@mdi/js';
 
 const Forgot = () => {
 
@@ -16,6 +16,7 @@ const Forgot = () => {
    /* Para que el enfoque caiga en el input de usuario */
   useEffect(() =>{
     userRef.current.focus();
+    document.title = "SAGIT | Recuperar contraseña"
   }, []);
 
   /* Limpía el mensaje de error una ves que el usurio se ubique en uno de los 
@@ -33,11 +34,10 @@ const Forgot = () => {
       <div className='wrapper'>
         <div className='form-box login'>
           <h1 className="titulo">SAGIT</h1>
-          <h3>¿Olvidó su contraseña?</h3>
-          <h5>Ingrese su usuario</h5>
+          <h3 className='pollito'>¿Olvidó su contraseña?</h3>
           <form onSubmit={handleSubmit}>
             <div className='input-box'>
-              <span className='icon'><FontAwesomeIcon icon={faUser}/> </span>
+              <span className='icon'><Icon path={mdiAccountHardHat} size={1.2} /> </span>
               <input 
               type='text'
               id='username'
@@ -47,10 +47,10 @@ const Forgot = () => {
               value={username}
               required
               />
-              <label>&nbsp;Usuario</label>
+              <label>&nbsp;Ingresar usuario</label>
             </div>
-            <div className='forgot'>
-              <NavLink to='/login'>Regresar al login</NavLink>
+            <div className='forgot'>  
+              <NavLink to='/login'>&nbsp;Regresar al login <Icon path={mdiArrowULeftBottomBold} size={1.1} /></NavLink>
             </div>
             <button className='boton'>Solicitar contraseña nueva</button>
             {/* Mensaje de error desplegable */}

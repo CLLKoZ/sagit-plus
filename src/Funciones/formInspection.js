@@ -2,27 +2,6 @@ const DOMAIN = `http://168.232.50.15`;
 const PORT = "80";
 const BASE_URL = "v1";
 
-/*export const getFilledForm = (evaluationObject, form) => {
-  const formInspection = form;
-  const inspectionFull = evaluationObject.inspection
-  .filter((inspection) => inspection.inspectionFull.length > 0)
-  .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))[0];
-
-  let fullField = []
-
-  formInspection.sections.forEach(section=> {
-    section.items.forEach(item=>{
-      if(item.fields){
-        item.fields.forEach(field=> {
-          fullField.push(field)
-        })
-      }
-    })
-  })
-
-  return fullField;
-};*/
-
 export const getFilledForm = (inspection, form) => {
   const formInspection = form;
   const inspectionFull = inspection.inspectionFull[0]
@@ -82,11 +61,14 @@ export const getFilledForm = (inspection, form) => {
 
       currentItem.fields.forEach(field => {
         let value = undefined;
-
         if(currentItem.groupName === field.name) {
           value = inspectionFull[`s${sectionIndex}`][field.name];
         } else {
-          value = inspectionFull[`s${sectionIndex}`][currentItem.groupName][field.name];
+          try {
+            value = inspectionFull[`s${sectionIndex}`][currentItem.groupName][field.name];
+          } catch {
+            value = null
+          }
         }
 
         if (field.type === 'imageFS') {

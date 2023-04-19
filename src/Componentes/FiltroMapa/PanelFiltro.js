@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import '../../Estilos/panelFiltroMapa.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark} from '@fortawesome/free-solid-svg-icons';
 import {getCurrentUser} from '../../Funciones/funciones'
 import { setFormID } from '../../Funciones/ObjectEvaluation';
 import Axios from '../../API/Axios';
 import Filtros from './Filtros';
+import Icon from '@mdi/react';
+import { mdiCloseCircle } from '@mdi/js';
 
 const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
 
@@ -84,7 +84,7 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
           <div className='filtro-select'>
             <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter} setChangePanel={setChange}/>
           </div>
-          <label htmlFor='btnFiltro' className='closeFiltro'><FontAwesomeIcon icon={faCircleXmark} /></label>
+          <label htmlFor='btnFiltro' className='closeFiltro'><Icon path={mdiCloseCircle} size={1.4} /></label>
         </div>
       </div>
     </section>
