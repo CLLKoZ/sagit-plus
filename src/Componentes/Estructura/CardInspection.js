@@ -1,17 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardText, CardBody, CardSubtitle} from 'reactstrap';
+import Icon from '@mdi/react';
+import * as mdi from '@mdi/js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilter,faCircleQuestion,faPersonDigging} from '@fortawesome/free-solid-svg-icons';
+import { faPersonDigging} from '@fortawesome/free-solid-svg-icons';
 import { getFieldValue, getFilledForm } from '../../Funciones/formInspection';
 import '../../Estilos/modalInspection.css';
+import PictureDialog from '../Vistas/PictureDialog';
 
 const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
   const [selectInspection, setSelectInspection] = useState();
   const [arrayInfo, setArrayInfo] = useState();
   let formato = null;
+
+  const handleClickOpenPhoto = (name) => {
+    this.setState({ image: name, showPictureDialog: true });
+  };
+
+  const handleClosePhoto = () => {
+    this.setState({ showPictureDialog: false });
+  };
+
   /*
     Este useEffect se utiliza para cambiar el estado de selectInspection cuando firstInspection o selectedInspection cambian
-    designando la primera inspeccion si no hay una inspeccin seleccionada todavia
+    designando la primera inspeccion si no hay una inspeccion seleccionada todavia
   */
   useEffect(() => {
     if (!selectedInspection) {
@@ -30,7 +42,7 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
       formato.sections.forEach((section, index) => {
         section.fields.forEach(field => {
           let value = getFieldValue(field);
-    
+
           if (Array.isArray(value)) 
             value = value.join(', ');
           
@@ -41,10 +53,11 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
             value = field.imageURI;
 
           if (value !== undefined && value !=='')
-            formu =  {
+            formu = {
               ...formu,
-              [field.options.webLabel]: value
+              [field.options.webLabel]:{value: value, type: field.type, icon: field.icon}
             }
+            
         });
         arraySection.push({section:`s${index}`, name: section.name, value: formu})
         formu = {}
@@ -53,34 +66,60 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
     }
   }, [firstInspection, selectedInspection, form])
 
+  function formatIconName(iconName) {
+    //Si no existe el icono en la librería
+    if (!iconName) {
+      return 'mdiHelpCircle';
+    }
+  
+    ///-(.)/g Busca cualquier guión seguido de cualquier carácter y captura ese carácter en un grupo, además de tomar en cuenta todas las coincidencias no solo la primera(global)
+    const formattedName = iconName.replace(/-(.)/g, (match, group1) => group1.toUpperCase());
+
+    //Concatena la palabra inicial con las coincidencias encontradas
+    return `mdi${formattedName.charAt(0).toUpperCase()}${formattedName.slice(1)}`;
+  }
   
   
   console.log(arrayInfo);
+  
   return (
     <section>
       { 
         arrayInfo ? (
-          arrayInfo.map((item) => (
-            <div>
-              <Card className="card-container">
+          arrayInfo.map((item, index) => (
+            <section>
+              <Card className="card-container" key={index}>
                 <CardHeader>{item.name}</CardHeader>
                   <CardBody className='card-content'>
                     {
-                      Object.keys(item.value).map((key, index) => (
-                        <Card className='card-elemento'>
-                          <div className='iconCard'>
-                            <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
-                          </div> 
-                          <div className='sub-Text'>
+                      Object.keys(item.value).map((key) => (
+                        <Card className='card-elemento' key={key}>
+                          <section className='iconCard'>
+                            <Icon path={mdi[formatIconName(item.value[key].icon)]} />
+                          </section>
+                          <section className='sub-Text'>
                             <CardSubtitle>{key}</CardSubtitle>
-                            <CardText>{Object.values(item.value)[index]}</CardText>
-                          </div>  
+                            {
+                              item.value[key].type === 'imageFS' ? (
+                                <img
+                                  style={{
+                                  width: "100px",
+                                  height: "100px",
+                                  }}
+                                  alt={key}
+                                  src={item.value[key].value}
+                                />
+                              ) : (
+                                <CardText>{item.value[key].value}</CardText>
+                              )
+                            }
+                          </section>
                         </Card>
                       ))
                     }
                 </CardBody>
               </Card>
-            </div>
+            </section>
           ))
         ):(
             <section className='Message-InspectionFull'>
@@ -93,42 +132,7 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
     </section>
   );
 };
-/*
-  {
-    <Card className="card-container">
-      <CardHeader>{section.sectionName}</CardHeader>
-        <CardBody className='card-content'>
-            {
-              section.items.map((item) => (
-                  item.fields === undefined ? (
-                    <Card className='card-elemento'>
-                      <div className='iconCard'>
-                        <FontAwesomeIcon icon={faFilter}></FontAwesomeIcon>
-                      </div> 
-                      <div className='sub-Text'>
-                        <CardSubtitle>{item.primaryText}</CardSubtitle>
-                        <CardText>{selectInspection._id}</CardText>
-                      </div>  
-                    </Card>
-                  ):(
-                      item.fields !== undefined ? (
-                        <Card className='card-elemento'>
-                          <div className='iconCard'>
-                            <FontAwesomeIcon icon={faCircleQuestion}></FontAwesomeIcon>
-                          </div> 
-                          <div className='sub-Text'>
-                            <CardSubtitle>{item.fields[0].options.webLabel}</CardSubtitle>
-                            <CardText>{selectInspection._id}</CardText>
-                          </div>
-                        </Card>
-                      ):('Algo salió mal')
-                    )
-              ))
-            }
-      </CardBody>
-    </Card>
-  }
-*/
+
 export default CardInspection;
 
 
