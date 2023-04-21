@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Axios from '../API/Axios';
-import {getCurrentUser} from './funciones';
+import {getCurrentUser} from './user';
 const Supervisor = ({inspectionID}) => {
   const [supervisor, setSupervisor] = useState(null);
 

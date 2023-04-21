@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import axios from '../API/Axios'
-import { getCurrentUser } from './funciones';
+import { getCurrentUser } from './user';
 import { debounce } from './utilidades';
 
 let formInspection = null
@@ -40,6 +40,76 @@ const setFormID = (id) =>{
   }
 }
 
+/* Aplica los filtros seleccionados en el panel
+filtro al los objectos de evaluación */
+const peticionFiltrada = (filtro, peticion) =>{
+  let bandera = true
+  let objectTemp = []
+  peticionReverse(peticion).forEach(item=>{
+    let inspectionTemp = []
+    item.inspection.forEach(ins => {
+      bandera = true
+      if(ins.inspectionFull.length > 0) {
+        filtro.forEach(fil => {
+          if (fil.type === 'select' && bandera) {
+            if (fil.value === ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
+              bandera = true;
+            } else {
+              bandera = false;
+            }
+          } else if (fil.type === 'checkBox' && bandera) {
+            if(ins.inspectionFull[0][`s${fil.section}`][fil.fieldName] === true) {
+              bandera = true;
+            } else {
+              bandera = false;
+            }
+          } else if (fil.type === 'multiCheckFS' && bandera){
+            bandera = false
+            if (ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
+              let multiArray = ins.inspectionFull[0][`s${fil.section}`][fil.fieldName].find((multi) => {
+                return multi === fil.value
+              })
+              if(multiArray) {
+                bandera = true;
+              }
+            }
+          }
+        })
+      }
+      if (bandera && ins.inspectionFull.length > 0){
+        inspectionTemp.push(ins)
+      }
+    })
+    if(inspectionTemp.length > 0){
+      let objectEvaluation = {
+        _id: item._id,
+        name: item.name,
+        address: item.address,
+        contacts: item.contacts,
+        eventHistory: item.eventHistory,
+        inspection: inspectionTemp,
+        isActive: item.isActive,
+        projects: item.projects,
+        type_object: item.type_object,
+      }
+      objectTemp.push(objectEvaluation);
+    }
+  })
+  return objectTemp;
+}
+
+/* Revierte las coordenadas ya que leaflet usa la
+latitud y longitud en diferente orden. */
+const peticionReverse = (peticion) =>{
+  return peticion.data.data.map(item=>{
+    let peticionTemp = Object.assign({}, item);
+    peticionTemp.address.location.coordinates = item.address.location.coordinates.reverse()
+    return peticionTemp
+  })
+}
+
+/* Cargar solo los Objetos de evaluación que se
+encuentran en la pantalla en ese momento */
 const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4, filtro) => {
   if (coor1){
     const headers = {
@@ -79,76 +149,14 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
           draggable: true,
           progress: undefined,
           theme: "dark",
-          });
+        });
       }
     })
-    const peticionReverse = () =>{
-      return peticion.data.data.map(item=>{
-        let peticionTemp = Object.assign({}, item);
-        peticionTemp.address.location.coordinates = item.address.location.coordinates.reverse()
-        return peticionTemp
-      })
-    }
-    let bandera = true
 
     if(filtro) {
-      const peticionFiltrada = () =>{
-        return peticionReverse().map(item=>{
-          let inspectionTemp = []
-          item.inspection.forEach((ins, index) => {
-            bandera = true
-            if(ins.inspectionFull.length > 0) {
-              filtro.forEach(fil => {
-                if (fil.type === 'select' && bandera) {
-                  if (fil.value === ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
-                    bandera = true;
-                  } else {
-                    bandera = false;
-                  }
-                } else if (fil.type === 'checkBox' && bandera) {
-                  if(ins.inspectionFull[0][`s${fil.section}`][fil.fieldName] === true) {
-                    bandera = true;
-                  } else {
-                    bandera = false;
-                  }
-                } else if (fil.type === 'multiCheckFS' && bandera){
-                  bandera = false
-                  if (ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
-                    let multiArray = ins.inspectionFull[0][`s${fil.section}`][fil.fieldName].find((multi) => {
-                      return multi === fil.value
-                    })
-                    if(multiArray) {
-                      bandera = true;
-                    }
-                  }
-                }
-              })
-            }
-            if (bandera && ins.inspectionFull.length > 0){
-              inspectionTemp.push(ins)
-            }
-          })
-          if(inspectionTemp.length > 0){
-            let objectEvaluation = {
-              _id: item._id,
-              name: item.name,
-              address: item.address,
-              contacts: item.contacts,
-              eventHistory: item.eventHistory,
-              inspection: inspectionTemp,
-              isActive: item.isActive,
-              projects: item.projects,
-              type_object: item.type_object,
-            }
-            return objectEvaluation
-          } else {
-            return undefined
-          }
-        })
-      }
-      state(peticionFiltrada())
+      state(peticionFiltrada(filtro, peticion))
     } else {
-      state(peticionReverse())
+      state(peticionReverse(peticion))
     }
   }
 });

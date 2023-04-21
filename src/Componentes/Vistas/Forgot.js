@@ -3,15 +3,18 @@ import { NavLink } from 'react-router-dom';
 
 import '../../Estilos/login.css';
 import Icon from '@mdi/react';
-import { mdiAccountHardHat, mdiArrowULeftBottomBold } from '@mdi/js';
+import { mdiAccountHardHat, mdiArrowULeftBottomBold, mdiLockQuestion } from '@mdi/js';
+import { forgotPassword } from '../../Funciones/user';
 
 const Forgot = () => {
 
   const userRef = useRef();
   const errRef = useRef();
+  const sccssRef = useRef();
 
   const [username, setUsername] = useState('');
   const [errMsg, setErrMsg] = useState('');
+  const [successMsg, setSuccessMsg] = useState('');
 
    /* Para que el enfoque caiga en el input de usuario */
   useEffect(() =>{
@@ -25,8 +28,26 @@ const Forgot = () => {
     setErrMsg('');
   }, [username]);
 
+  const tempSuccess = () => setTimeout(() => {
+    setSuccessMsg('');
+  }, 3000)
+
   const handleSubmit = async(e) =>{
     e.preventDefault();
+
+    forgotPassword(username).then(
+      () => {
+        setSuccessMsg('Revise su correo electronico');
+        setUsername('');
+        tempSuccess();
+      }
+    ).catch((error) => {
+      if (error.response.status === 500){
+        setErrMsg('Usuario no encontrado');
+      } else {
+        setErrMsg('Fallo interno en el servidor');
+      }
+    })
   }
 
   return (
@@ -35,6 +56,7 @@ const Forgot = () => {
         <div className='form-box login'>
           <h1 className="titulo">SAGIT</h1>
           <h3 className='pollito'>¿Olvidó su contraseña?</h3>
+          <p className='pollito'><Icon path={mdiLockQuestion} size={1.3} /></p>
           <form onSubmit={handleSubmit}>
             <div className='input-box'>
               <span className='icon'><Icon path={mdiAccountHardHat} size={1.2} /> </span>
@@ -54,6 +76,7 @@ const Forgot = () => {
             </div>
             <button className='boton'>Solicitar contraseña nueva</button>
             {/* Mensaje de error desplegable */}
+            <p ref={sccssRef} className={successMsg ? 'sccssmsg' : 'desaparece'}>{successMsg}</p>
             <p ref={errRef} className={errMsg ? 'errmsg' : 'desaparece'} aria-live='assertive'>{errMsg}</p>
           </form>
         </div>

@@ -1,8 +1,8 @@
 import React, {useEffect,useState} from 'react';
 import '../../Estilos/header.css'
-import { logOut } from '../../Funciones/funciones';
-import { NavLink } from 'react-router-dom';
-import { getCurrentUser } from '../../Funciones/funciones';
+import { logOut } from '../../Funciones/user';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { getCurrentUser } from '../../Funciones/user';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
 import { getCSV } from '../../Funciones/map';
 import { printCSV } from '../../Funciones/utilidades';
@@ -16,6 +16,8 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
   de los Dropdowns*/
   const [dropdownOpenReport, setDropdownOpenReport] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
+
+  const navigate = useNavigate();
 
   /* Esta funcion se encarga de cambiar el estado de los dropdowns*/
   const toggleDropdownReport = () => setDropdownOpenReport(!dropdownOpenReport);
@@ -92,7 +94,7 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
                   &nbsp;{getCurrentUser().session.username}
               </DropdownToggle>
               <DropdownMenu style={{zIndex: 1002}}>
-                <DropdownItem onClick={logOut}>
+                <DropdownItem onClick={()=>logOut(navigate)}>
                   <Icon path={mdiLogout} size={1} />
                   &nbsp;Cerrar Sesión
                 </DropdownItem>

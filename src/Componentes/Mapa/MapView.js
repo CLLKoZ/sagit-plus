@@ -23,6 +23,7 @@ const MapView = () =>{
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
+
   useEffect(() =>{
     if(mapRef){
       const NorthEast = mapRef.getBounds().getNorthEast();
@@ -71,7 +72,7 @@ const MapView = () =>{
               idForm={formInspection.id}
             />
           ) : (
-            <ToastContainer position="bottom-left"
+            <ToastContainer position="bottom-center"
               autoClose={3000}
               limit={3}
               hideProgressBar={false}
@@ -94,7 +95,6 @@ const MapView = () =>{
         <GetPolygon estado={setMarker} filtroMove={filtroMap}></GetPolygon>
         { markers != null ? (
           markers.map(marker=>(
-            marker !== undefined && (
             <div key={marker._id} >
               {
                 <Marker 
@@ -103,7 +103,7 @@ const MapView = () =>{
                   <Popup><span className='pop-up' onClick={() => {openModal(marker)}}>{marker.name}</span></Popup>
                 </Marker>
               }
-            </div>)
+            </div>
           ))
         ) : <div className='spinner'>
               <Spinner color='primary'>

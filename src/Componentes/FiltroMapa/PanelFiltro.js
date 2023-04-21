@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import '../../Estilos/panelFiltroMapa.css'
-import {getCurrentUser} from '../../Funciones/funciones'
+import {getCurrentUser} from '../../Funciones/user'
 import { setFormID } from '../../Funciones/ObjectEvaluation';
 import Axios from '../../API/Axios';
 import Filtros from './Filtros';

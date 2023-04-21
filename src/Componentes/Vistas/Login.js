@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { NavLink,  useNavigate } from "react-router-dom";
 import useAuth from "../Proveedores/useAuth";
 import '../../Estilos/login.css';
-import { login, getCurrentUser } from "../../Funciones/funciones";
+import { login, getCurrentUser } from "../../Funciones/user";
 import Icon from "@mdi/react";
 import { mdiAccountHardHat, mdiLock } from "@mdi/js";
 

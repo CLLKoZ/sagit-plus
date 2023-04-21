@@ -7,6 +7,8 @@ import RequireAuth from './Componentes/Proveedores/RequireAuth';
 import RedirectLogin from './Componentes/Proveedores/RedirectLogin';
 import NotFound from './Componentes/Vistas/NotFound';
 import Forgot from './Componentes/Vistas/Forgot';
+import NewPassword from './Componentes/Vistas/NewPassword';
+import { ErrorBoundary } from './Componentes/Proveedores/ErrorBoundary';
 
 function App() {
 
@@ -17,11 +19,12 @@ function App() {
           <Route element={<RedirectLogin/>}>
             <Route path='/login' element={<Login />} />
             <Route path='/forgot' element={<Forgot />} />
+            <Route path='/reiniciar-contra/:token' element={<NewPassword />} />
           </Route>
 
           {/* Rutas protegidas por autorización */}
           <Route element={<RequireAuth />}>
-            <Route path='/mapa' element={<MapView />}/>
+            <Route path='/mapa' element={<ErrorBoundary><MapView /></ErrorBoundary>}/>
             <Route element={<RedirectLogin />}>
               <Route path='/' element={<div></div>}/>
             </Route>

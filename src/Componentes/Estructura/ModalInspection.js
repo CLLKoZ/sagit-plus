@@ -3,7 +3,7 @@ import {Modal, ModalHeader, ModalBody, Spinner} from 'reactstrap';
 import CardInspection from '../Estructura/CardInspection';
 import MenuInspection from '../Estructura/MenuInspection';
 import Axios from '../../API/Axios';
-import {getCurrentUser} from '../../Funciones/funciones';
+import {getCurrentUser} from '../../Funciones/user';
 import '../../Estilos/modalInspection.css';
 
 const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {

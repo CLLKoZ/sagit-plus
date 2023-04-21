@@ -140,5 +140,17 @@
 }
 
 .pollito {
-    color: #FFD940
+    color: #fdde64
+}
+
+.sccssmsg {
+    color: white;
+    font-size: 1.2em;
+    font-weight: 900;
+    justify-content: center;
+    align-items: center;
+    transition: 0.5s ease;
+    padding: 5%;
+    margin:0 ;
+    backdrop-filter: blur(5px);
 }
