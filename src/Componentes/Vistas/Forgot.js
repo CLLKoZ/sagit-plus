@@ -56,7 +56,6 @@ const Forgot = () => {
         <div className='form-box login'>
           <h1 className="titulo">SAGIT</h1>
           <h3 className='pollito'>¿Olvidó su contraseña?</h3>
-          <p className='pollito'><Icon path={mdiLockQuestion} size={1.3} /></p>
           <form onSubmit={handleSubmit}>
             <div className='input-box'>
               <span className='icon'><Icon path={mdiAccountHardHat} size={1.2} /> </span>
@@ -72,7 +71,7 @@ const Forgot = () => {
               <label>&nbsp;Ingresar usuario</label>
             </div>
             <div className='forgot'>  
-              <NavLink to='/login'>&nbsp;Regresar al login <Icon path={mdiArrowULeftBottomBold} size={1.1} /></NavLink>
+              <NavLink to='/login'>&nbsp;Regresar <Icon path={mdiArrowULeftBottomBold} size={1.1} /></NavLink>
             </div>
             <button className='boton'>Solicitar contraseña nueva</button>
             {/* Mensaje de error desplegable */}

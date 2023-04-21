@@ -8,7 +8,7 @@ import { getCSV } from '../../Funciones/map';
 import { printCSV } from '../../Funciones/utilidades';
 import TimeOut from '../Layouts/TimeOut';
 import Icon from '@mdi/react';
-import { mdiAccountCircle, mdiFileDocument, mdiFilterCog, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
+import { mdiAccountCircle, mdiFileDocument, mdiFilterCog, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {
@@ -69,7 +69,7 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
           {
             !hideElement &&
             <label htmlFor='btnFiltro' className="filtro">
-              <Icon path={mdiFilterCog} size={1} />
+              <Icon path={mdiFilterMultiple} size={1} />
               &nbsp;Filtros
             </label>
           }

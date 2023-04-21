@@ -73,7 +73,7 @@ const MapView = () =>{
             />
           ) : (
             <ToastContainer position="bottom-center"
-              autoClose={3000}
+              autoClose={5000}
               limit={3}
               hideProgressBar={false}
               newestOnTop={false}

@@ -35,7 +35,7 @@ const NewPassword = () => {
 
   const redirectSuccess = () => setTimeout(() => {
     navigate('/login')
-  }, 3000);
+  }, 5000);
 
   const handleSubmit = async(e) =>{
     e.preventDefault();
@@ -64,7 +64,7 @@ const NewPassword = () => {
     <div className='principal'>
       <ToastContainer
         position="bottom-center"
-        autoClose={3000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -102,10 +102,10 @@ const NewPassword = () => {
               value={repPassword}
               required
               />
-              <label>&nbsp;Repita su contraseña</label>
+              <label>&nbsp;Confirmación de contraseña</label>
             </div>
             <div className='forgot'>  
-              <NavLink to='/login'>&nbsp;Regresar al login <Icon path={mdiArrowULeftBottomBold} size={1.1} /></NavLink>
+              <NavLink to='/login'>&nbsp;Regresar <Icon path={mdiArrowULeftBottomBold} size={1.1} /></NavLink>
             </div>
             <button className='boton'>Actualizar contraseña</button>
             {/* Mensaje de error desplegable */}

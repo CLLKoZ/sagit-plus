@@ -20,7 +20,7 @@ const NotFound = () => {
         <p className='title-found'><Icon path={mdiGhost} size={1.5} /> Error 404 <Icon path={mdiGhost} size={1.5} /></p>
         <p className='texto-found'>La pagina que está intentando visitar no tiene ningún contenido</p>
         <div className='link-container'>
-          <NavLink className={'link-found'} to='/mapa' >Regresar al mapa</NavLink>
+          <NavLink className={'link-found'} to='/mapa' >Regresar al inicio</NavLink>
         </div>
       </div>
     </section>

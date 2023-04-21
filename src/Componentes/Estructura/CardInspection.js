@@ -9,8 +9,8 @@ import '../../Estilos/modalInspection.css';
 import PictureDialog from '../Vistas/PictureDialog';
 
 const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
-  const [selectInspection, setSelectInspection] = useState();
-  const [arrayInfo, setArrayInfo] = useState();
+  const [selectInspection, setSelectInspection] = useState(null);
+  const [arrayInfo, setArrayInfo] = useState(null);
   let formato = null;
 
   const handleClickOpenPhoto = (name) => {
@@ -32,8 +32,11 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
         formato = getFilledForm(firstInspection, form);
     } else {
       setSelectInspection(selectedInspection)
-      if (selectedInspection.inspectionFull.length > 0)
+      if (selectedInspection.inspectionFull.length > 0) {
         formato = getFilledForm(selectedInspection, form);
+      } else {
+        setArrayInfo(null)
+      }
     }
 
     if (formato){
@@ -45,10 +48,10 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
 
           if (Array.isArray(value)) 
             value = value.join(', ');
-          
+
           if (typeof value === "boolean")
             value = (value) ? "Si" : "No";
-    
+
           if (field.value && field.type === "imageFS")
             value = field.imageURI;
 
@@ -79,54 +82,55 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
     //Concatena la palabra inicial con las coincidencias encontradas
     return `mdi${formattedName.charAt(0).toUpperCase()}${formattedName.slice(1)}`;
   }
-  
-  
-  
-  console.log(arrayInfo);
+
   return (
     <section>
       { 
         arrayInfo ? (
+          arrayInfo.length > 0 ? (
           arrayInfo.map((item, index) => (
-            <section>
-              <Card className="card-container" key={index}>
-                <CardHeader>{item.name}</CardHeader>
-                  <CardBody className='card-content'>
-                    {
-                      Object.keys(item.value).map((key) => (
-                        <Card className='card-elemento' key={key}>
-                          <section className='iconCard'>
-                            <Icon path={mdi[formatIconName(item.value[key].icon)]} />
-                          </section>
-                          <section className='sub-Text'>
-                            <CardSubtitle>{key}</CardSubtitle>
-                            {
-                              item.value[key].type === 'imageFS' ? (
-                                <img
-                                  style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  }}
-                                  alt={key}
-                                  src={item.value[key].value}
-                                />
-                              ) : (
-                                <CardText>{item.value[key].value}</CardText>
-                              )
-                            }
-                          </section>
-                        </Card>
-                      ))
-                    }
-                </CardBody>
-              </Card>
+            <Card className="card-container" key={index}>
+              <CardHeader>{item.name}</CardHeader>
+                <CardBody className='card-content'>
+                  {
+                    Object.keys(item.value).map((key) => (
+                      <Card className='card-elemento' key={key}>
+                        <section className='iconCard'>
+                          <Icon path={mdi[formatIconName(item.value[key].icon)]} />
+                        </section>
+                        <section className='sub-Text'>
+                          <CardSubtitle>{key}</CardSubtitle>
+                          {
+                            item.value[key].type === 'imageFS' ? (
+                              <img
+                                style={{
+                                width: "100px",
+                                height: "100px",
+                                }}
+                                alt={key}
+                                src={item.value[key].value}
+                              />
+                            ) : (
+                              <CardText>{item.value[key].value}</CardText>
+                            )
+                          }
+                        </section>
+                      </Card>
+                    ))
+                  }
+              </CardBody>
+            </Card>
+          ))) : (
+            <section className='Message-InspectionFull'>
+              <FontAwesomeIcon className='Message-InspectionFull-Icon' icon={faPersonDigging}></FontAwesomeIcon>
+              <p>No se ingresó información en la inspección</p>
             </section>
-          ))
+          )
         ):(
             <section className='Message-InspectionFull'>
               <FontAwesomeIcon className='Message-InspectionFull-Icon' icon={faPersonDigging}></FontAwesomeIcon>
-              <p>La inspección seleccionada está en progreso.</p>
-              <p>Seleccione una inspección finalizada.</p>
+              <p>La inspección seleccionada está en progreso</p>
+              <p>Seleccione una inspección finalizada</p>
             </section>
           )
       }
@@ -135,12 +139,3 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
 };
 
 export default CardInspection;
-
-
-
-
-
-
-
-
-

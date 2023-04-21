@@ -65,22 +65,22 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
       <input type="checkbox" id="btnFiltro"/>
       <div className='container-filtro'>
         <div className='cont-filtro'>
-          <div className='formulario'>
-            <label className='labelFiltro'>Formularios:</label>
-            <select className='selectFiltro' onChange={e => {
-              setSelects(e.target.value)
-              if(e.target.value === "") {
-                setFormFiltro(null)
-                state(null)
-              }}}>
-              <option value="" key="" >Seleccione una opción</option>
-              {
-                forms != null && (forms.map(form=>(
-                  <option value={form._id} key={form._id}>{form.name}</option>
-                )))
-              }
-            </select>
-          </div>
+        <div className='formulario'>
+          <label className='labelFiltro'>Formularios:</label>
+          <select className='selectFiltro' onChange={e => {
+            setSelects(e.target.value)
+            if(e.target.value === "") {
+              setFormFiltro(null)
+              state(null)
+            }}}>
+            <option value="" key="" >Seleccione una opción</option>
+            {
+              forms != null && (forms.map(form=>(
+                <option value={form._id} key={form._id}>{form.name}</option>
+              )))
+            }
+          </select>
+        </div>
           <div className='filtro-select'>
             <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter} setChangePanel={setChange}/>
           </div>
