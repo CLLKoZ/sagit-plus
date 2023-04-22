@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import '../../Estilos/login.css';
 import Icon from '@mdi/react';
-import { mdiAccountHardHat, mdiArrowULeftBottomBold, mdiLockQuestion } from '@mdi/js';
+import { mdiAccountHardHat, mdiArrowULeftBottomBold} from '@mdi/js';
 import { forgotPassword } from '../../Funciones/user';
 
 const Forgot = () => {

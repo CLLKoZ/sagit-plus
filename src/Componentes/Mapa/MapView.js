@@ -1,11 +1,11 @@
 import React, { useEffect, useState} from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
-import Header from '../Estructura/Header';
-import PanelFiltroMapa from '../FiltroMapa/PanelFiltro';
+import Header from '../Estructura/Header/Header';
+import PanelFiltroMapa from '../Estructura/FilterMap/PanelFilter';
 import { getObjectEvaluationByViewPort, markerCounter } from '../../Funciones/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../Funciones/map';
-import ModalInspection from '../Estructura/ModalInspection';
+import ModalInspection from '../Estructura/MadeInspection/ModalInspection';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'leaflet/dist/leaflet.css';

@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import '../../Estilos/panelFiltroMapa.css'
-import {getCurrentUser} from '../../Funciones/user'
-import { setFormID } from '../../Funciones/ObjectEvaluation';
-import Axios from '../../API/Axios';
+import {getCurrentUser} from '../../../Funciones/user'
+import { setFormID } from '../../../Funciones/ObjectEvaluation';
+import Axios from '../../../API/Axios';
 import Filtros from './Filtros';
 import Icon from '@mdi/react';
 import { mdiCloseCircle } from '@mdi/js';
+import '../../../Estilos/panel.css'
 
 const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
-
   const [forms, setForms] = useState(null);
   const [selects, setSelects] = useState();
   const [formFiltro, setFormFiltro] = useState(null);

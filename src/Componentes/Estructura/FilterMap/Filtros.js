@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import '../../Estilos/filtro.css'
+import '../../../Estilos/filtro.css'
 import 'bootstrap/dist/css/bootstrap.css'
 
 const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
