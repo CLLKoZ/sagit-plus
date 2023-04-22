@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import '../../Estilos/login.css';
+import '../../../Styles/login.css';
 import Icon from '@mdi/react';
 import { mdiAccountHardHat, mdiArrowULeftBottomBold} from '@mdi/js';
-import { forgotPassword } from '../../Funciones/user';
+import { forgotPassword } from '../../../Functions/user';
 
 const Forgot = () => {
 

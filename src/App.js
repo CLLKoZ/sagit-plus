@@ -1,14 +1,14 @@
-import './Estilos/App.css';
+import './Styles/App.css';
 import { Routes, Route } from 'react-router-dom';
-import MapView from './Componentes/Mapa/MapView';
-import Login from './Componentes/Vistas/Login';
-import Layout from './Componentes/Layouts/Layout';
-import RequireAuth from './Componentes/Proveedores/RequireAuth';
-import RedirectLogin from './Componentes/Proveedores/RedirectLogin';
-import NotFound from './Componentes/Vistas/NotFound';
-import Forgot from './Componentes/Vistas/Forgot';
-import NewPassword from './Componentes/Vistas/NewPassword';
-import { ErrorBoundary } from './Componentes/Proveedores/ErrorBoundary';
+import MapView from './Components/Views/Map/MapView';
+import Login from './Components/Views/Sessions/Login';
+import Layout from './Components/Layouts/Layout';
+import RequireAuth from './Components/Providers/RequireAuth';
+import RedirectLogin from './Components/Providers/RedirectLogin';
+import NotFound from './Components/Views/General/NotFound';
+import Forgot from './Components/Views/Sessions/Forgot';
+import NewPassword from './Components/Views/Sessions/NewPassword';
+import { ErrorBoundary } from './Components/Providers/ErrorBoundary';
 
 function App() {
 

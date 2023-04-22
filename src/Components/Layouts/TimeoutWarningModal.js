@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
-import '../../Estilos/timeOutModal.css'
+import '../../Styles/timeOutModal.css'
 import Icon from '@mdi/react';
 import { mdiClockOutline, mdiLogout } from '@mdi/js';
 

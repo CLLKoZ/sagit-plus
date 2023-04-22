@@ -25,7 +25,7 @@ export function GetPolygon({estado, filtroMove}){
 export const getIconMarker = (marker) =>{
 
   try{
-    let icono = require(`../Imagenes/Marcadores/${marker}-marker-base-blue.png`);
+    let icono = require(`../Images/Markers/${marker}-marker-base-blue.png`);
     const customIcon = new Icon({
       iconUrl: icono,
       iconSize: [25, 32]
@@ -33,7 +33,7 @@ export const getIconMarker = (marker) =>{
     return customIcon
   }catch {
     const customIcon = new Icon({
-      iconUrl: require(`../Imagenes/Marcadores/domain-marker-base-blue.png`),
+      iconUrl: require(`../Images/Markers/domain-marker-base-blue.png`),
       iconSize: [25, 32]
     })
     return customIcon

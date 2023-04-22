@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import '../../Estilos/notFound.css'
-import Header from '../Estructura/Header/Header';
+import '../../../Styles/notFound.css'
+import Header from '../../Structure/Header/Header';
 import { NavLink } from 'react-router-dom';
 import Icon from '@mdi/react';
 import { mdiGhost } from '@mdi/js';

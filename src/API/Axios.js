@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCurrentUser } from '../Funciones/user';
+import { getCurrentUser } from '../Functions/user';
 
 const BASE_URL = 'http://168.232.50.15/v1/'
 

@@ -1,15 +1,15 @@
 import React, { useEffect, useState} from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
-import Header from '../Estructura/Header/Header';
-import PanelFiltroMapa from '../Estructura/FilterMap/PanelFilter';
-import { getObjectEvaluationByViewPort, markerCounter } from '../../Funciones/ObjectEvaluation';
-import { getIconMarker, GetPolygon } from '../../Funciones/map';
-import ModalInspection from '../Estructura/MadeInspection/ModalInspection';
+import Header from '../../Structure/Header/Header';
+import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
+import { getObjectEvaluationByViewPort, markerCounter } from '../../../Functions/ObjectEvaluation';
+import { getIconMarker, GetPolygon } from '../../../Functions/map';
+import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
 import { ToastContainer, toast } from 'react-toastify';
 
 import 'leaflet/dist/leaflet.css';
-import '../../Estilos/mapa.css';
+import '../../../Styles/mapa.css';
 import 'react-toastify/dist/ReactToastify.css';
 
 const MapView = () =>{

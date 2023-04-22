@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { addEventListeners, removeEventListeners } from '../Proveedores/EventListeners';
+import { addEventListeners, removeEventListeners } from '../Providers/EventListeners';
 import TimeoutWarningModal from './TimeoutWarningModal';
 
 const TimeOut = () => {
