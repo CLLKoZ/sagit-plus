@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { NavLink, useNavigate, useParams } from 'react-router-dom';
 
-import '../../Estilos/login.css';
+import '../../../Styles/login.css';
 import Icon from '@mdi/react';
 import { mdiArrowULeftBottomBold, mdiLock, mdiLockReset } from '@mdi/js';
-import { newPassword } from '../../Funciones/user';
+import { newPassword } from '../../../Functions/user';
 import { ToastContainer, toast } from 'react-toastify';
 
 const NewPassword = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Accordion,AccordionHeader,AccordionItem,} from 'reactstrap';
-import Supervisor from '../../../Funciones/Supervisor';
+import Supervisor from '../../../Functions/Supervisor';
 
 /*Se pasa el Parametro ins que es la inspeccion seleccionada en el mapa
   También Pasamos como un parametro al componente MenuInspection la función handleOptionMenuClick para obtener el id de la seleccion

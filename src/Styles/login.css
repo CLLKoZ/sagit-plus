@@ -3,7 +3,7 @@
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: url('../Imagenes/Fondo/wallpaper.jpg') no-repeat;
+    background: url('../Images/Background/wallpaper.jpg') no-repeat;
     background-size: cover;
     background-position: center;
 }

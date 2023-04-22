@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../Estilos/panel.css'
+import '../../Styles/panel.css'
 import Icon from '@mdi/react';
 import { mdiCloseCircle } from '@mdi/js';
 

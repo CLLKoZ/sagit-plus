@@ -4,7 +4,7 @@ import Icon from '@mdi/react';
 import * as mdi from '@mdi/js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPersonDigging} from '@fortawesome/free-solid-svg-icons';
-import { getFieldValue, getFilledForm } from '../../../Funciones/formInspection';
+import { getFieldValue, getFilledForm } from '../../../Functions/formInspection';
 
 const CardInspection = ({form, selectedInspection=null, firstInspection, handlePropsImage, handleClickOpenImage}) => {
   const [selectInspection, setSelectInspection] = useState(null);

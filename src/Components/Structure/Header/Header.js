@@ -1,14 +1,14 @@
 import React, {useEffect,useState} from 'react';
-import { logOut } from '../../../Funciones/user';
+import { logOut } from '../../../Functions/user';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../../../Funciones/user';
+import { getCurrentUser } from '../../../Functions/user';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
-import { getCSV } from '../../../Funciones/map';
-import { printCSV } from '../../../Funciones/utilidades';
+import { getCSV } from '../../../Functions/map';
+import { printCSV } from '../../../Functions/utilidades';
 import TimeOut from '../../Layouts/TimeOut';
 import Icon from '@mdi/react';
 import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
-import '../../../Estilos/header.css'
+import '../../../Styles/header.css'
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {

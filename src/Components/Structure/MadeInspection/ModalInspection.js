@@ -3,9 +3,9 @@ import {Modal, ModalHeader, ModalBody, Spinner} from 'reactstrap';
 import FieldInspection from './FieldInspection';
 import MenuInspection from './MenuInspection';
 import Axios from '../../../API/Axios';
-import {getCurrentUser} from '../../../Funciones/user';
+import {getCurrentUser} from '../../../Functions/user';
 import DeployImage from './DeployImage';
-import '../../../Estilos/madeInspection.css';
+import '../../../Styles/madeInspection.css';
 
 const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
   const [currentInspection, setCurrentInspection] = useState(null);
