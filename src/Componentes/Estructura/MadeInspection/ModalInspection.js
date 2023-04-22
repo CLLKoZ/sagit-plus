@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import {Modal, ModalHeader, ModalBody, Spinner} from 'reactstrap';
-import CardInspection from '../Estructura/CardInspection';
-import MenuInspection from '../Estructura/MenuInspection';
-import Axios from '../../API/Axios';
-import {getCurrentUser} from '../../Funciones/user';
-import '../../Estilos/modalInspection.css';
+import FieldInspection from './FieldInspection';
+import MenuInspection from './MenuInspection';
+import Axios from '../../../API/Axios';
+import {getCurrentUser} from '../../../Funciones/user';
+import DeployImage from './DeployImage';
+import '../../../Estilos/madeInspection.css';
 
 const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
   const [currentInspection, setCurrentInspection] = useState(null);
   const [currentForm, setCurrentForm] = useState(null); 
   const [optionMenu, setOptionMenu] = useState(null); //Este estado guarda la inspeccion seleccionada en el menu
+  const [showImage, setShowImage] = useState(false); //Este estado guarda el booleano para mostrar la imagen en grande
+  const [propsImage, setPropsImage] = useState ([]); //Este estado guarda las propiedades de la imagen
 
   /* Este useEffect se utiliza para cambiar el estado de optionMenu y currentInspection cada vez que el parametro inspectionModal cambie */
   useEffect(()=>{
     setCurrentInspection(inspectionModal)
     setOptionMenu(null)
   }, [inspectionModal])
+
+  const closeImage=()=>{
+    setShowImage(!showImage);
+  };
 
   /* Este useEffect se utiliza para cambiar el estado de currentForm cada vez que cambia el parámetro idForm */
   useEffect(()=>{
@@ -42,31 +49,22 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
     getCurrentForm();
   }, [idForm])
 
-  //console.log(currentInspection);
-  //console.log(currentForm[0].sections[1].items[1].options.webLabel);
   return (
     <section>
       { 
-        /*
-          Aqui se renderiza la información que se presenta en el modal al querer ver un punto de inspección
-          En el componente MenuInspection se pasan los siguiente parámetros:
-            ins = El arreglo de inspecciones del objeto de evaluacion actual
-            handleOptionMenuClick = La funcion que obtendrá la inspeccion seleccionada en el menu
-          En el componente CardInspection se pasan los siguientes parámetros:
-            selectedInspection = Es la inspeccion seleccionada en el menu que fue obtenida con la funcion handleOptionMenuClick en el componente MenuInspection
-            firstInspection = Manda la última inspeccion del arreglo de inspecciones, debido a que en la vista se muestran de forma descendente,
-                              y por lo tanto se desea que la primera inspeccion esté activa
-        */
+        /* Aqui se renderiza la información que se presenta en el modal al querer ver un punto de inspección*/
         currentInspection ?
-          (<Modal centered isOpen={isOpenM} toggle={toggleM}>
+          (<Modal className='modal-Inspection' centered isOpen={isOpenM} toggle={toggleM}>
             <ModalHeader toggle={toggleM}>
               Inspecciones de {currentInspection.name} en el formulario {currentForm[0].name}
             </ModalHeader>
             <ModalBody>
-              <div className='menu-inspection'><MenuInspection ins={currentInspection.inspection} handleOptionMenuClick={setOptionMenu}/></div>
-              <div className='bloc-inspection'><CardInspection form={currentForm[0]} selectedInspection={optionMenu} firstInspection={currentInspection.inspection[currentInspection.inspection.length-1]}/></div>
+              <section className='menu-inspection'><MenuInspection ins = {currentInspection.inspection} handleOptionMenuClick = {setOptionMenu}/></section>
+              <section className='bloc-inspection'><FieldInspection form = {currentForm[0]} selectedInspection = {optionMenu} firstInspection = {currentInspection.inspection[currentInspection.inspection.length-1]} handlePropsImage = {setPropsImage} handleClickOpenImage = {setShowImage}/></section>
+              <section><DeployImage imageName = {propsImage[0]} imageSrc = {propsImage[1]} isOpenI={showImage} toggleI={closeImage}/></section>
             </ModalBody>
-          </Modal>) : (
+          </Modal>
+          ) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>
             <Spinner color={'primary'}></Spinner>
           </Modal>)

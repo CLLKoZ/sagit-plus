@@ -1,4 +1,4 @@
-import './App.css';
+import './Estilos/App.css';
 import { Routes, Route } from 'react-router-dom';
 import MapView from './Componentes/Mapa/MapView';
 import Login from './Componentes/Vistas/Login';

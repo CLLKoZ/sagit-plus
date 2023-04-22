@@ -4,21 +4,17 @@ import Icon from '@mdi/react';
 import * as mdi from '@mdi/js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPersonDigging} from '@fortawesome/free-solid-svg-icons';
-import { getFieldValue, getFilledForm } from '../../Funciones/formInspection';
-import '../../Estilos/modalInspection.css';
-import PictureDialog from '../Vistas/PictureDialog';
+import { getFieldValue, getFilledForm } from '../../../Funciones/formInspection';
 
-const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
+const CardInspection = ({form, selectedInspection=null, firstInspection, handlePropsImage, handleClickOpenImage}) => {
   const [selectInspection, setSelectInspection] = useState(null);
   const [arrayInfo, setArrayInfo] = useState(null);
   let formato = null;
 
-  const handleClickOpenPhoto = (name) => {
-    this.setState({ image: name, showPictureDialog: true });
-  };
-
-  const handleClosePhoto = () => {
-    this.setState({ showPictureDialog: false });
+  /* Ayda a pasar los parametros de la imagen cuando se le da clic y se indica la activación del modal para ver la imagen en grande*/
+  const setShowImage= (nombre, root) => {
+    handleClickOpenImage(true);
+    handlePropsImage([nombre, root]);
   };
 
   /*
@@ -70,20 +66,20 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
     }
   }, [firstInspection, selectedInspection, form])
 
+  /* Función para dar formato del nombre de iconos de acuerdo a Material UI*/
   function formatIconName(iconName) {
     //Si no existe el icono en la librería
     if (!iconName) {
       return 'mdiHelpCircle';
     }
-  
-    ///-(.)/g Busca cualquier guión seguido de cualquier carácter y captura ese carácter en un grupo, además de tomar en cuenta todas las coincidencias no solo la primera(global)
+      ///-(.)/g Busca cualquier guión seguido de cualquier carácter y captura ese carácter en un grupo, además de tomar en cuenta todas las coincidencias no solo la primera(global)
     const formattedName = iconName.replace(/-(.)/g, (match, group1) => group1.toUpperCase());
-
     //Concatena la palabra inicial con las coincidencias encontradas
     return `mdi${formattedName.charAt(0).toUpperCase()}${formattedName.slice(1)}`;
   }
 
   return (
+    /* Aqui se renderiza la información de lo que se llenó en la inspección*/
     <section>
       { 
         arrayInfo ? (
@@ -102,14 +98,7 @@ const CardInspection = ({form, selectedInspection=null, firstInspection}) => {
                           <CardSubtitle>{key}</CardSubtitle>
                           {
                             item.value[key].type === 'imageFS' ? (
-                              <img
-                                style={{
-                                width: "100px",
-                                height: "100px",
-                                }}
-                                alt={key}
-                                src={item.value[key].value}
-                              />
+                              <img alt={key} src={item.value[key].value} onClick={() => {setShowImage(key, item.value[key].value)}}/>
                             ) : (
                               <CardText>{item.value[key].value}</CardText>
                             )

@@ -1,14 +1,14 @@
 import React, {useEffect,useState} from 'react';
-import '../../Estilos/header.css'
-import { logOut } from '../../Funciones/user';
+import { logOut } from '../../../Funciones/user';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../../Funciones/user';
+import { getCurrentUser } from '../../../Funciones/user';
 import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
-import { getCSV } from '../../Funciones/map';
-import { printCSV } from '../../Funciones/utilidades';
-import TimeOut from '../Layouts/TimeOut';
+import { getCSV } from '../../../Funciones/map';
+import { printCSV } from '../../../Funciones/utilidades';
+import TimeOut from '../../Layouts/TimeOut';
 import Icon from '@mdi/react';
-import { mdiAccountCircle, mdiFileDocument, mdiFilterCog, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
+import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
+import '../../../Estilos/header.css'
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {
