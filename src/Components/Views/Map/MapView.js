@@ -11,7 +11,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'leaflet/dist/leaflet.css';
 import '../../../Styles/mapa.css';
 import 'react-toastify/dist/ReactToastify.css';
-import { useErrorBoundary } from 'react-error-boundary';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
@@ -19,10 +18,7 @@ const MapView = () =>{
   const [formInspection, setFormInspection] = useState(null);
   const [inspection, setInspection] = useState(null);
   const [filtroMap, setFiltroMap] = useState(null);
-  const [change, setChange] = useState(false);
   const [counter, setCounter] = useState(null);
-
-  const { showError } = useErrorBoundary();
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
@@ -65,7 +61,7 @@ const MapView = () =>{
     <section>
       <div>
         <Header evaluationHeader={markers} form={formInspection} counter={counter}/>
-        <PanelFiltroMapa state={setFormInspection} setFiltro={setFiltroMap} setChangeMap={setChange}/>
+        <PanelFiltroMapa state={setFormInspection} setFiltro={setFiltroMap}/>
         {
           formInspection ? (
             <ModalInspection 

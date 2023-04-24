@@ -3,7 +3,7 @@ import '../../../Styles/filtro.css'
 import 'bootstrap/dist/css/bootstrap.css'
 import { isExclude, saveFilterCheck, saveFilterMultiCheck, saveFilterSelect } from '../../../Functions/filters';
 
-const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
+const Filtros = ({formFiltro, setFilter}) => {
 
   const [itemsFilter, setItemsFilter] = useState([]);
   const [exclude, setExclude] = useState([]);
@@ -26,15 +26,10 @@ const Filtros = ({formFiltro, setFilter, setChangePanel}) => {
   }, [formFiltro])
 
   useEffect(() => {
-    console.log(exclude)
     if (exclude)
       if(exclude.length === 0)
         setExclude(null)
   }, [exclude])
-
-  useEffect(() => {
-    console.log(itemsFilter)
-  }, [itemsFilter])
 
   return (
     <>

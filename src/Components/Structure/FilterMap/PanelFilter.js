@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {getCurrentUser} from '../../../Functions/user'
 import { setFormID } from '../../../Functions/ObjectEvaluationTest';
 import Axios from '../../../API/Axios';
-import Filtros from './FiltresTest';
+import Filtros from './FiltersTest';
 import Icon from '@mdi/react';
 import { mdiCloseCircle } from '@mdi/js';
 import '../../../Styles/panel.css'
@@ -12,16 +12,14 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
   const [selects, setSelects] = useState();
   const [formFiltro, setFormFiltro] = useState(null);
   const [currentFilter, setCurrentFilter] = useState(null);
-  const [change, setChange] = useState(false);
 
   useEffect(() => {
     setForms(getCurrentUser().session.forms)
   }, []);
 
   useEffect(() => {
-    setChangeMap(change)
     setFiltro(currentFilter)
-  }, [currentFilter, setFiltro, change, setChangeMap])
+  }, [currentFilter, setFiltro, setChangeMap])
 
   useEffect(() =>{
     setFormID(selects)
@@ -81,7 +79,7 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
           </select>
         </div>
           <div className='filtro-select'>
-            <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter} setChangePanel={setChange}/>
+            <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter}/>
           </div>
           <label htmlFor='btnFiltro' className='closeFiltro'><Icon path={mdiCloseCircle} size={1.4} /></label>
         </div>
