@@ -1,5 +1,5 @@
 import { useMapEvents } from 'react-leaflet';
-import { getObjectEvaluationByViewPort } from './ObjectEvaluation';
+import { getObjectEvaluationByViewPort } from './ObjectEvaluationTest';
 import { Icon } from 'leaflet';
 import { getFieldValue, getFilledForm } from './formInspection';
 

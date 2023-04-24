@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
 import Header from '../../Structure/Header/Header';
 import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
-import { getObjectEvaluationByViewPort, markerCounter } from '../../../Functions/ObjectEvaluation';
+import { getObjectEvaluationByViewPort, markerCounter } from '../../../Functions/ObjectEvaluationTest';
 import { getIconMarker, GetPolygon } from '../../../Functions/map';
 import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
 import { ToastContainer, toast } from 'react-toastify';
@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'leaflet/dist/leaflet.css';
 import '../../../Styles/mapa.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { useErrorBoundary } from 'react-error-boundary';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
@@ -20,6 +21,8 @@ const MapView = () =>{
   const [filtroMap, setFiltroMap] = useState(null);
   const [change, setChange] = useState(false);
   const [counter, setCounter] = useState(null);
+
+  const { showError } = useErrorBoundary();
 
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
@@ -36,7 +39,7 @@ const MapView = () =>{
         getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
       }
     }
-  }, [mapRef, formInspection, filtroMap, change])
+  }, [mapRef, formInspection, filtroMap])
 
   useEffect(() => {
     document.title = "SAGIT | Mapa"

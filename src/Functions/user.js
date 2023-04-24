@@ -18,12 +18,12 @@ const login = async (username, password) => {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true
     });
-  const session = {
+  const session = Object.freeze({
     username: response.data.data.user[0].username,
     token: `Bearer ${response.data.token}`,
     nombre: response.data.data.user[0].firstName,
     forms: response.data.data.forms
-  };
+  });
   if (response.data.token) {
     localStorage.setItem("loggedUser", JSON.stringify({ session }));
   }

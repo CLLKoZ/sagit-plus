@@ -7,7 +7,6 @@ import { faPersonDigging} from '@fortawesome/free-solid-svg-icons';
 import { getFieldValue, getFilledForm } from '../../../Functions/formInspection';
 
 const CardInspection = ({form, selectedInspection=null, firstInspection, handlePropsImage, handleClickOpenImage}) => {
-  const [selectInspection, setSelectInspection] = useState(null);
   const [arrayInfo, setArrayInfo] = useState(null);
   let formato = null;
 
@@ -23,11 +22,10 @@ const CardInspection = ({form, selectedInspection=null, firstInspection, handleP
   */
   useEffect(() => {
     if (!selectedInspection) {
-      setSelectInspection(firstInspection)
       if (firstInspection.inspectionFull.length > 0)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         formato = getFilledForm(firstInspection, form);
     } else {
-      setSelectInspection(selectedInspection)
       if (selectedInspection.inspectionFull.length > 0) {
         formato = getFilledForm(selectedInspection, form);
       } else {

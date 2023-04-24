@@ -8,7 +8,6 @@ import RedirectLogin from './Components/Providers/RedirectLogin';
 import NotFound from './Components/Views/General/NotFound';
 import Forgot from './Components/Views/Sessions/Forgot';
 import NewPassword from './Components/Views/Sessions/NewPassword';
-import { ErrorBoundary } from './Components/Providers/ErrorBoundary';
 
 function App() {
 
@@ -24,7 +23,7 @@ function App() {
 
           {/* Rutas protegidas por autorización */}
           <Route element={<RequireAuth />}>
-            <Route path='/mapa' element={<ErrorBoundary><MapView /></ErrorBoundary>}/>
+            <Route path='/mapa' element={<MapView />}/>
             <Route element={<RedirectLogin />}>
               <Route path='/' element={<div></div>}/>
             </Route>
