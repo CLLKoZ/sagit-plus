@@ -1,6 +1,6 @@
 import { toast } from 'react-toastify';
 import axios from '../API/Axios'
-import { getCurrentUser } from './user';
+import { getCurrentUser, logOutNoHook } from './user';
 import { debounce } from './utilidades';
 
 let formInspection = null
@@ -65,20 +65,32 @@ const peticionFiltrada = (filtro, peticion) =>{
             }
           } else if (fil.type === 'multiCheckFS' && bandera){
             bandera = false
+            let valueLength = fil.value.length
+            let isIncludeCounter = 0
             if (ins.inspectionFull[0][`s${fil.section}`][fil.fieldName]) {
-              let multiArray = ins.inspectionFull[0][`s${fil.section}`][fil.fieldName].find((multi) => {
-                return multi === fil.value
-              })
-              if(multiArray) {
-                bandera = true;
+              // Evalua si es un multicheck incluyente o excluyente
+              if (fil.isExclude) {
+                fil.value.forEach(val => {
+                  let multiArray = ins.inspectionFull[0][`s${fil.section}`][fil.fieldName].includes(val)
+                  if(multiArray)
+                    isIncludeCounter++;
+                })
+                if (valueLength === isIncludeCounter)
+                  bandera = true;
+              } else {
+                  fil.value.forEach(val => {
+                    let multiArray = ins.inspectionFull[0][`s${fil.section}`][fil.fieldName].includes(val)
+                    if(multiArray) {
+                      bandera = true;
+                    }
+                  })
               }
             }
           }
         })
       }
-      if (bandera && ins.inspectionFull.length > 0){
+      if (bandera && ins.inspectionFull.length > 0)
         inspectionTemp.push(ins)
-      }
     })
     if(inspectionTemp.length > 0){
       let objectEvaluation = {
@@ -134,30 +146,32 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
       "pageNumber": 0,
       "limit": 0
       }
-    const peticion = await axios.post('/object-evaluation/viewport', 
-    body, {headers}
-    ).catch(error => {
-      if(error?.response?.status === 401){
-        window.localStorage.removeItem('loggedUser');
-        window.location.reload()
-        toast.info('La sesión a expirado', {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+      try {
+        const peticion = await axios.post('/object-evaluation/viewport', 
+        body, {headers}
+        )
+        if(filtro) {
+          state(peticionFiltrada(filtro, peticion))
+        } else {
+          state(peticionReverse(peticion))
+        }
+      } catch(error) {
+        if(error?.response?.status === 401){
+          setTimeout(() => {
+            logOutNoHook();
+          }, 2000)
+          toast.info('La sesión a expirado', {
+            position: "bottom-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+          });
+        }
       }
-    })
-
-    if(filtro) {
-      state(peticionFiltrada(filtro, peticion))
-    } else {
-      state(peticionReverse(peticion))
-    }
   }
 });
 

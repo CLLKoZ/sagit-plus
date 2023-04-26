@@ -62,8 +62,14 @@ const logOut = (navigate) =>{
   navigate('/login')
 }
 
+const logOutNoHook = () =>{
+  window.localStorage.removeItem('loggedUser');
+  window.location.replace('/login')
+  window.location.reload()
+}
+
 export{
   isLogged, logOut, login, 
   getCurrentUser, forgotPassword,
-  newPassword
+  newPassword, logOutNoHook
 };

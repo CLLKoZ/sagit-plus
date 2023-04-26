@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {getCurrentUser} from '../../../Functions/user'
-import { setFormID } from '../../../Functions/ObjectEvaluationTest';
+import { setFormID } from '../../../Functions/ObjectEvaluation';
 import Axios from '../../../API/Axios';
-import Filtros from './FiltersTest';
+import Filtros from './Filters';
 import Icon from '@mdi/react';
 import { mdiCloseCircle } from '@mdi/js';
 import '../../../Styles/panel.css'

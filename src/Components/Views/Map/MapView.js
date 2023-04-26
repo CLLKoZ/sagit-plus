@@ -3,7 +3,7 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
 import Header from '../../Structure/Header/Header';
 import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
-import { getObjectEvaluationByViewPort, markerCounter } from '../../../Functions/ObjectEvaluationTest';
+import { getObjectEvaluationByViewPort, markerCounter } from '../../../Functions/ObjectEvaluation';
 import { getIconMarker, GetPolygon } from '../../../Functions/map';
 import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
 import { ToastContainer, toast } from 'react-toastify';
@@ -19,9 +19,29 @@ const MapView = () =>{
   const [inspection, setInspection] = useState(null);
   const [filtroMap, setFiltroMap] = useState(null);
   const [counter, setCounter] = useState(null);
-
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
+  
+  useEffect (() => {
+    let socket = new WebSocket('ws://168.232.50.15/websocket');
+    socket.onopen = () => {
+      socket.send('Un mensaje');
+    };
+    socket.onmessage = (e) => {
+      let parsedMessage = JSON.parse(e.data)
+
+      if (!parsedMessage['data'])
+        parsedMessage = JSON.parse(parsedMessage)
+
+      if (parsedMessage["ObjectEvaluation"] && mapRef) {
+        const NorthEast = mapRef.getBounds().getNorthEast();
+        const NorthWest = mapRef.getBounds().getNorthWest();
+        const SouthWest = mapRef.getBounds().getSouthWest();
+        const SouthEast = mapRef.getBounds().getSouthEast();
+        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
+      }
+    }
+  }, [mapRef])
 
   useEffect(() =>{
     if(mapRef){
@@ -89,8 +109,9 @@ const MapView = () =>{
       <div className='contenido'>
       <MapContainer ref={setMapRef} center={[13.72023, -89.202182]} zoom={15} >
         <TileLayer 
+          maxZoom={19.5}
           attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contribuidores'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+          url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"/>
         <GetPolygon estado={setMarker} filtroMove={filtroMap}></GetPolygon>
         { markers != null ? (
           markers.map(marker=>(
