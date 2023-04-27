@@ -122,8 +122,8 @@ const peticionReverse = (peticion) =>{
 
 /* Cargar solo los Objetos de evaluación que se
 encuentran en la pantalla en ese momento */
-const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, coor3, coor4, filtro) => {
-  if (coor1){
+const getObjectEvaluationByViewPort = debounce(100, async (state, coor, filtro) => {
+  if (coor){
     const headers = {
       Authorization: getCurrentUser().session.token,
       "Access-Control-Allow-Origin": "*"
@@ -132,11 +132,11 @@ const getObjectEvaluationByViewPort = debounce(100, async (state, coor1, coor2, 
       "data": {
         "polygon": [
               [
-                [coor1.lng, coor1.lat ],
-                [coor2.lng, coor2.lat ],
-                [coor3.lng, coor3.lat ],
-                [coor4.lng, coor4.lat ],
-                [coor1.lng, coor1.lat]
+                [coor[0].lng, coor[0].lat ],
+                [coor[1].lng, coor[1].lat ],
+                [coor[2].lng, coor[2].lat ],
+                [coor[3].lng, coor[3].lat ],
+                [coor[0].lng, coor[0].lat]
               ]
             ],
         "formInspection" : formInspection

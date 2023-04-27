@@ -1,13 +1,14 @@
 import React, {useEffect,useState} from 'react';
 import Icon from '@mdi/react';
-import '../../Styles/header.css'
 import { toast } from 'react-toastify';
-import TimeOut from '../Layouts/TimeOut';
+import TimeOut from '../../Layouts/TimeOut';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { addTools, getCSV, getCurrentUser, logOut, printCSV } from '../../Functions';
+import { addTools, getCSV, getCurrentUser, logOut, printCSV } from '../../../Functions';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
 import { objectRoutes } from './ObjectRoutesHeader';
+
+import '../../../Styles/header.css'
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {
@@ -43,7 +44,7 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
       const CSV = getCSV(evaluation, form);
       printCSV(CSV);
     } else {
-      toast.warning('Seleccione un filtro para generar un reporte', {
+      toast.warning('Seleccione un formulario', {
         position: "bottom-center",
         autoClose: 4000,
         hideProgressBar: false,

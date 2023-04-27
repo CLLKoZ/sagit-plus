@@ -12,11 +12,12 @@ export function GetPolygon({estado, filtroMove}){
       const NorthWest = map.getBounds().getNorthWest();
       const SouthWest = map.getBounds().getSouthWest();
       const SouthEast = map.getBounds().getSouthEast();
+      let coordenadas = [NorthEast, NorthWest, SouthWest, SouthEast]
       if (filtroMove)
       {
-        getObjectEvaluationByViewPort(estado, NorthEast, NorthWest, SouthWest, SouthEast, filtroMove)
+        getObjectEvaluationByViewPort(estado, coordenadas, filtroMove)
       } else {
-        getObjectEvaluationByViewPort(estado, NorthEast, NorthWest, SouthWest, SouthEast)
+        getObjectEvaluationByViewPort(estado, coordenadas)
       }
     }
   })

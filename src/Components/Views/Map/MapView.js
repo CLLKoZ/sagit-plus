@@ -2,7 +2,7 @@ import { useEffect, useState} from 'react';
 import { Marker, Popup } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
-import Header from '../../Structure/Header';
+import Header from '../../Structure/Header/Header';
 import MapSagit from '../../Structure/MapSagit';
 import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
 import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
@@ -14,9 +14,9 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
-  const [mapRef, setMapRef] = useState(null);
+  const [coordinates, setCoordinates] = useState(null);
   const [formInspection, setFormInspection] = useState(null);
-  const [inspection, setInspection] = useState(null);
+  const [objectEvaluation, setObjectEvaluation] = useState(null);
   const [filtroMap, setFiltroMap] = useState(null);
   const [counter, setCounter] = useState(null);
   /*Elementos necesarios para invocar un modal*/
@@ -33,29 +33,20 @@ const MapView = () =>{
       if (!parsedMessage['data'])
         parsedMessage = JSON.parse(parsedMessage);
 
-      if (parsedMessage["ObjectEvaluation"] && mapRef) {
-        const NorthEast = mapRef.getBounds().getNorthEast();
-        const NorthWest = mapRef.getBounds().getNorthWest();
-        const SouthWest = mapRef.getBounds().getSouthWest();
-        const SouthEast = mapRef.getBounds().getSouthEast();
-        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast);
-      }
+      if (parsedMessage["ObjectEvaluation"] && coordinates && filtroMap)
+        getObjectEvaluationByViewPort(setMarker, coordinates, filtroMap);
+      else if (parsedMessage["ObjectEvaluation"] && coordinates)
+        getObjectEvaluationByViewPort(setMarker, coordinates);
     }
-  }, [mapRef]);
+  }, [coordinates, filtroMap]);
 
   useEffect(() =>{
-    if(mapRef){
-      const NorthEast = mapRef.getBounds().getNorthEast();
-      const NorthWest = mapRef.getBounds().getNorthWest();
-      const SouthWest = mapRef.getBounds().getSouthWest();
-      const SouthEast = mapRef.getBounds().getSouthEast();
-      if(filtroMap) {
-        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast, filtroMap)
-      } else {;
-        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast);
-      }
+    if(coordinates && filtroMap) {
+      getObjectEvaluationByViewPort(setMarker, coordinates, filtroMap);
+    } else if (coordinates){;
+      getObjectEvaluationByViewPort(setMarker, coordinates);
     }
-  }, [mapRef, formInspection, filtroMap]);
+  }, [coordinates, formInspection, filtroMap]);
 
   useEffect(() => {
     document.title = "SAGIT | Mapa"
@@ -64,13 +55,13 @@ const MapView = () =>{
     }
   }, [markers]);
 
-  const openModal=(ins)=>{
+  const openModal=(evaluation)=>{
     if (formInspection){
       setModal(!modal);
       if(!modal){
-        setInspection(ins);
+        setObjectEvaluation(evaluation);
       } else {
-        setInspection(null);
+        setObjectEvaluation(null);
       }
     } else {
       toast.warn("Seleccione un formulario", {style: {background: '#0f1f52'}})
@@ -87,7 +78,7 @@ const MapView = () =>{
             <ModalInspection 
               isOpenM={modal} 
               toggleM={openModal} 
-              inspectionModal={inspection} 
+              inspectionModal={objectEvaluation} 
               idForm={formInspection.id}
             />
           ) : (
@@ -106,7 +97,7 @@ const MapView = () =>{
           )
         }
       </div>
-      <MapSagit setRef={setMapRef}>
+      <MapSagit mapCoordinates={setCoordinates}>
         <div className='contenido'>
         <GetPolygon estado={setMarker} filtroMove={filtroMap}></GetPolygon>
         { markers != null ? (

@@ -1,11 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 
-const MapSagit = ({children, setRef}) => {
+const MapSagit = ({children, mapCoordinates}) => {
+
+  const [map, setMap] = useState(null);
+
+  useEffect(() => {
+    if(map) {
+      const NorthEast = map.getBounds().getNorthEast();
+      const NorthWest = map.getBounds().getNorthWest();
+      const SouthWest = map.getBounds().getSouthWest();
+      const SouthEast = map.getBounds().getSouthEast();
+      mapCoordinates([NorthEast, NorthWest, SouthWest, SouthEast]);
+    }
+  }, [map, mapCoordinates]);
+
   return (
     <>
       <MapContainer 
-        ref={setRef} 
+        ref={setMap} 
         center={[13.72023, -89.202182]} 
         zoom={15}
       >
