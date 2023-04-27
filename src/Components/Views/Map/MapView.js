@@ -1,12 +1,12 @@
-import React, { useEffect, useState} from 'react';
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import { useEffect, useState} from 'react';
+import { Marker, Popup } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
-import Header from '../../Structure/Header/Header';
-import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
-import { getObjectEvaluationByViewPort, markerCounter } from '../../../Functions/ObjectEvaluation';
-import { getIconMarker, GetPolygon } from '../../../Functions/map';
-import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
 import { ToastContainer, toast } from 'react-toastify';
+import Header from '../../Structure/Header';
+import MapSagit from '../../Structure/MapSagit';
+import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
+import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
+import { GetPolygon, getIconMarker, getObjectEvaluationByViewPort, markerCounter } from '../../../Functions';
 
 import 'leaflet/dist/leaflet.css';
 import '../../../Styles/mapa.css';
@@ -106,32 +106,29 @@ const MapView = () =>{
           )
         }
       </div>
-      <div className='contenido'>
-      <MapContainer ref={setMapRef} center={[13.72023, -89.202182]} zoom={15} >
-        <TileLayer 
-          maxZoom={19.5}
-          attribution='&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> Contribuidores'
-          url="https://{s}.tile.openstreetmap.de/{z}/{x}/{y}.png"/>
+      <MapSagit setRef={setMapRef}>
+        <div className='contenido'>
         <GetPolygon estado={setMarker} filtroMove={filtroMap}></GetPolygon>
         { markers != null ? (
-          markers.map(marker=>(
-            <div key={marker._id} >
-              {
-                <Marker 
-                  position={marker.address.location.coordinates} 
-                  icon={getIconMarker(marker.type_object[0].icon)}>
-                  <Popup><span className='pop-up' onClick={() => {openModal(marker)}}>{marker.name}</span></Popup>
-                </Marker>
+          markers.map(marker=> (
+            <div key={marker._id} > {
+              <Marker 
+                position={marker.address.location.coordinates} 
+                icon={getIconMarker(marker.type_object[0].icon)}>
+                <Popup><span className='pop-up' onClick={() => {openModal(marker)}}>{marker.name}</span></Popup>
+              </Marker>
               }
             </div>
-          ))
-        ) : <div className='spinner'>
-              <Spinner color='primary'>
-                Loading...
-              </Spinner>
-            </div>}
-      </MapContainer>
-      </div>
+            ))
+          ) : 
+          <div className='spinner'>
+            <Spinner color='primary'>
+              Loading...
+            </Spinner>
+          </div>
+        }
+        </div>
+      </MapSagit>
     </section>
   );
 };

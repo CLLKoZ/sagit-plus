@@ -3,7 +3,7 @@ import '../../Styles/panel.css'
 import Icon from '@mdi/react';
 import { mdiCloseCircle } from '@mdi/js';
 
-const Panel = ({}) => {
+const Panel = ({ children }) => {
 
   return(
     /* Estructura de Filtro para datos en el mapa */
@@ -11,9 +11,7 @@ const Panel = ({}) => {
       <input type="checkbox" id="btnFiltro"/>
       <div className='container-filtro'>
         <div className='cont-filtro'>
-        <div className='formulario'>
-
-        </div>
+          {children}
           <label htmlFor='btnFiltro' className='closeFiltro'><Icon path={mdiCloseCircle} size={1.4} /></label>
         </div>
       </div>

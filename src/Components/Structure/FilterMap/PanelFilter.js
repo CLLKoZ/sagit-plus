@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import {getCurrentUser} from '../../../Functions/user'
-import { setFormID } from '../../../Functions/ObjectEvaluation';
+import { getCurrentUser, setFormID } from '../../../Functions';
 import Axios from '../../../API/Axios';
 import Filtros from './Filters';
-import Icon from '@mdi/react';
-import { mdiCloseCircle } from '@mdi/js';
 import '../../../Styles/panel.css'
+import Panel from '../Panel';
 
 const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
   const [forms, setForms] = useState(null);
@@ -58,33 +56,27 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
 
   return(
     /* Estructura de Filtro para datos en el mapa */
-    <section>
-      <input type="checkbox" id="btnFiltro"/>
-      <div className='container-filtro'>
-        <div className='cont-filtro'>
-        <div className='formulario'>
-          <label className='labelFiltro'>Formularios:</label>
-          <select className='selectFiltro' onChange={e => {
-            setSelects(e.target.value)
-            if(e.target.value === "") {
-              setFormFiltro(null)
-              state(null)
-            }}}>
-            <option value="" key="" >Seleccione una opción</option>
-            {
-              forms != null && (forms.map(form=>(
-                <option value={form._id} key={form._id}>{form.name}</option>
-              )))
-            }
-          </select>
-        </div>
-          <div className='filtro-select'>
-            <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter}/>
-          </div>
-          <label htmlFor='btnFiltro' className='closeFiltro'><Icon path={mdiCloseCircle} size={1.4} /></label>
-        </div>
+    <Panel>
+      <div className='formulario'>
+        <label className='labelFiltro'>Formularios:</label>
+        <select className='selectFiltro' onChange={e => {
+          setSelects(e.target.value)
+          if(e.target.value === "") {
+            setFormFiltro(null)
+            state(null)
+          }}}>
+          <option value="" key="" >Seleccione una opción</option>
+          {
+            forms != null && (forms.map(form=>(
+              <option value={form._id} key={form._id}>{form.name}</option>
+            )))
+          }
+        </select>
       </div>
-    </section>
+      <div className='filtro-select'>
+        <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter}/>
+      </div>
+    </Panel>
   );
 };
 

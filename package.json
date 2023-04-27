@@ -1,6 +1,6 @@
 {
   "name": "sagit-plus",
-  "version": "0.8.6",
+  "version": "0.8.8",
   "private": true,
   "dependencies": {
     "@mdi/js": "^7.2.96",
@@ -12,7 +12,7 @@
     "babel-plugin-macros": "^3.1.0",
     "bootstrap": "^5.2.3",
     "leaflet": "^1.9.3",
-    "merge-images2": "^2.0.1",
+    "merge-images": "^2.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.0",

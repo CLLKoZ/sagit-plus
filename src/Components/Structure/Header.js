@@ -1,14 +1,12 @@
 import React, {useEffect,useState} from 'react';
-import { logOut } from '../../../Functions/user';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { getCurrentUser } from '../../../Functions/user';
-import {Dropdown, DropdownItem, DropdownMenu, DropdownToggle} from 'reactstrap';
-import { getCSV } from '../../../Functions/map';
-import { printCSV } from '../../../Functions/utilidades';
-import TimeOut from '../../Layouts/TimeOut';
 import Icon from '@mdi/react';
+import '../../Styles/header.css'
+import { toast } from 'react-toastify';
+import TimeOut from '../Layouts/TimeOut';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { getCSV, getCurrentUser, logOut, printCSV } from '../../Functions';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
-import '../../../Styles/header.css'
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {
@@ -48,6 +46,18 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
     if (form) {
       const CSV = getCSV(evaluation, form);
       printCSV(CSV);
+    } else {
+      toast.warning('Seleccione un filtro para generar un reporte', {
+        position: "bottom-center",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        style: {background: '#0f1f52'}
+      });
     }
   }
   

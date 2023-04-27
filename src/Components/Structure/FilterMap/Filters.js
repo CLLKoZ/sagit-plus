@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import '../../../Styles/filtro.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import { isExclude, saveFilterCheck, saveFilterMultiCheck, saveFilterSelect } from '../../../Functions/filters';
+import { isExclude, saveFilterCheck, saveFilterMultiCheck, saveFilterSelect } from '../../../Functions';
 
 const Filtros = ({formFiltro, setFilter}) => {
 
