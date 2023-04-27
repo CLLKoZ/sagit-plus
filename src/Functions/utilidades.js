@@ -42,3 +42,13 @@ export const printCSV = (csvContent) => {
     document.body.removeChild(link);
   }
 }
+
+export const addTools = (setHideElement) => {
+  let path = window.location.pathname
+
+    if (path === '/mapa' ) {
+      setHideElement(false);
+    } else {
+      setHideElement(true);
+    }
+}

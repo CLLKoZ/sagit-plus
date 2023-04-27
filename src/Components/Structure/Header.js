@@ -4,9 +4,10 @@ import '../../Styles/header.css'
 import { toast } from 'react-toastify';
 import TimeOut from '../Layouts/TimeOut';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { getCSV, getCurrentUser, logOut, printCSV } from '../../Functions';
+import { addTools, getCSV, getCurrentUser, logOut, printCSV } from '../../Functions';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
+import { objectRoutes } from './ObjectRoutesHeader';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({evaluationHeader=null, form=null, counter=null}) => {
@@ -24,7 +25,6 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
   /*Se crea un estado local, que permite controlar los estados de 
   la aparicion de reportes y filtros solo en el mapa*/
   const [hideElement, setHideElement] = useState(true);
-
   const [objectEvaluation, setObjectEvaluation] = useState(null);
 
   useEffect(() => {
@@ -35,11 +35,7 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
   /*Esta funcion cambia el estado para la aparicion de reportes y 
   filtros solo en el mapa*/
   useEffect(() => {
-    if (window.location.pathname === '/mapa') {
-      setHideElement(false);
-    } else {
-      setHideElement(true);
-    }
+    addTools(setHideElement)
   }, []);
 
   const downloadCSV = (evaluation) =>{
@@ -104,6 +100,18 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
                   &nbsp;{getCurrentUser().session.username}
               </DropdownToggle>
               <DropdownMenu style={{zIndex: 1002}}>
+                <DropdownItem header>Herramientas</DropdownItem>
+                {
+                  objectRoutes.map((object, index) => 
+                    <DropdownItem key={index}>
+                      <NavLink to={object.route} className={'nav-link'}>
+                        <Icon path={object.icon} size={1} />
+                        &nbsp;{object.name}
+                      </NavLink>
+                    </DropdownItem>
+                  )
+                }
+                <DropdownItem header>Opciones de usuario</DropdownItem>
                 <DropdownItem onClick={()=>logOut(navigate)}>
                   <Icon path={mdiLogout} size={1} />
                   &nbsp;Cerrar Sesión

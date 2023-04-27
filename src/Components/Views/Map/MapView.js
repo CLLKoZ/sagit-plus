@@ -28,20 +28,20 @@ const MapView = () =>{
       socket.send('Un mensaje');
     };
     socket.onmessage = (e) => {
-      let parsedMessage = JSON.parse(e.data)
+      let parsedMessage = JSON.parse(e.data);
 
       if (!parsedMessage['data'])
-        parsedMessage = JSON.parse(parsedMessage)
+        parsedMessage = JSON.parse(parsedMessage);
 
       if (parsedMessage["ObjectEvaluation"] && mapRef) {
         const NorthEast = mapRef.getBounds().getNorthEast();
         const NorthWest = mapRef.getBounds().getNorthWest();
         const SouthWest = mapRef.getBounds().getSouthWest();
         const SouthEast = mapRef.getBounds().getSouthEast();
-        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
+        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast);
       }
     }
-  }, [mapRef])
+  }, [mapRef]);
 
   useEffect(() =>{
     if(mapRef){
@@ -51,18 +51,18 @@ const MapView = () =>{
       const SouthEast = mapRef.getBounds().getSouthEast();
       if(filtroMap) {
         getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast, filtroMap)
-      } else {
-        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast)
+      } else {;
+        getObjectEvaluationByViewPort(setMarker, NorthEast, NorthWest, SouthWest, SouthEast);
       }
     }
-  }, [mapRef, formInspection, filtroMap])
+  }, [mapRef, formInspection, filtroMap]);
 
   useEffect(() => {
     document.title = "SAGIT | Mapa"
     if (markers) {
       setCounter(markerCounter(markers))
     }
-  }, [markers])
+  }, [markers]);
 
   const openModal=(ins)=>{
     if (formInspection){
