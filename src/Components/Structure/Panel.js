@@ -8,11 +8,11 @@ const Panel = ({ children }) => {
   return(
     /* Estructura de Filtro para datos en el mapa */
     <section>
-      <input type="checkbox" id="btnFiltro"/>
-      <div className='container-filtro'>
-        <div className='cont-filtro'>
+      <input type="checkbox" id="btnActive"/>
+      <div className='container-panel'>
+        <div className='cont-panel'>
           {children}
-          <label htmlFor='btnFiltro' className='closeFiltro'><Icon path={mdiCloseCircle} size={1.4} /></label>
+          <label htmlFor='btnActive' className='closePanel'><Icon path={mdiCloseCircle} size={1.4} /></label>
         </div>
       </div>
     </section>

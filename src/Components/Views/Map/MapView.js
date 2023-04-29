@@ -1,6 +1,6 @@
 import { useEffect, useState} from 'react';
 import { Marker, Popup } from 'react-leaflet';
-import { Spinner } from 'reactstrap';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Spinner } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Header from '../../Structure/Header/Header';
 import MapSagit from '../../Structure/MapSagit';
@@ -11,6 +11,9 @@ import { GetPolygon, getIconMarker, getObjectEvaluationByViewPort, markerCounter
 import 'leaflet/dist/leaflet.css';
 import '../../../Styles/mapa.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { mdiFileDocument, mdiFilterMultiple, mdiMicrosoftExcel } from '@mdi/js';
+import Icon from '@mdi/react';
+import { downloadCSV } from '../../../Functions/donwloadReport';
 
 const MapView = () =>{
   const [markers, setMarker] = useState(null);
@@ -19,9 +22,10 @@ const MapView = () =>{
   const [objectEvaluation, setObjectEvaluation] = useState(null);
   const [filtroMap, setFiltroMap] = useState(null);
   const [counter, setCounter] = useState(null);
+  const [dropdownOpenReport, setDropdownOpenReport] = useState(false);
   /*Elementos necesarios para invocar un modal*/
   const [modal, setModal] = useState(false);
-  
+
   useEffect (() => {
     let socket = new WebSocket('ws://168.232.50.15/websocket');
     socket.onopen = () => {
@@ -67,11 +71,29 @@ const MapView = () =>{
       toast.warn("Seleccione un formulario", {style: {background: '#0f1f52'}})
     }
   };
+  
+  const toggleDropdownReport = () => setDropdownOpenReport(!dropdownOpenReport);
 
   return(
     <section>
       <div>
-        <Header evaluationHeader={markers} form={formInspection} counter={counter}/>
+        <Header counter={counter}>
+          <label htmlFor='btnActive' className="filtro">
+            <Icon path={mdiFilterMultiple} size={1} />
+            &nbsp;Filtros
+          </label>
+          <label>
+            <Dropdown isOpen={dropdownOpenReport} toggle={toggleDropdownReport}>
+              <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenReport ? "transparent" : "transparent" }}>
+              <Icon path={mdiFileDocument} size={1} />
+                &nbsp;Reportes
+              </DropdownToggle>
+              <DropdownMenu style={{zIndex: 1002}}>
+                <DropdownItem onClick={()=>{downloadCSV(markers, formInspection)}}><Icon path={mdiMicrosoftExcel} size={1} />&nbsp;CSV</DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+          </label>
+        </Header>
         <PanelFiltroMapa state={setFormInspection} setFiltro={setFiltroMap}/>
         {
           formInspection ? (

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../Structure/Header/Header';
 import MapSagit from '../../Structure/MapSagit';
+import Icon from '@mdi/react';
+import { mdiFilterMultiple } from '@mdi/js';
+import PanelAssignment from '../../Structure/AssignmentMap/PanelAssignment';
 
 const MapAssignment = () => {
 
@@ -14,9 +17,17 @@ const MapAssignment = () => {
   return (
     <section>
       <div>
-        <Header />
+        <Header>
+          <label htmlFor='btnActive' className="filtro">
+            <Icon path={mdiFilterMultiple} size={1} />
+            &nbsp;Asignar Inspección
+          </label>
+        </Header>
+        <PanelAssignment>
+
+        </PanelAssignment>
       </div>
-      <MapSagit setCoordinates={setCoordinates}>
+      <MapSagit mapCoordinates={setCoordinates}>
         
       </MapSagit>
     </section>
