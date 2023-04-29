@@ -1,15 +1,14 @@
 /*ESTILO PARA PANEL LATERAL DERECHO DE FILTROS*/
 .filtro{
-    width: 130px;
     height: 40px;
     color: #fff;
 }
 
-#btnFiltro{
+#btnActive{
     display: none;
 }
 
-.container-filtro{
+.container-panel{
     position: fixed;
     width: 475px;
     height: 100vh;
@@ -20,12 +19,12 @@
     right: 0px;
 }
 
-#btnFiltro:checked ~ .container-filtro{
+#btnActive:checked ~ .container-panel{
     opacity: 1;
     visibility: visible;
 }
 
-.cont-filtro{
+.cont-panel{
     width: 100%;
     background-color: rgba(13, 28, 75, 0.892);
     backdrop-filter: blur(5px);
@@ -37,20 +36,20 @@
     transition: all 500ms ease;
 }
 
-#btnFiltro:checked ~ .container-filtro .cont-filtro{
+#btnActive:checked ~ .container-panel .cont-panel{
     transform: translateX(0%);
 }
 
-.cont-filtro .formulario{
+.cont-panel .formulario{
     transform: translateY(5%);
 }
 
-.cont-filtro .formulario{
+.cont-panel .formulario{
     display: block;
     text-decoration: none;
 
 }
-.cont-filtro .closeFiltro{
+.cont-panel .closePanel{
     position: absolute;
     right: 10px;
     top: 10px;
@@ -69,12 +68,12 @@
 
 /*DISEÑO DE COMPONENTES DEL FORMULARIO DE FILTROS*/
 
-.cont-filtro form{
+.cont-panel form{
     padding-left: 5%;
     padding-right: 5%;
 }
 
-.cont-filtro .labelFiltro{
+.cont-panel .labelFiltro{
     font-size: 1.1em;
     color: #fff;
     text-align: left;
@@ -83,7 +82,7 @@
     padding-bottom: 1%;
 }
 
-.cont-filtro .inputFiltro{
+.cont-panel .inputFiltro{
     display: block;
     width: 100%;
     font-size: 1em;
@@ -95,7 +94,7 @@
     border-right: 0px;
 }
 
-.cont-filtro .selectFiltro{
+.cont-panel .selectFiltro{
     display: block;
     width: 100%;
     font-size: 1em;
@@ -107,7 +106,7 @@
     border-right: 0px;
 }
 
-.cont-filtro .selectFiltro option{
+.cont-panel .selectFiltro option{
     color: #000;
     background-color: #D1D4D8;
 }

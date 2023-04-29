@@ -9,29 +9,22 @@ import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMap
 import { objectRoutes } from './ObjectRoutesHeader';
 
 import '../../../Styles/header.css'
+import { Children } from 'react';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
-const Header = ({evaluationHeader=null, form=null, counter=null}) => {
+const Header = ({children, counter=null}) => {
   /* Se crea un estado local, que permite controlar los estados 
   de los Dropdowns*/
-  const [dropdownOpenReport, setDropdownOpenReport] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
 
   const navigate = useNavigate();
 
   /* Esta funcion se encarga de cambiar el estado de los dropdowns*/
-  const toggleDropdownReport = () => setDropdownOpenReport(!dropdownOpenReport);
   const toggleDropdownUser = () => setDropdownOpenUser(!dropdownOpenUser);
 
   /*Se crea un estado local, que permite controlar los estados de 
   la aparicion de reportes y filtros solo en el mapa*/
   const [hideElement, setHideElement] = useState(true);
-  const [objectEvaluation, setObjectEvaluation] = useState(null);
-
-  useEffect(() => {
-    if (form)
-      setObjectEvaluation(evaluationHeader);
-  }, [evaluationHeader, form])
 
   /*Esta funcion cambia el estado para la aparicion de reportes y 
   filtros solo en el mapa*/
@@ -39,24 +32,6 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
     addTools(setHideElement)
   }, []);
 
-  const downloadCSV = (evaluation) =>{
-    if (form) {
-      const CSV = getCSV(evaluation, form);
-      printCSV(CSV);
-    } else {
-      toast.warning('Seleccione un formulario', {
-        position: "bottom-center",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        style: {background: '#0f1f52'}
-      });
-    }
-  }
   
   return(
     <section>
@@ -73,27 +48,7 @@ const Header = ({evaluationHeader=null, form=null, counter=null}) => {
           }
         </section>
         <nav className='navigation'>
-          {
-            !hideElement &&
-            <label htmlFor='btnFiltro' className="filtro">
-              <Icon path={mdiFilterMultiple} size={1} />
-              &nbsp;Filtros
-            </label>
-          }
-          {
-            !hideElement &&
-            <label>
-              <Dropdown isOpen={dropdownOpenReport} toggle={toggleDropdownReport}>
-                <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenReport ? "transparent" : "transparent" }}>
-                <Icon path={mdiFileDocument} size={1} />
-                  &nbsp;Reportes
-                </DropdownToggle>
-                <DropdownMenu style={{zIndex: 1002}}>
-                  <DropdownItem onClick={()=>{downloadCSV(objectEvaluation)}}><Icon path={mdiMicrosoftExcel} size={1} /> CSV</DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
-            </label>
-          }
+          {children}
           <label>
             <Dropdown isOpen={dropdownOpenUser} toggle={toggleDropdownUser}>
               <DropdownToggle className="menuDrop" caret  style={{ backgroundColor: dropdownOpenUser ? "transparent" : "transparent" }}>
