@@ -22,8 +22,10 @@ const login = async (username, password) => {
     username: response.data.data.user[0].username,
     token: `Bearer ${response.data.token}`,
     nombre: response.data.data.user[0].firstName,
-    forms: response.data.data.forms
+    forms: response.data.data.forms,
+    projects: response.data.data.projects
   });
+  console.log(session)
   if (response.data.token) {
     localStorage.setItem("loggedUser", JSON.stringify({ session }));
   }
