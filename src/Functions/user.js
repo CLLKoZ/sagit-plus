@@ -70,8 +70,38 @@ const logOutNoHook = () =>{
   window.location.reload()
 }
 
+
+/* Se utiliza para obtener el listado de proyectos y formularios del usuario */
+const getProjects = () => {
+  const projectInfo = [];
+  getCurrentUser().session.projects.forEach(project => {
+    const projectObj = { _id: project._id, name: project.name, forms: [] };
+    getCurrentUser().session.forms.forEach(form => {
+      if (form.projects.includes(project._id)) {
+        const formObj = { _id: form._id, name: form.name };
+        projectObj.forms.push(formObj);
+      }
+    });
+    if (projectObj.forms.length > 0) {
+      projectInfo.push(projectObj);
+    }
+  });
+  return projectInfo;
+}
+
+/* Obtiene el listado de formularios del usuario según proyecto */
+const getForms = (idProject) => {
+  const projectInfo = getProjects().find(project => project._id === idProject);
+  if (!projectInfo) { 
+    return []; 
+  } else {
+    const forms = projectInfo.forms.map(form => ({ _id: form._id, name: form.name }));
+    return forms;
+  }
+}
+
 export{
   isLogged, logOut, login, 
   getCurrentUser, forgotPassword,
-  newPassword, logOutNoHook
+  newPassword, logOutNoHook, getProjects, getForms
 };
