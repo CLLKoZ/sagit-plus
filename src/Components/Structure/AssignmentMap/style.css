@@ -1,0 +1,57 @@
+/* ESTILOS GENERALES */
+
+.create-assignment {
+  width: 30%;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 5px;
+  background-color: aliceblue;
+  border: none;
+  border-radius: 7px;
+  font-size:1.2em;
+  color: #0f1f52;
+  transition: 0.5s;
+}
+
+.create-assignment:hover {
+  background-color: #e4e5e7;
+  color: black;
+}
+
+
+/* ESTILOS DEL COMPONENTE SELECT DE REACT-SELECT*/
+.css-1u9des2-indicatorSeparator {
+  width: 0px !important;
+}
+.css-13cymwt-control {
+  border-color: #00ECE9 !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  background-color:transparent !important;
+  border-color:none !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  outline:0!important;
+}
+
+.css-t3ipsp-control{
+  border-color: #00ECE9 !important;
+  border-radius: 0px !important;
+  box-shadow: none !important;
+  background-color:transparent !important;
+  border-color:none !important;
+  border-top: 0px !important;
+  border-left: 0px !important;
+  border-right: 0px !important;
+  outline:0!important;
+}
+.css-1xc3v61-indicatorContainer::after {
+  transition: none !important;
+}
+
+.css-1xc3v61-indicatorContainer {
+  color: #D1D4D8 !important;
+}
+

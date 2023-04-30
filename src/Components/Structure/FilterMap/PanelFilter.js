@@ -2,14 +2,37 @@ import React, {useState, useEffect} from 'react';
 import { getCurrentUser, setFormID } from '../../../Functions';
 import Axios from '../../../API/Axios';
 import Filtros from './Filters';
-import '../../../Styles/panel.css'
-import Panel from '../Panel';
+import './style.css';
+import Panel from '../General/Panel';
+import Select from 'react-select';
 
 const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
   const [forms, setForms] = useState(null);
   const [selects, setSelects] = useState();
   const [formFiltro, setFormFiltro] = useState(null);
   const [currentFilter, setCurrentFilter] = useState(null);
+  const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
+
+  /* Estilos del componente Select */
+  const selectStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isFocused ? '#D1D4D8' : 'white',
+      color: 'black',
+      textAlign: 'left',
+      height: '25px',
+      paddingTop:'0px',
+    }),
+    input: (provided) => ({
+      ...provided,
+      color: '#D1D4D8',
+    }),
+    singleValue: (provided) => ({
+      ...provided,
+      textAlign: 'left',
+      color: '#D1D4D8',
+    }),
+  };
 
   useEffect(() => {
     setForms(getCurrentUser().session.forms)
@@ -58,20 +81,18 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
     /* Estructura de Filtro para datos en el mapa */
     <Panel>
       <div className='formulario'>
-        <label className='labelFiltro'>Formularios:</label>
-        <select className='selectFiltro' onChange={e => {
-          setSelects(e.target.value)
-          if(e.target.value === "") {
-            setFormFiltro(null)
-            state(null)
-          }}}>
-          <option value="" key="" >Seleccione una opción</option>
-          {
-            forms != null && (forms.map(form=>(
-              <option value={form._id} key={form._id}>{form.name}</option>
-            )))
-          }
-        </select>
+        <label className='labelPanel'>Formularios:</label>
+        <Select
+            defaultValue = {defaultOptions}
+            options = {forms != null && (forms.map(form=>({label: form.name, value: form._id, key: form._id})))}
+            onChange = {(selectedOption) => {
+              setSelects(selectedOption.value)
+              if(selectedOption.value === "") {
+                setFormFiltro(null);
+                state(null);
+              }}}
+            styles={selectStyles}         
+        />
       </div>
       <div className='filtro-select'>
         <Filtros formFiltro={formFiltro} setFilter={setCurrentFilter}/>
