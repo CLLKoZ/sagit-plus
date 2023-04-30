@@ -3,7 +3,7 @@ import { Marker, Popup } from 'react-leaflet';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle, Spinner } from 'reactstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import Header from '../../Structure/Header/Header';
-import MapSagit from '../../Structure/MapSagit';
+import MapSagit from '../../Structure/General/MapSagit';
 import PanelFiltroMapa from '../../Structure/FilterMap/PanelFilter';
 import ModalInspection from '../../Structure/MadeInspection/ModalInspection';
 import { GetPolygon, getIconMarker, getObjectEvaluationByViewPort, markerCounter } from '../../../Functions';

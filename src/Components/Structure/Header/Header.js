@@ -1,15 +1,12 @@
 import React, {useEffect,useState} from 'react';
 import Icon from '@mdi/react';
-import { toast } from 'react-toastify';
 import TimeOut from '../../Layouts/TimeOut';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { addTools, getCSV, getCurrentUser, logOut, printCSV } from '../../../Functions';
+import { addTools, getCurrentUser, logOut} from '../../../Functions';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
-import { mdiAccountCircle, mdiFileDocument, mdiFilterMultiple, mdiLogout, mdiMapMarkerMultiple, mdiMicrosoftExcel } from '@mdi/js';
+import { mdiAccountCircle, mdiLogout, mdiMapMarkerMultiple} from '@mdi/js';
 import { objectRoutes } from './ObjectRoutesHeader';
-
 import '../../../Styles/header.css'
-import { Children } from 'react';
 
 /* Estructura de Header ocupada en todas las pantallas que lo neceten */
 const Header = ({children, counter=null}) => {

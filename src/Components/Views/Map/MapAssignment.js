@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../Structure/Header/Header';
-import MapSagit from '../../Structure/MapSagit';
+import MapSagit from '../../Structure/General/MapSagit';
 import Icon from '@mdi/react';
-import { mdiFilterMultiple } from '@mdi/js';
+import { mdiClipboardAccount} from '@mdi/js';
 import PanelAssignment from '../../Structure/AssignmentMap/PanelAssignment';
 
 const MapAssignment = () => {
@@ -19,7 +19,7 @@ const MapAssignment = () => {
       <div>
         <Header>
           <label htmlFor='btnActive' className="filtro">
-            <Icon path={mdiFilterMultiple} size={1} />
+            <Icon path={mdiClipboardAccount} size={1} />
             &nbsp;Asignar Inspección
           </label>
         </Header>
