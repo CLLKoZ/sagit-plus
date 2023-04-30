@@ -50,7 +50,7 @@ const CardInspection = ({form, selectedInspection=null, firstInspection, handleP
           if (value !== undefined && value !=='')
             formu = {
               ...formu,
-              [field.options.webLabel]:{value: value, type: field.type, icon: field.icon}
+              [field.options.webLabel] : {value: value, type: field.type, icon: field.icon}
             }
         });
         if (Object.keys(formu).length > 0) {

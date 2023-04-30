@@ -9,29 +9,7 @@ const Filtros = ({formFiltro, setFilter}) => {
 
   const [itemsFilter, setItemsFilter] = useState([]);
   const [exclude, setExclude] = useState([]);
-  const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
-
-  /* Estilos del componente Select */
-  const selectStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? '#D1D4D8' : 'white',
-      color: 'black',
-      textAlign: 'left',
-      height: '25px',
-      paddingTop:'0px',
-    }),
-    input: (provided) => ({
-      ...provided,
-      color: '#D1D4D8',
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      textAlign: 'left',
-      color: '#D1D4D8',
-    }),
-  };
-
+  
   useEffect(() => {
     if (itemsFilter) {
       if (itemsFilter.length === 0) {
@@ -69,14 +47,18 @@ const Filtros = ({formFiltro, setFilter}) => {
                         field.type === 'select' ? (
                           <div key={field.name}>
                             <label className='label-filtro'>{field.options.webLabel}</label>
-                            <Select
-                                defaultValue = {defaultOptions}
-                                options = {field.options.items.map(opItem => ({label: opItem.label, value: opItem.value, key: opItem.value}))}
-                                onChange = {(selectedOption) => {
-                                  saveFilterSelect(selectedOption.value, field.name, index, field.type, itemsFilter, setItemsFilter)
-                                }}
-                                styles={selectStyles}         
-                            />
+                            <select 
+                              className='selectPanel' 
+                              onChange={
+                                (e) => saveFilterSelect(e.target.value, field.name, index, field.type, itemsFilter, setItemsFilter)
+                              }>
+                              <option value="">Seleccione una opción</option>
+                              {field.options.items.map(opItem => (
+                                <option value={opItem.value} key={opItem.value}>
+                                  {opItem.label}
+                                </option>
+                              ))}
+                            </select>
                           </div>
                         ) :
                         field.type === 'checkBox' ? (
