@@ -95,10 +95,11 @@ const getForms = (idProject) => {
   if (!projectInfo) { 
     return []; 
   } else {
-    const forms = projectInfo.forms.map(form => ({ _id: form._id, name: form.name }));
+    const forms = projectInfo.forms.filter(form => !form.isActive).map(form => ({ _id: form._id, name: form.name }));
     return forms;
   }
 }
+
 
 export{
   isLogged, logOut, login, 
