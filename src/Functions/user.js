@@ -70,7 +70,6 @@ const logOutNoHook = () =>{
   window.location.reload()
 }
 
-
 /* Se utiliza para obtener el listado de proyectos y formularios del usuario */
 const getProjects = () => {
   const projectInfo = [];
@@ -99,7 +98,6 @@ const getForms = (idProject) => {
     return forms;
   }
 }
-
 
 export{
   isLogged, logOut, login, 
