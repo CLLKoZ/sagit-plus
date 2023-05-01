@@ -4,7 +4,6 @@ import Axios from '../../../API/Axios';
 import Filtros from './Filters';
 import './style.css';
 import Panel from '../General/Panel';
-import Select from 'react-select';
 
 const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
   const [forms, setForms] = useState(null);

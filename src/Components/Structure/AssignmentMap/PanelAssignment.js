@@ -62,6 +62,7 @@ const PanelAssignment = ({ children }) => {
     setSelectedForm(defaultOptions);
   }, [idProject, defaultOptions]);
 
+  console.log(getForms());
   return(
     <Panel>
       <div className ='formulario'>
