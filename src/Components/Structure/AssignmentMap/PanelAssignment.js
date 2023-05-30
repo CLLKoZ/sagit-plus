@@ -4,11 +4,14 @@ import Panel from '../General/Panel';
 import Axios from '../../../API/Axios';
 import { getCurrentUser, getForms, getProjects} from '../../../Functions';
 import Select from 'react-select';
+import Icon from '@mdi/react';
+import { mdiCloseCircle, mdiMapMarkerAlert } from '@mdi/js';
 
-const PanelAssignment = ({ children }) => {
+const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, objectSelected = null }) => {
   const [idProject, setIdProject] = useState(null);
   const [users, setUsers] = useState(null);
   const [selectedForm, setSelectedForm] = useState(null);
+  const [objectPanel, setObjectPanel] = useState(null);
   const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
 
   /* Estilos del componente Select */
@@ -31,6 +34,10 @@ const PanelAssignment = ({ children }) => {
       color: '#D1D4D8',
     }),
   };
+
+  useEffect(() => {
+    setObjectPanel(objectSelected);
+  }, [objectSelected])
 
   /* Este useEffect se utiliza para obtener el listado de usuarios */
   useEffect(()=>{
@@ -62,6 +69,15 @@ const PanelAssignment = ({ children }) => {
     setSelectedForm(defaultOptions);
   }, [idProject, defaultOptions]);
 
+  const deleteObject = (assingID) =>{
+    console.log(assingID.objectEvaluate.name)
+    const itemToRemove = {_id: assingID._id, status: assingID.status};
+    setObjectSelected(prevState => {
+      prevState.splice(objectSelected.findIndex(a => a._id === itemToRemove._id), 1);
+      return [...prevState];
+    })
+  }
+
   return(
     <Panel>
       <div className ='formulario'>
@@ -81,8 +97,10 @@ const PanelAssignment = ({ children }) => {
             }
             onChange = {(selectedOption) => {
               setIdProject(selectedOption.value);
+              setProject(selectedOption.value);
               if (selectedOption.value === "") {
                 setIdProject(null);
+                setProject(null);
               }
             }}
             styles = {selectStyles}         
@@ -104,6 +122,7 @@ const PanelAssignment = ({ children }) => {
           }
           onChange = {(selectedOption) => {
             setSelectedForm(selectedOption);
+            setForm(selectedOption.value);
           }}
           styles = {selectStyles}
         />
@@ -122,7 +141,26 @@ const PanelAssignment = ({ children }) => {
             styles = {selectStyles}         
         />
         
-        <label className='labelPanel'>Inspecciones:</label>
+        <label className='labelPanel'>
+          Inspecciones:
+        </label>
+        {
+          objectPanel != null ? (
+            objectPanel.map(object => (
+              <div key={object._id}>
+                <label className='p-object'>
+                <span className='delete-object' onClick={() => deleteObject(object)}>
+                    <Icon path={mdiCloseCircle} size={1}/>
+                  </span>
+                  &nbsp;{object.objectEvaluate.name}
+                </label>
+              </div>
+            ))
+          ) :  
+          <label className='p-object'>
+            Seleccion objetos de evaluación <Icon path={mdiMapMarkerAlert} size={1}/>
+          </label>
+        }
       </div>
       
       <button className='create-assignment'>Crear</button>

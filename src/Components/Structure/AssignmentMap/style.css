@@ -55,3 +55,17 @@
   color: #D1D4D8 !important;
 }
 
+.p-object {
+  position: relative;
+  font-size: 1em;
+  color: #fff;
+  text-align: left;
+  display: block;
+  padding-left: 10px;
+  padding-bottom: 1.5%;
+}
+
+.delete-object {
+  color: #D33A3A;
+  cursor: pointer;
+}

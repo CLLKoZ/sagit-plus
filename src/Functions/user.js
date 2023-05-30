@@ -74,7 +74,7 @@ const logOutNoHook = () =>{
 const getProjects = () => {
   const projectInfo = [];
   getCurrentUser().session.projects.forEach(project => {
-    const projectObj = { _id: project._id, name: project.name, forms: [] };
+    const projectObj = { _id: project._id, name: project.name, forms: [], typeObjectEvaluation: project.typeObjectEvaluation };
     getCurrentUser().session.forms.forEach(form => {
       if (form.projects.includes(project._id)) {
         const formObj = { _id: form._id, name: form.name };
