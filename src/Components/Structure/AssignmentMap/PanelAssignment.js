@@ -6,6 +6,7 @@ import { getCurrentUser, getForms, getProjects} from '../../../Functions';
 import Select from 'react-select';
 import Icon from '@mdi/react';
 import { mdiCloseCircle, mdiMapMarkerAlert } from '@mdi/js';
+import { createAssign } from '../../../Functions/assignments';
 
 const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, objectSelected = null }) => {
   const [idProject, setIdProject] = useState(null);
@@ -13,6 +14,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
   const [selectedForm, setSelectedForm] = useState(null);
   const [objectPanel, setObjectPanel] = useState(null);
   const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
+  const [selectedUser, setSelectedUser] = useState(null)
 
   /* Estilos del componente Select */
   const selectStyles = {
@@ -70,7 +72,6 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
   }, [idProject, defaultOptions]);
 
   const deleteObject = (assingID) =>{
-    console.log(assingID.objectEvaluate.name)
     const itemToRemove = {_id: assingID._id, status: assingID.status};
     setObjectSelected(prevState => {
       prevState.splice(objectSelected.findIndex(a => a._id === itemToRemove._id), 1);
@@ -138,6 +139,9 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
                 ]
               )
             }
+            onChange = {(selectedOption) => {
+              setSelectedUser(selectedOption);
+            }}
             styles = {selectStyles}         
         />
         
@@ -152,7 +156,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
                 <span className='delete-object' onClick={() => deleteObject(object)}>
                     <Icon path={mdiCloseCircle} size={1}/>
                   </span>
-                  &nbsp;{object.objectEvaluate.name}
+                  &nbsp;{object.name}
                 </label>
               </div>
             ))
@@ -163,7 +167,13 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
         }
       </div>
       
-      <button className='create-assignment'>Crear</button>
+      <button 
+        className='create-assignment' 
+        onClick={()=>{
+          createAssign(idProject, selectedForm?.value, selectedUser?.value, objectPanel)
+          setObjectSelected(null)
+        }}
+      >Crear</button>
     </Panel>
   );
 };

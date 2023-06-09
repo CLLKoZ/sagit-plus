@@ -4,6 +4,7 @@ import { getCurrentUser, logOutNoHook } from "./user"
 import { icon } from "leaflet";
 import { useMapEvent } from "react-leaflet";
 import { debounce } from "./utilidades";
+import { expiredSession, genericError, internalServerError } from "./notifications";
 
 let posibleStatus = {
   not: 'Sin iniciar',
@@ -33,23 +34,14 @@ const getAssignments = async (setAssignment) => {
       setTimeout(() => {
         logOutNoHook();
       }, 2000)
-      toast.info('La sesión a expirado', {
-        position: "bottom-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      expiredSession();
     } else {
       console.error(error.response);
     }
   }
 }
 
-const getAssignmentsByViewPort = debounce(100, async (setAssignment, coor, projectID, formID) => {
+const getAssignmentsByViewPort = debounce(100, async (setObjects, coor, projectID, formID) => {
   if (coor){
     const headers = {
       Authorization: getCurrentUser().session.token,
@@ -67,7 +59,7 @@ const getAssignmentsByViewPort = debounce(100, async (setAssignment, coor, proje
             ]
         ],
         "formInspection": formID,
-        "project": projectID,
+        "project": projectID
       },
       "filter": {isActive: true},
       "regex": [],
@@ -78,22 +70,14 @@ const getAssignmentsByViewPort = debounce(100, async (setAssignment, coor, proje
     }
     try {
       const response = await Axios.post('/object-evaluation/assignments', body, {headers})
-      setAssignment(peticionReverse(response.data.data.assignments))
+      peticionReverse(response.data.data.objects)
+      setObjects(checkObjectAssign(response.data.data.objects, response.data.data.assignments))
     } catch (error) {
       if (error?.response?.status === 401) {
         setTimeout(() => {
           logOutNoHook();
         }, 2000)
-        toast.info('La sesión a expirado', {
-          position: "bottom-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        expiredSession();
       } else {
         console.error(error.response);
       }
@@ -101,13 +85,32 @@ const getAssignmentsByViewPort = debounce(100, async (setAssignment, coor, proje
   }
 });
 
+const checkObjectAssign = (objects, assignments) =>{
+  return objects.map(object => {
+    let objectTemp = Object.assign({}, object);
+    assignments.forEach(assign => {
+      if (object._id === assign.objectEvaluate._id){
+        if (assign.status === posibleStatus.complete) {
+          objectTemp['icono'] = iconByStatus(assign.status);
+          objectTemp['status'] = assign.status;
+        }
+        else if(assign.status === posibleStatus.not){
+          objectTemp['icono'] = iconByStatus(posibleStatus.init);
+          objectTemp['status'] = posibleStatus.not;
+        } else {
+          objectTemp['icono'] = iconByStatus(posibleStatus.init);
+          objectTemp['status'] = posibleStatus.init;
+        }
+      }
+    })
+    return objectTemp
+  })
+};
+
 const peticionReverse = (response) =>{
   return response.map(item=>{
     let peticionTemp = Object.assign({}, item);
-    if(!peticionTemp.status)
-      peticionTemp['status'] = posibleStatus.not
-    peticionTemp['icono'] = iconByStatus(peticionTemp.status)
-    peticionTemp.objectEvaluate.address.location.coordinates = item.objectEvaluate.address.location.coordinates.reverse()
+    peticionTemp.address.location.coordinates = item.address.location.coordinates.reverse()
     return peticionTemp
   })
 };
@@ -146,25 +149,40 @@ const AssignmentMove = ({setAssignment, projectID, formID}) => {
   })
 };
 
-const createAssignment = (assign) => {
-  const headers = {
-    Authorization: getCurrentUser().session.token,
-    "Access-Control-Allow-Origin": "*"
-  }
-
-  const body = {
-    data:{
-      objectEvaluate: assign.objectEvaluate._id,
-      formInspection: "5f4c2c00a61d3b0fa354e958",
-      supervisor:"5f4b390d1e09cc0923b261e6",
-      createdBy: "5f4b390d1e09cc0923b261e6",
-      dateOfInspection: "2021-07-08T22:11:18.716+00:00",
-      project: "5f4b33061e09cc0923b261df"
+const createAssign = (idProject, form, supervisor, objects) =>{
+  if(idProject && form && supervisor && objects){
+    const headers = {
+      Authorization: getCurrentUser().session.token,
+      "Content-Type": "application/json"
     }
+    
+    objects.forEach(async object => {
+      const body = {
+        "data":{
+          "project": idProject,
+          "formInspection": form,
+          "supervisor": supervisor,
+          "objectEvaluate": [object._id]
+        }
+      }
+
+      try {
+        const response = await Axios.post('/assignment', body, {headers});
+        return response.data;
+      } catch (error){
+        if(error?.response?.status === 500) {
+          internalServerError();
+        } else if (error?.response?.status === 401) {
+          expiredSession();
+        } else {
+          genericError();
+        }
+      }
+    })
   }
-};
+}
 
 export {
   getAssignments, getAssignmentsByViewPort,
-  AssignmentMove
+  AssignmentMove, createAssign
 }

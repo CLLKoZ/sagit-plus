@@ -23,7 +23,8 @@ const login = async (username, password) => {
     token: `Bearer ${response.data.token}`,
     nombre: response.data.data.user[0].firstName,
     forms: response.data.data.forms,
-    projects: response.data.data.projects
+    projects: response.data.data.projects,
+    id: response.data.data._id
   });
   console.log(session)
   if (response.data.token) {

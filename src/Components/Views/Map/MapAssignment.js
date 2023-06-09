@@ -40,29 +40,27 @@ const MapAssignment = () => {
 
   useEffect(() => {
     if (form !== null && project !== null && coordinates)
-      getAssignmentsByViewPort(setAssignments, coordinates, project, form);
+      getAssignmentsByViewPort(setObjects, coordinates, project, form);
     else if (coordinates)
       getObjectEvaluationByViewPort(setObjects, coordinates);
-  }, [form, project, coordinates])
+  }, [form, project, coordinates, objectSelected])
 
   useEffect(() =>{
     setObjectSelected(null)
   }, [form, project])
 
-  console.log(assignments)
-
-  const addAssign = (assign) => {
+  const addObject = (object) => {
     let aux = true;
-    if (!objectSelected && form && assign.status === status.not)
-      setObjectSelected([assign]);
-    else if (form && assign.status === status.not)
+    if (!objectSelected && form && !object.status)
+      setObjectSelected([object]);
+    else if (form && !object.status)
       setObjectSelected(prevState => {
         prevState.forEach(prev => {
-          if (prev._id === assign._id)
+          if (prev._id === object._id)
             aux = false;
         })
         if (aux === true)
-          return [...prevState, assign];
+          return [...prevState, object];
         else
           return [...prevState]
       })
@@ -90,7 +88,7 @@ const MapAssignment = () => {
           {
             form && project != null ? (
               <AssignmentMove 
-                setAssignment={setAssignments}
+                setAssignment={setObjects}
                 coor={coordinates}
                 projectID={project}
                 formID={form}
@@ -107,9 +105,9 @@ const MapAssignment = () => {
                 <div key={object._id} >
                   <Marker 
                     position={object.address.location.coordinates}
-                    icon={customIcon}
+                    icon={object.icono ? object.icono : customIcon}
                   >
-                    <Popup><h5 onClick={() => addAssign(object)}>{object.name}</h5></Popup>
+                    <Popup><h5 onClick={() => addObject(object)}>{object.name}</h5></Popup>
                   </Marker>
                 </div>
               ))
