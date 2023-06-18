@@ -12,6 +12,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
   const [idProject, setIdProject] = useState(null);
   const [users, setUsers] = useState(null);
   const [selectedForm, setSelectedForm] = useState(null);
+  const [selectedProject, setSelectedProject] = useState(null);
   const [objectPanel, setObjectPanel] = useState(null);
   const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
   const [selectedUser, setSelectedUser] = useState(null)
@@ -84,7 +85,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
       <div className ='formulario'>
         <label className ='labelPanel'>Proyecto:</label>
         <Select
-            defaultValue = {defaultOptions}
+            value={selectedProject ? selectedProject : defaultOptions}
             options = {
               getProjects().length > 0 
               ? [
@@ -103,6 +104,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
                 setIdProject(null);
                 setProject(null);
               }
+              setSelectedProject(selectedOption);
             }}
             styles = {selectStyles}         
         />
@@ -130,7 +132,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
 
         <label className='labelPanel'>Inspector:</label>
         <Select
-            defaultValue = {defaultOptions}
+            value={selectedUser ? selectedUser : defaultOptions}
             options = {
               users !== null && (
                 [
@@ -168,12 +170,22 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
       </div>
       
       <button 
-        className='create-assignment' 
+        className='button create-assignment' 
         onClick={()=>{
-          createAssign(idProject, selectedForm?.value, selectedUser?.value, objectPanel)
-          setObjectSelected(null)
+          createAssign(idProject, selectedForm?.value, selectedUser?.value, objectPanel);
+          setObjectSelected(null);
+          setSelectedUser(defaultOptions);
         }}
       >Crear</button>
+      <button 
+        className='button clean-assignment' 
+        onClick={()=>{          
+          setObjectSelected(null);
+          setSelectedUser(defaultOptions);
+          setSelectedForm(defaultOptions);
+          setSelectedProject(defaultOptions);
+        }}
+      >Limpiar</button>
     </Panel>
   );
 };
