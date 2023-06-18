@@ -1,17 +1,24 @@
 /* ESTILOS GENERALES */
 
-.create-assignment {
-  width: 30%;
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  padding: 5px;
+.button{
+  top: 0.75em;
+  width: 7em;
+  padding: 0.3em;
   background-color: aliceblue;
   border: none;
   border-radius: 7px;
   font-size:1.2em;
   color: #0f1f52;
   transition: 0.5s;
+}
+.create-assignment {
+  position: absolute;
+  left: 1em;
+}
+
+.clean-assignment {
+  position:absolute;
+  right: 9em;
 }
 
 .create-assignment:hover {
