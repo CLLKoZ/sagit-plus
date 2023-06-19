@@ -181,8 +181,78 @@ const createAssign = (idProject, form, supervisor, objects) =>{
     })
   }
 }
-
+const updateAssign =  async (idAssignment, idUser) => {
+  if(idAssignment){
+    const headers = {
+      Authorization: getCurrentUser().session.token,
+      "Content-Type": "application/json"
+    }
+    const body = {
+      "data":{
+        "supervisor": idUser
+      }
+    }
+    try {
+      await Axios.put(`/assignment/${idAssignment}`, body, {headers});
+    } catch (error){
+      if(error?.response?.status === 500) {
+        internalServerError();
+      } else if (error?.response?.status === 401) {
+        expiredSession();
+      } else {
+        genericError();
+      }
+    }
+  }
+}
+const deleteAssign =  async (idAssignment) => {
+  if(idAssignment){
+    const headers = {
+      Authorization: getCurrentUser().session.token,
+      "Content-Type": "application/json"
+    }
+    try {
+      await Axios.delete(`/assignment/${idAssignment}`, {headers});
+    } catch (error){
+      if(error?.response?.status === 500) {
+        internalServerError();
+      } else if (error?.response?.status === 401) {
+        expiredSession();
+      } else {
+        genericError();
+      }
+    }
+  }
+}
+const findAssignment = async (idObject, idForm, idProject, setAssignment) => {
+  const headers = {
+    Authorization: getCurrentUser().session.token
+  };
+  const body = {
+    "filter": {
+      "objectEvaluate": idObject,
+      "formInspection": idForm,
+      "project": idProject,
+    },
+    "regex": [],
+    "populate": [{"path": "supervisor", "select": ["lastName", "firstName"]}],
+    "attributes": []
+  }
+  try {
+    const response = await Axios.post('/assignment/find', body, {headers})
+    setAssignment(response.data.data)
+  } catch (error) {
+    if (error?.response?.status === 401) {
+      setTimeout(() => {
+        logOutNoHook();
+      }, 2000)
+      expiredSession();
+    } else {
+      console.error(error.response);
+    }
+  }
+}
 export {
   getAssignments, getAssignmentsByViewPort,
-  AssignmentMove, createAssign
+  AssignmentMove, createAssign, updateAssign, deleteAssign, findAssignment
 }

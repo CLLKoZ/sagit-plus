@@ -5,7 +5,7 @@ import EditAssignation from '../../Structure/AssignmentMap/EditAssignation';
 import { ToastContainer, toast } from 'react-toastify';
 import { mdiClipboardAccount} from '@mdi/js';
 import PanelAssignment from '../../Structure/AssignmentMap/PanelAssignment';
-import { AssignmentMove, getAssignments, getAssignmentsByViewPort } from '../../../Functions/assignments';
+import { AssignmentMove, getAssignmentsByViewPort, findAssignment } from '../../../Functions/assignments';
 import { Marker, Popup } from 'react-leaflet';
 import { Spinner } from 'reactstrap';
 import Icon from '@mdi/react';
@@ -17,7 +17,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const MapAssignment = () => {
 
   const [coordinates, setCoordinates] = useState(null);
-  const [assignments, setAssignments] = useState(null);
+  const [assignment, setAssignment] = useState(null);
   const [form, setForm] = useState(null);
   const [project, setProject] = useState(null);
   const [objects, setObjects] = useState(null);
@@ -54,6 +54,10 @@ const MapAssignment = () => {
     setObjectSelected(null)
   }, [form, project])
 
+  useEffect(() => {
+    console.log(assignment);
+  }, [assignment]);
+
   const addObject = (object) => {
     let aux = true;
     if (!objectSelected && form && !object.status)
@@ -70,6 +74,7 @@ const MapAssignment = () => {
           return [...prevState]
       })
     else if(!objectSelected && form && object.status === status['not']){
+      findAssignment(object._id, form, project, setAssignment);
       setModal(!modal);
     }
   }
@@ -96,7 +101,7 @@ const MapAssignment = () => {
         </PanelAssignment>
         {
           form ? (
-            <EditAssignation isOpenM={modal} toggleM={closeModal}/>
+            <EditAssignation assignment={assignment} isOpenM={modal} toggleM={closeModal}/>
           ) : (
             <ToastContainer position="bottom-center"
               autoClose={5000}
