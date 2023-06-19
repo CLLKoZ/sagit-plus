@@ -5,7 +5,7 @@ import MenuInspection from './MenuInspection';
 import Axios from '../../../API/Axios';
 import {getCurrentUser} from '../../../Functions';
 import DeployImage from './DeployImage';
-import '../../../Styles/madeInspection.css';
+import './style.css';
 
 const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
   const [currentInspection, setCurrentInspection] = useState(null);

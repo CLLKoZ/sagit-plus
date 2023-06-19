@@ -11,19 +11,88 @@
   color: #0f1f52;
   transition: 0.5s;
 }
+.button-Options{
+  width: 7em;
+  padding: 0.3em;
+  border: none;
+  border-radius: 7px;
+  font-size:1.1em;
+  color: #000;
+  transition: 0.5s;
+  margin-left: 3%;
+}
+
+.container-Buttons{
+  margin-top: 7%;
+  margin-left: 5%;
+  margin-right: 3%;
+  margin-bottom: 2%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .create-assignment {
   position: absolute;
   left: 1em;
 }
-
 .clean-assignment {
   position:absolute;
   left: 9em;
 }
-
 .create-assignment:hover {
   background-color: #e4e5e7;
   color: black;
+}
+.btnEdit {
+  border: 1px solid #FF8B00;
+  background-color: transparent;
+  color:#FF8B00;
+}
+.btnDelete {
+  border: 1px solid #CF0000;
+  background-color: transparent;
+  color:#CF0000;
+}
+.btnEdit:hover {
+  background-color: #FF8B00;
+  color: #fff;
+}
+.btnDelete:hover {
+  background-color: #CF0000;
+  color: #fff;
+}
+
+/*  BLOQUE DE MODAL DE VISUALIZAR EDICION DE ASIGNACION  */
+.modal-dialog{
+  width: fit-content !important;
+  max-width: 45em !important;
+}
+.modal-content{
+  height: fit-content !important;
+}
+
+
+/*DISEÑO DE COMPONENTES DEL FORMULARIO*/
+.labelPanel{
+  position: relative;
+  font-size: 1.1em;
+  color: #000;
+  text-align: left;
+  width: 35em;
+  display: block;
+  padding-bottom: 1%;
+}
+.label-Content{
+  position: relative;
+  font-size: 1.1em;
+  color: #494848;
+  text-align: left;
+  width: 35em;
+  display: block;
+  padding: 1%;
+  margin-bottom: 3%;
+  border: 1px solid #e4e5e7;
+  border-radius: 4px;
 }
 
 /* ESTILOS DEL COMPONENTE SELECT DE REACT-SELECT*/

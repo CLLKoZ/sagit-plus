@@ -181,8 +181,35 @@ const createAssign = (idProject, form, supervisor, objects) =>{
     })
   }
 }
-
+const findAssignment = async (idObject, idForm, idProject, setAssignment) => {
+  const headers = {
+    Authorization: getCurrentUser().session.token
+  };
+  const body = {
+    "filter": {
+      "objectEvaluate": idObject,
+      "formInspection": idForm,
+      "project": idProject,
+    },
+    "regex": [],
+    "populate": [{"path": "supervisor", "select": ["lastName", "firstName"]}],
+    "attributes": []
+  }
+  try {
+    const response = await Axios.post('/assignment/find', body, {headers})
+    setAssignment(response.data.data)
+  } catch (error) {
+    if (error?.response?.status === 401) {
+      setTimeout(() => {
+        logOutNoHook();
+      }, 2000)
+      expiredSession();
+    } else {
+      console.error(error.response);
+    }
+  }
+}
 export {
   getAssignments, getAssignmentsByViewPort,
-  AssignmentMove, createAssign
+  AssignmentMove, createAssign, findAssignment
 }
