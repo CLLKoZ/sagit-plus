@@ -1,4 +1,5 @@
-import axios from '../API/Axios'
+import axios from '../API/Axios';
+import { expiredSession} from "./notifications";
 
 const loggedUserJSON = localStorage.getItem('loggedUser')
 
@@ -100,8 +101,33 @@ const getForms = (idProject) => {
   }
 }
 
+/* Obtiene el listado de usuarios del sistema */
+const getUsers = async (setUsers) => {
+  const headers = {
+    Authorization: getCurrentUser().session.token
+  };
+  const body = {
+    "filter":{},
+    "regex": [],
+    "populate": [],
+    "attributes": []
+  }
+  try {
+    const response = await axios.post('/user/find', body, {headers})
+    setUsers(response.data.data);
+  } catch (error) {
+    if (error?.response?.status === 401) {
+      setTimeout(() => {
+        logOutNoHook();
+      }, 2000)
+      expiredSession();
+    } else {
+      console.error(error.response);
+    }
+  }
+}
 export{
   isLogged, logOut, login, 
-  getCurrentUser, forgotPassword,
+  getCurrentUser, forgotPassword, getUsers,
   newPassword, logOutNoHook, getProjects, getForms
 };

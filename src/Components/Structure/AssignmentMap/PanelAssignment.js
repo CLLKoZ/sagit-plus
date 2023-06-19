@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import Panel from '../General/Panel';
-import Axios from '../../../API/Axios';
-import { getCurrentUser, getForms, getProjects} from '../../../Functions';
+import { getForms, getUsers, getProjects} from '../../../Functions';
 import Select from 'react-select';
 import Icon from '@mdi/react';
 import { mdiCloseCircle, mdiMapMarkerAlert } from '@mdi/js';
@@ -44,27 +43,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
 
   /* Este useEffect se utiliza para obtener el listado de usuarios */
   useEffect(()=>{
-    const getUsers = async() => {
-      const headers={
-        Authorization: getCurrentUser().session.token
-      }
-      const body = {
-        "filter":{},
-        "regex": [],
-        "populate": [],
-        "attributes": [],
-        "pageNumber": 1,
-        "limit": 1000
-      }
-      try {
-        const response = await Axios.post('/user/find', body, {headers});
-        setUsers(response.data.data);
-      } catch (error) {
-        console.log("Algo salió mal");
-        console.log(error);
-      }
-    }
-    getUsers();
+    getUsers(setUsers);
   }, [])
   
   /* Este useEffect se utiliza para detectar el cambio del idProyecto seleccionado, y setear opciones default en formulario */
