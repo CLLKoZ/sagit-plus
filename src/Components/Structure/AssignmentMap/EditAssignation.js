@@ -1,13 +1,14 @@
 import React from 'react';
 import {Modal, ModalHeader, ModalBody} from 'reactstrap';
 
-const EditAssignation = () => {
+const EditAssignation = ({ isOpenM, toggleM }) => {
   return (
     <section>
-      <Modal>
-        <ModalHeader></ModalHeader>
-        <ModalBody>
-        </ModalBody>
+      <Modal isOpen={isOpenM} toggle={toggleM} centered>
+        <ModalHeader toggle={toggleM}>
+          Asignación
+        </ModalHeader>
+        <ModalBody></ModalBody>
       </Modal>
     </section>
   );
