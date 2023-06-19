@@ -7,7 +7,7 @@
   background-color: aliceblue;
   border: none;
   border-radius: 7px;
-  font-size:1.2em;
+  font-size:1.1em;
   color: #0f1f52;
   transition: 0.5s;
 }
@@ -18,14 +18,13 @@
 
 .clean-assignment {
   position:absolute;
-  right: 9em;
+  left: 9em;
 }
 
 .create-assignment:hover {
   background-color: #e4e5e7;
   color: black;
 }
-
 
 /* ESTILOS DEL COMPONENTE SELECT DE REACT-SELECT*/
 .css-1u9des2-indicatorSeparator {

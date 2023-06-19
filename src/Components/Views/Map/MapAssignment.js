@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../Structure/Header/Header';
 import MapSagit from '../../Structure/General/MapSagit';
+import EditAssignation from '../../Structure/AssignmentMap/EditAssignation';
+import { ToastContainer, toast } from 'react-toastify';
 import { mdiClipboardAccount} from '@mdi/js';
 import PanelAssignment from '../../Structure/AssignmentMap/PanelAssignment';
 import { AssignmentMove, getAssignments, getAssignmentsByViewPort } from '../../../Functions/assignments';
@@ -10,6 +12,8 @@ import Icon from '@mdi/react';
 import { GetPolygon, getObjectEvaluationByViewPort } from '../../../Functions';
 import { icon } from 'leaflet';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const MapAssignment = () => {
 
   const [coordinates, setCoordinates] = useState(null);
@@ -18,6 +22,7 @@ const MapAssignment = () => {
   const [project, setProject] = useState(null);
   const [objects, setObjects] = useState(null);
   const [objectSelected, setObjectSelected] = useState(null);
+  const [modal, setModal] = useState(false);
 
   let status = {
     not: 'Sin iniciar',
@@ -64,7 +69,14 @@ const MapAssignment = () => {
         else
           return [...prevState]
       })
+    else if(!objectSelected && form && object.status === status['not']){
+      setModal(!modal);
+    }
   }
+  
+  const closeModal=()=>{
+      setModal(!modal);
+  };
   
   return (
     <section>
@@ -82,6 +94,24 @@ const MapAssignment = () => {
           objectSelected={objectSelected}
         >
         </PanelAssignment>
+        {
+          form ? (
+            <EditAssignation isOpenM={modal} toggleM={closeModal}/>
+          ) : (
+            <ToastContainer position="bottom-center"
+              autoClose={5000}
+              limit={3}
+              hideProgressBar={false}
+              newestOnTop={false}
+              closeOnClick
+              rtl={false}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="dark"
+            />
+          )
+        }
       </div>
       <MapSagit mapCoordinates={setCoordinates}>
         <div className='contenido'>
@@ -107,7 +137,7 @@ const MapAssignment = () => {
                     position={object.address.location.coordinates}
                     icon={object.icono ? object.icono : customIcon}
                   >
-                    <Popup><h5 onClick={() => addObject(object)}>{object.name}</h5></Popup>
+                    <Popup><h5 className='pop-up' onClick={() => addObject(object)}>{object.name}</h5></Popup>
                   </Marker>
                 </div>
               ))
