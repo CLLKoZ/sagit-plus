@@ -14,9 +14,9 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
   const [selectedProject, setSelectedProject] = useState(null);
   const [objectPanel, setObjectPanel] = useState(null);
   const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
-  const [selectedUser, setSelectedUser] = useState(null)
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  /* Estilos del componente Select */
+/* Estilos del componente Select */
   const selectStyles = {
     option: (provided, state) => ({
       ...provided,
@@ -163,6 +163,8 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
           setSelectedUser(defaultOptions);
           setSelectedForm(defaultOptions);
           setSelectedProject(defaultOptions);
+          setForm(null);
+          setProject(null);
         }}
       >Limpiar</button>
     </Panel>

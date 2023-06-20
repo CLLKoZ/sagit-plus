@@ -23,6 +23,7 @@ const MapAssignment = () => {
   const [objects, setObjects] = useState(null);
   const [objectSelected, setObjectSelected] = useState(null);
   const [modal, setModal] = useState(false);
+  const [mapFlag, setMapFlag] = useState(false);
 
   let status = {
     not: 'Sin iniciar',
@@ -48,15 +49,11 @@ const MapAssignment = () => {
       getAssignmentsByViewPort(setObjects, coordinates, project, form);
     else if (coordinates)
       getObjectEvaluationByViewPort(setObjects, coordinates);
-  }, [form, project, coordinates, objectSelected])
+  }, [form, project, coordinates, objectSelected, mapFlag])
 
   useEffect(() =>{
     setObjectSelected(null)
   }, [form, project])
-
-  useEffect(() => {
-    console.log(assignment);
-  }, [assignment]);
 
   const addObject = (object) => {
     let aux = true;
@@ -101,7 +98,7 @@ const MapAssignment = () => {
         </PanelAssignment>
         {
           form ? (
-            <EditAssignation assignment={assignment} isOpenM={modal} toggleM={closeModal}/>
+            <EditAssignation assignment={assignment} mapFlag={mapFlag} setMapFlag={setMapFlag} isOpenM={modal} toggleM={closeModal}/>
           ) : (
             <ToastContainer position="bottom-center"
               autoClose={5000}

@@ -62,16 +62,6 @@
   color: #fff;
 }
 
-/*  BLOQUE DE MODAL DE VISUALIZAR EDICION DE ASIGNACION  */
-.modal-dialog{
-  width: fit-content !important;
-  max-width: 45em !important;
-}
-.modal-content{
-  height: fit-content !important;
-}
-
-
 /*DISEÑO DE COMPONENTES DEL FORMULARIO*/
 .labelPanel{
   position: relative;
