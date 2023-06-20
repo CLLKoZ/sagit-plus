@@ -4,7 +4,7 @@ import Select from 'react-select';
 import {updateAssign, deleteAssign} from '../../../Functions/assignments';
 import {getUsers} from '../../../Functions/user';
 
-const EditAssignation = ({ assignment, isOpenM, toggleM }) => {
+const EditAssignation = ({ assignment, mapFlag, setMapFlag, isOpenM, toggleM }) => {
   const [users, setUsers] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null)
 
@@ -34,6 +34,10 @@ const EditAssignation = ({ assignment, isOpenM, toggleM }) => {
       boxShadow: 'none !important',
     }),
   };
+  var modalContent = {
+    height: "fit-content !important"
+  };
+  
   /* Este useEffect se utiliza para obtener el listado de usuarios */
   useEffect(()=>{
     getUsers(setUsers);
@@ -42,6 +46,7 @@ const EditAssignation = ({ assignment, isOpenM, toggleM }) => {
 
   const handleDeleteAssign = (id) => {
     deleteAssign(id);
+    setMapFlag(!mapFlag);
     toggleM();
   };
 
@@ -52,7 +57,7 @@ const EditAssignation = ({ assignment, isOpenM, toggleM }) => {
   };
 
   return (
-    <section>
+    <>
       { 
           /*
             Aqui se renderiza la asignacion del objeto seleccionado
@@ -60,47 +65,49 @@ const EditAssignation = ({ assignment, isOpenM, toggleM }) => {
             assignment ? (
               assignment.map((item) => (
               <div key={item._id}>
-                <Modal isOpen={isOpenM} toggle={toggleM} centered>
+                <Modal isOpen={isOpenM} toggle={toggleM} centered style={{maxWidth: '45em', width: 'fit-content'}}>
+                <div className="modal-content" style={{height: 'fit-content', maxHeight: '50vh'}}>
                   <ModalHeader toggle={toggleM}>
                     Asignación
                   </ModalHeader>
                   <ModalBody>
-                  <div className ='formulario'>
-                    <label className ='labelPanel'>Proyecto:</label>
-                    <label className ='label-Content'>{item.projectName}</label>
-                    <label className ='labelPanel'>Formulario:</label>
-                    <label className ='label-Content'>{item.formInspectionName}</label>
-                    <label className='labelPanel'>Inspector:</label>
-                    <Select
-                        value={selectedUser ? selectedUser : {label: `${item.supervisor.firstName} ${item.supervisor.lastName}`, value: item.supervisor._id}}
-                        options = {
-                          users !== null && (
-                            [
-                              { label: "Seleccione una opción", value: null },
-                              ...users.map(user => ({label: user.firstName + ' '+ user.lastName, value: user._id})),
-                            ]
-                          )
-                        }
-                        onChange = {(selectedOption) => {
-                          setSelectedUser(selectedOption);
-                        }}
-                        styles = {selectStyles}         
-                      />
-                </div>
-                <div className='container-Buttons'>
-                    <button className='button-Options btnEdit' 
-                    onClick={() =>
-                      selectedUser ? handleUpdateAssign(item._id, selectedUser['value']):toggleM()
-                    }>Modificar</button>
-                    <button className='button-Options btnDelete' onClick={() => handleDeleteAssign(item._id)}>Eliminar</button>
-                </div>
+                    <div className ='formulario'>
+                      <label className ='labelPanel'>Proyecto:</label>
+                      <label className ='label-Content'>{item.projectName}</label>
+                      <label className ='labelPanel'>Formulario:</label>
+                      <label className ='label-Content'>{item.formInspectionName}</label>
+                      <label className='labelPanel'>Inspector:</label>
+                      <Select
+                          value={selectedUser ? selectedUser : {label: `${item.supervisor.firstName} ${item.supervisor.lastName}`, value: item.supervisor._id}}
+                          options = {
+                            users !== null && (
+                              [
+                                { label: "Seleccione una opción", value: null },
+                                ...users.map(user => ({label: user.firstName + ' '+ user.lastName, value: user._id})),
+                              ]
+                            )
+                          }
+                          onChange = {(selectedOption) => {
+                            setSelectedUser(selectedOption);
+                          }}
+                          styles = {selectStyles}         
+                        />
+                    </div>
+                    <div className='container-Buttons'>
+                        <button className='button-Options btnEdit' 
+                        onClick={() =>
+                          selectedUser ? handleUpdateAssign(item._id, selectedUser['value']):toggleM()
+                        }>Modificar</button>
+                        <button className='button-Options btnDelete' onClick={() => handleDeleteAssign(item._id)}>Eliminar</button>
+                    </div>
                   </ModalBody>
+                </div>
                 </Modal>
               </div>
             ))
           ):('')
         }
-    </section>
+    </>
   );
 }
 

@@ -55,14 +55,16 @@ const ModalInspection = ({inspectionModal, isOpenM=false, toggleM, idForm}) => {
         /* Aqui se renderiza la información que se presenta en el modal al querer ver un punto de inspección*/
         currentInspection ?
           (<Modal className='modal-Inspection' centered isOpen={isOpenM} toggle={toggleM}>
-            <ModalHeader toggle={toggleM}>
-              Inspecciones de {currentInspection.name} en el formulario {currentForm[0].name}
-            </ModalHeader>
-            <ModalBody>
-              <section className='menu-inspection'><MenuInspection ins = {currentInspection.inspection} handleOptionMenuClick = {setOptionMenu}/></section>
-              <section className='bloc-inspection'><FieldInspection form = {currentForm[0]} selectedInspection = {optionMenu} firstInspection = {currentInspection.inspection[currentInspection.inspection.length-1]} handlePropsImage = {setPropsImage} handleClickOpenImage = {setShowImage}/></section>
-              <section><DeployImage imageName = {propsImage[0]} imageSrc = {propsImage[1]} isOpenI={showImage} toggleI={closeImage}/></section>
-            </ModalBody>
+            <div className="modal-content" style={{height: '80vh'}}>
+              <ModalHeader toggle={toggleM}>
+                Inspecciones de {currentInspection.name} en el formulario {currentForm[0].name}
+              </ModalHeader>
+              <ModalBody>
+                <section className='menu-inspection'><MenuInspection ins = {currentInspection.inspection} handleOptionMenuClick = {setOptionMenu}/></section>
+                <section className='bloc-inspection'><FieldInspection form = {currentForm[0]} selectedInspection = {optionMenu} firstInspection = {currentInspection.inspection[currentInspection.inspection.length-1]} handlePropsImage = {setPropsImage} handleClickOpenImage = {setShowImage}/></section>
+                <section><DeployImage imageName = {propsImage[0]} imageSrc = {propsImage[1]} isOpenI={showImage} toggleI={closeImage}/></section>
+              </ModalBody>
+            </div>
           </Modal>
           ) : (
           <Modal isOpen={isOpenM} toggle={toggleM}>

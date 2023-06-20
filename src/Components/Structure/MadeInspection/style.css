@@ -8,10 +8,6 @@
 .modal-dialog{
   max-width: 90vw !important;
 }
-.modal-content{
-  display: flex;
-  height: 80vh;
-}
 .modal-body{
   height: 78%;
 }

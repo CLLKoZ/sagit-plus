@@ -11,27 +11,6 @@ const Filtros = ({formFiltro, setFilter}) => {
   const [exclude, setExclude] = useState([]);
   const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
 
-  /* Estilos del componente Select */
-  const selectStyles = {
-    option: (provided, state) => ({
-      ...provided,
-      backgroundColor: state.isFocused ? '#D1D4D8' : 'white',
-      color: 'black',
-      textAlign: 'left',
-      height: '25px',
-      paddingTop:'0px',
-    }),
-    input: (provided) => ({
-      ...provided,
-      color: '#D1D4D8',
-    }),
-    singleValue: (provided) => ({
-      ...provided,
-      textAlign: 'left',
-      color: '#D1D4D8',
-    }),
-  };
-
   useEffect(() => {
     if (itemsFilter) {
       if (itemsFilter.length === 0) {

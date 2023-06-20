@@ -30,9 +30,7 @@ const PanelFiltroMapa = ({state, setFiltro, setChangeMap}) => {
           "filter": {"_id": selects},
           "regex": [],
           "populate": [],
-          "attributes": [],
-          "pageNumber": 1,
-          "limit": 5
+          "attributes": []
         }
         try {
           const response = await Axios.post('/form-inspection/find', body, {headers});
