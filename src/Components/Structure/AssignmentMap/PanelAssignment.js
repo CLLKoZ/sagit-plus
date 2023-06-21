@@ -51,11 +51,10 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
     setSelectedForm(defaultOptions);
   }, [idProject, defaultOptions]);
 
-  const deleteObject = (assingID) =>{
-    const itemToRemove = {_id: assingID._id, status: assingID.status};
+  const deleteObject = (object) =>{
     setObjectSelected(prevState => {
-      prevState.splice(objectSelected.findIndex(a => a._id === itemToRemove._id), 1);
-      return [...prevState];
+      const newState = prevState.filter(id=> id != object);
+      return newState;
     })
   }
 
