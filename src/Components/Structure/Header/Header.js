@@ -57,10 +57,10 @@ const Header = ({children, counter=null}) => {
                 {
                   objectRoutes.map((object, index) => 
                     <DropdownItem key={index}>
-                      <NavLink to={object.route} className={'nav-link'}>
+                      <a href={object.route} className={'nav-link'}>
                         <Icon path={object.icon} size={1} />
                         &nbsp;{object.name}
-                      </NavLink>
+                      </a>
                     </DropdownItem>
                   )
                 }
