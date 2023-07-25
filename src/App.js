@@ -9,6 +9,7 @@ import NotFound from './Components/Views/General/NotFound';
 import Forgot from './Components/Views/Sessions/Forgot';
 import NewPassword from './Components/Views/Sessions/NewPassword';
 import MapAssignment from './Components/Views/Map/MapAssignment';
+import MapAssignmentByForm from './Components/Views/Map/MapAssignmentByForm';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route element={<RequireAuth />}>
             <Route caseSensitive={false} path='/mapa' element={<MapView />}/>
             <Route caseSensitive={false} render={props => <Navigate to={`${props.location.pathname.toLowerCase()}`}/>} path='/asignaciones' element={<MapAssignment />}/>
+            <Route caseSensitive={false} render={props => <Navigate to={`${props.location.pathname.toLowerCase()}`}/>} path='/asignaciones-forms' element={<MapAssignmentByForm />}/>
             <Route element={<RedirectLogin />}>
               <Route path='/' element={<div></div>}/>
             </Route>

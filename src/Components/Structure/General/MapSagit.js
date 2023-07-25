@@ -16,7 +16,7 @@ const MapSagit = ({children, mapCoordinates}) => {
   }, [map, mapCoordinates]);
 
   return (
-    <>
+    <div>
       <MapContainer 
         ref={setMap} 
         center={[13.72023, -89.202182]} 
@@ -29,7 +29,7 @@ const MapSagit = ({children, mapCoordinates}) => {
         />
         {children}
       </MapContainer>
-    </>
+    </div>
   );
 }
 
