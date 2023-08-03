@@ -121,7 +121,7 @@ const MapView = () =>{
       </div>
       <MapSagit mapCoordinates={setCoordinates}>
         <div className='contenido'>
-        <GetPolygon estado={setMarker} filtroMove={filtroMap}></GetPolygon>
+        <GetPolygon estado={setMarker} filtroMove={filtroMap} setCoor={setCoordinates}></GetPolygon>
         { markers != null ? (
           markers.map(marker=> (
             <div key={marker._id} > {

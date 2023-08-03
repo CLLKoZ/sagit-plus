@@ -5,7 +5,7 @@ import { getFieldValue, getFilledForm } from './formInspection';
 
 /* Carga las coordenadas necesarios para obtener los objetos
 de evaluacion por viewport al mover el mapa */
-export function GetPolygon({estado, filtroMove}){
+export function GetPolygon({estado, filtroMove, setCoor}){
   const map = useMapEvents({
     moveend() {
       const NorthEast = map.getBounds().getNorthEast();
@@ -13,6 +13,7 @@ export function GetPolygon({estado, filtroMove}){
       const SouthWest = map.getBounds().getSouthWest();
       const SouthEast = map.getBounds().getSouthEast();
       let coordenadas = [NorthEast, NorthWest, SouthWest, SouthEast]
+      setCoor(coordenadas)
       if (filtroMove)
       {
         getObjectEvaluationByViewPort(estado, coordenadas, filtroMove)

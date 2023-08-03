@@ -32,3 +32,14 @@ export const genericError = () => toast.error('Algo salió mal, informe al desar
   progress: undefined,
   theme: "dark",
 });
+
+export const alertSelectProject = () => toast.info('Seleccione un proyecto', {
+  position: "bottom-center",
+  autoClose: 3000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+});

@@ -2,22 +2,23 @@ import React, { useState } from 'react'
 import Header from '../../Structure/Header/Header'
 import Icon from '@mdi/react'
 import { mdiClipboardAccount } from '@mdi/js'
-import PanelAssignment from '../../Structure/AssignmentMap/PanelAssignment'
 import MapSagit from '../../Structure/General/MapSagit'
 import { Spinner } from 'reactstrap'
 import { Marker, Popup } from 'react-leaflet'
 import PanelAssignmentByForm from '../../Structure/AssignmentMap/PanelAssignmentByForm'
-import { AssignmentMove, getAssignmentsByViewPort } from '../../../Functions/assignments'
-import { GetPolygon, getObjectEvaluationByViewPort } from '../../../Functions'
+import { AssignmentMove, getAssignmentsByForm } from '../../../Functions/assignments'
 import { icon } from 'leaflet'
 import { useEffect } from 'react'
+import { toast } from 'react-toastify'
+import { GetPolygon } from '../../../Functions'
 
 export default function MapAssignmentByForm() {
   const [coordinates, setCoordinates] = useState();
   const [objects, setObjects] = useState(null);
   const [assignment, setAssignment] = useState(null);
-  const [form, setForm] = useState(null);
+  const [forms, setForms] = useState(null);
   const [project, setProject] = useState(null);
+  const [objectSelected, setObjectSelected] = useState(null);
 
   const customIcon = new icon({
     iconUrl: require(`../../../Images/Markers/domain-marker-base-blue.png`),
@@ -26,14 +27,32 @@ export default function MapAssignmentByForm() {
 
   useEffect(() => {
     document.title = "SAGIT | Asignaciones Form";
+    toast.info('Seleccione un proyecto', {
+      position: "bottom-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
   }, []);
 
   useEffect(() => {
-    if (form !== null && project !== null && coordinates)
-      getAssignmentsByViewPort(setObjects, coordinates, project, form);
-    else if (coordinates)
-      getObjectEvaluationByViewPort(setObjects, coordinates);
-  }, [form, project, coordinates])
+    if (project !== null && coordinates)
+      getAssignmentsByForm(setObjects, coordinates, project);
+  }, [project, coordinates]);
+
+  useEffect(() => {
+    console.log(coordinates)
+  }, [coordinates]);
+
+  const addObject = (object) => {
+    setObjectSelected(object);
+  }
+
+  console.log()
 
   return (
     <>
@@ -44,22 +63,24 @@ export default function MapAssignmentByForm() {
             &nbsp;Asignar Inspección
           </label>
         </Header>
-        <PanelAssignmentByForm/>
+        <PanelAssignmentByForm 
+          setProject={setProject} 
+          setForm={setForms} 
+          objectSelected={objectSelected} 
+          setObjectSelected={setObjectSelected}
+        />
       </div>
       <MapSagit mapCoordinates={setCoordinates}>
       <div className='contenido'>
           {
-            form && project != null ? (
+            project != null ? (
               <AssignmentMove 
                 setAssignment={setObjects}
-                coor={coordinates}
+                setCoor={setCoordinates}
                 projectID={project}
-                formID={form}
               />
             ) : (
-              objects && (
-                <GetPolygon estado={setObjects}/>
-              )
+              <GetPolygon setCoor={setCoordinates}/>
             )
           }
           {
@@ -70,7 +91,7 @@ export default function MapAssignmentByForm() {
                     position={object.address.location.coordinates}
                     icon={object.icono ? object.icono : customIcon}
                   >
-                    <Popup><h5 className='pop-up'>{object.name}</h5></Popup>
+                    <Popup><h5 className='pop-up' onClick={()=> addObject(object)}>{object.name}</h5></Popup>
                   </Marker>
                 </div>
               ))

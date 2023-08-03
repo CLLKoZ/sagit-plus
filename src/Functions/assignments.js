@@ -134,7 +134,7 @@ const iconByStatus = (status) => {
   }
 };
 
-const AssignmentMove = ({setAssignment, projectID, formID}) => {
+const AssignmentMove = ({setAssignment, projectID, formID=null, setCoor}) => {
   const map = useMapEvent({
     moveend() {
       const NorthEast = map.getBounds().getNorthEast();
@@ -142,8 +142,11 @@ const AssignmentMove = ({setAssignment, projectID, formID}) => {
       const SouthWest = map.getBounds().getSouthWest();
       const SouthEast = map.getBounds().getSouthEast();
       let coordenadas = [NorthEast, NorthWest, SouthWest, SouthEast]
-      if (formID) {
+      setCoor(coordenadas)
+      if (formID && projectID) {
         getAssignmentsByViewPort(setAssignment, coordenadas, projectID, formID)
+      } else if (projectID) {
+        getAssignmentsByForm(setAssignment, coordenadas, projectID)
       }
     }
   })
@@ -252,7 +255,53 @@ const findAssignment = async (idObject, idForm, idProject, setAssignment) => {
     }
   }
 }
+
+const getAssignmentsByForm = debounce(100, async (setObjects, coor, projectID) => {
+  if (coor){
+    const headers = {
+      Authorization: getCurrentUser().session.token,
+      "Access-Control-Allow-Origin": "*"
+    };
+    const body = {
+      "data": {
+        "polygon": [
+            [
+              [coor[0].lng, coor[0].lat],
+              [coor[1].lng, coor[1].lat],
+              [coor[2].lng, coor[2].lat],
+              [coor[3].lng, coor[3].lat],
+              [coor[0].lng, coor[0].lat]
+            ]
+        ],
+        "project": projectID
+      },
+      "filter": {isActive: true},
+      "regex": [],
+      "populate": [],
+      "attributes": [],
+      "pageNumber": 1,
+      "limit": 50000
+    }
+    try {
+      const response = await Axios.post('/object-evaluation/assignments', body, {headers})
+      peticionReverse(response.data.data.objects)
+      console.log(checkObjectAssign(response.data.data.objects, response.data.data.assignments))
+      setObjects(checkObjectAssign(response.data.data.objects, response.data.data.assignments))
+    } catch (error) {
+      if (error?.response?.status === 401) {
+        setTimeout(() => {
+          logOutNoHook();
+        }, 2000)
+        expiredSession();
+      } else {
+        console.error(error.response);
+      }
+    }
+  }
+});
+
 export {
   getAssignments, getAssignmentsByViewPort,
-  AssignmentMove, createAssign, updateAssign, deleteAssign, findAssignment
+  AssignmentMove, createAssign, updateAssign, 
+  deleteAssign, findAssignment, getAssignmentsByForm
 }

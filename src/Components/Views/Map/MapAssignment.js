@@ -124,10 +124,11 @@ const MapAssignment = () => {
                 coor={coordinates}
                 projectID={project}
                 formID={form}
+                setCoor={setCoordinates}
               />
             ) : (
               objects && (
-                <GetPolygon estado={setObjects}/>
+                <GetPolygon estado={setObjects} setCoor={setCoordinates}/>
               )
             )
           }
