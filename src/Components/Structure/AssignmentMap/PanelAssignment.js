@@ -53,7 +53,7 @@ const PanelAssignment = ({ children, setForm, setProject, setObjectSelected, obj
 
   const deleteObject = (object) =>{
     setObjectSelected(prevState => {
-      const newState = prevState.filter(id=> id != object);
+      const newState = prevState.filter(id=> id !== object);
       return newState;
     })
   }

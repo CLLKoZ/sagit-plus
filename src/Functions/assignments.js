@@ -88,8 +88,10 @@ const getAssignmentsByViewPort = debounce(100, async (setObjects, coor, projectI
 const checkObjectAssign = (objects, assignments) =>{
   return objects.map(object => {
     let objectTemp = Object.assign({}, object);
+    let objectAssign = [];
     assignments.forEach(assign => {
       if (object._id === assign.objectEvaluate._id){
+        objectAssign.push(assign);
         if (assign.status === posibleStatus.complete) {
           objectTemp['icono'] = iconByStatus(assign.status);
           objectTemp['status'] = assign.status;
@@ -103,6 +105,7 @@ const checkObjectAssign = (objects, assignments) =>{
         }
       }
     })
+    objectTemp['assignments'] = objectAssign;
     return objectTemp
   })
 };
@@ -256,7 +259,7 @@ const findAssignment = async (idObject, idForm, idProject, setAssignment) => {
   }
 }
 
-const getAssignmentsByForm = debounce(100, async (setObjects, coor, projectID) => {
+const getAssignmentsByForm = debounce(100, async (setObjects, coor, projectID, forms) => {
   if (coor){
     const headers = {
       Authorization: getCurrentUser().session.token,
@@ -285,8 +288,8 @@ const getAssignmentsByForm = debounce(100, async (setObjects, coor, projectID) =
     try {
       const response = await Axios.post('/object-evaluation/assignments', body, {headers})
       peticionReverse(response.data.data.objects)
-      console.log(checkObjectAssign(response.data.data.objects, response.data.data.assignments))
-      setObjects(checkObjectAssign(response.data.data.objects, response.data.data.assignments))
+      console.log(response.data.data.objects)
+      setObjects(availableForm(response.data.data.objects, response.data.data.assignments, forms))
     } catch (error) {
       if (error?.response?.status === 401) {
         setTimeout(() => {
@@ -300,8 +303,60 @@ const getAssignmentsByForm = debounce(100, async (setObjects, coor, projectID) =
   }
 });
 
+const availableForm = (objects, assignments, forms) =>{
+  return objects.map(object => {
+    let objectTemp = Object.assign({}, object);
+    let objectAssign = [];
+    assignments.forEach(assign => {
+      if (object._id === assign.objectEvaluate._id){
+        objectAssign.push(assign);
+      }
+    })
+    objectTemp['icono'] = assignmentColorByForm(objectAssign, forms);
+    objectTemp['assignments'] = objectAssign;
+    return objectTemp
+  })
+}
+
+const assignmentColorByForm = (objectAssign, forms=[], form=[]) => {
+  let acumulador = 0;
+  let acumComplete = 0;
+  if (objectAssign.length > 0){
+    objectAssign.forEach(objAssign => {
+      acumulador++;
+      if (objAssign.status === 'Completado') {
+        acumComplete++;
+      }
+    })
+    if (acumulador === forms.length) {
+      if (acumComplete === forms.length) {
+        return icon({
+          iconUrl: require(`../Images/Markers/domain-marker-base-blue.png`),
+          iconSize: [25, 32]
+        })
+      } else {
+        return icon({
+          iconUrl: require(`../Images/Markers/domain-marker-base-purple.png`),
+          iconSize: [25, 32]
+        })
+      }
+    } else {
+      return icon({
+        iconUrl: require(`../Images/Markers/domain-marker-base-cyan.png`),
+        iconSize: [25, 32]
+      })
+    }
+  } else {
+    return icon({
+      iconUrl: require(`../Images/Markers/domain-marker-base-grey.png`),
+      iconSize: [25, 32]
+    })
+  }
+}
+
 export {
   getAssignments, getAssignmentsByViewPort,
   AssignmentMove, createAssign, updateAssign, 
-  deleteAssign, findAssignment, getAssignmentsByForm
+  deleteAssign, findAssignment, getAssignmentsByForm,
+  availableForm
 }

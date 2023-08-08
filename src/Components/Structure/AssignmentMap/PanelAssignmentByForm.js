@@ -43,12 +43,11 @@ export default function PanelAssignmentByForm({children, setProject, setObjectSe
   useEffect(()=>{
     getUsers(setUsers);
   }, [])
-  
-  /* Este useEffect se utiliza para detectar el cambio del idProyecto seleccionado, y setear opciones default en formulario */
-  useEffect(() => {
-    setSelectedForm(defaultOptions);
-  }, [idProject, defaultOptions]);
 
+  useEffect(()=>{
+    console.log(selectedProject)
+  }, [selectedProject])
+  
   const deleteObject = () =>{
     setObjectSelected(null);
     setObjectPanel(null);

@@ -10,7 +10,7 @@ import { AssignmentMove, getAssignmentsByForm } from '../../../Functions/assignm
 import { icon } from 'leaflet'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { GetPolygon } from '../../../Functions'
+import { GetPolygon, getForms } from '../../../Functions'
 
 export default function MapAssignmentByForm() {
   const [coordinates, setCoordinates] = useState();
@@ -41,18 +41,14 @@ export default function MapAssignmentByForm() {
 
   useEffect(() => {
     if (project !== null && coordinates)
-      getAssignmentsByForm(setObjects, coordinates, project);
+      getAssignmentsByForm(setObjects, coordinates, project, getForms(project));
+    if (project === null)
+      setObjects(null);
   }, [project, coordinates]);
-
-  useEffect(() => {
-    console.log(coordinates)
-  }, [coordinates]);
 
   const addObject = (object) => {
     setObjectSelected(object);
   }
-
-  console.log()
 
   return (
     <>
@@ -73,14 +69,12 @@ export default function MapAssignmentByForm() {
       <MapSagit mapCoordinates={setCoordinates}>
       <div className='contenido'>
           {
-            project != null ? (
+            project != null && (
               <AssignmentMove 
                 setAssignment={setObjects}
                 setCoor={setCoordinates}
                 projectID={project}
               />
-            ) : (
-              <GetPolygon setCoor={setCoordinates}/>
             )
           }
           {
