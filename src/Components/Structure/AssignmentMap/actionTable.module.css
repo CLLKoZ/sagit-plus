@@ -1,0 +1,97 @@
+.actionTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.actionTable thead {
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    background-color: #0f1f52;
+    color: white;
+}
+
+th, td {
+    padding: 15px;
+}
+
+tr:nth-child(even) {
+    background-color: #E5E5E5;
+}
+
+button {
+    width: 35px;
+    height: 35px;
+}
+
+.btnEdit {
+    border: 1.5px solid #ff8b00;
+    border-radius: 5px;
+    color: #ff8b00;
+    background-color: transparent;
+    transition: ease 0.4s;
+    cursor: pointer;
+}
+
+.btnDel {
+    border: 1.5px solid #cf0000;
+    margin-left: 10px;
+    border-radius: 5px;
+    color: #cf0000;
+    background-color: transparent;
+    transition: ease 0.4s;
+    cursor: pointer;
+}
+
+.btnEdit:hover {
+    color: white;
+    background-color: #ff8b00;
+}
+
+.btnDel:hover {
+    color: white;
+    background-color: #c73232;
+}
+
+.modalSize {
+    max-height: 500px;
+}
+
+.toolTip {
+    position: relative;
+    display: inline-block;
+}
+
+.toolTip .toolTipText {
+    visibility: hidden;
+    width: 120px;
+    background-color: rgb(56, 56, 56);
+    opacity: 0.9;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 120%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.toolTip .toolTipText::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: rgb(56, 56, 56) transparent transparent transparent;
+}
+
+.toolTip .toolTipTextDel::after {
+    margin-left: 0px;
+}
+
+.toolTip:hover .toolTipText {
+    visibility: visible;
+}

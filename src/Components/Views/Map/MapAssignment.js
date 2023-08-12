@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../../Structure/Header/Header';
 import MapSagit from '../../Structure/General/MapSagit';
 import EditAssignation from '../../Structure/AssignmentMap/EditAssignation';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import { mdiClipboardAccount} from '@mdi/js';
 import PanelAssignment from '../../Structure/AssignmentMap/PanelAssignment';
 import { AssignmentMove, getAssignmentsByViewPort, findAssignment } from '../../../Functions/assignments';

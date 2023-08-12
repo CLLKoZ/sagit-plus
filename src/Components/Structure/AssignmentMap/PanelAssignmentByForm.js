@@ -8,10 +8,9 @@ import { mdiCloseCircle, mdiMapMarkerAlert } from '@mdi/js';
 export default function PanelAssignmentByForm({children, setProject, setObjectSelected, objectSelected = null}) {
   const [idProject, setIdProject] = useState(null);
   const [users, setUsers] = useState(null);
-  const [selectedForm, setSelectedForm] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [objectPanel, setObjectPanel] = useState(null);
-  const [defaultOptions, setDefaultOptions] = useState([{ label: 'Seleccione una opción', value: null },]);
+  const defaultOptions = { label: 'Seleccione una opción', value: null };
   const [selectedUser, setSelectedUser] = useState(null);
 
 /* Estilos del componente Select */
@@ -43,10 +42,6 @@ export default function PanelAssignmentByForm({children, setProject, setObjectSe
   useEffect(()=>{
     getUsers(setUsers);
   }, [])
-
-  useEffect(()=>{
-    console.log(selectedProject)
-  }, [selectedProject])
   
   const deleteObject = () =>{
     setObjectSelected(null);
@@ -72,7 +67,7 @@ export default function PanelAssignmentByForm({children, setProject, setObjectSe
             }
             onChange = {(selectedOption) => {
               setIdProject(selectedOption.value);
-              setProject(selectedOption.value);
+              setProject(selectedOption);
               if (selectedOption.value === "") {
                 setIdProject(null);
                 setProject(null);

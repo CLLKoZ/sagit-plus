@@ -1,4 +1,3 @@
-import { toast } from "react-toastify";
 import Axios from "../API/Axios"
 import { getCurrentUser, logOutNoHook } from "./user"
 import { icon } from "leaflet";
@@ -10,35 +9,6 @@ let posibleStatus = {
   not: 'Sin iniciar',
   complete: 'Completada',
   init: 'Iniciada'
-}
-
-const getAssignments = async (setAssignment) => {
-  const headers = {
-    Authorization: getCurrentUser().session.token,
-    "Access-Control-Allow-Origin": "*"
-  };
-  const body = {
-    "filter": {isActive: true},
-    "regex": [],
-    "populate": ["objectEvaluate", "formInspection"],
-    "attributes": [],
-    "pageNumber": 1,
-    "limit": 50000
-  }
-  try {
-    const response = await Axios.post('/assignment/find', body, {headers})
-
-    setAssignment(peticionReverse(response.data.data))
-  } catch (error) {
-    if (error?.response?.status === 401) {
-      setTimeout(() => {
-        logOutNoHook();
-      }, 2000)
-      expiredSession();
-    } else {
-      console.error(error.response);
-    }
-  }
 }
 
 const getAssignmentsByViewPort = debounce(100, async (setObjects, coor, projectID, formID) => {
@@ -288,7 +258,7 @@ const getAssignmentsByForm = debounce(100, async (setObjects, coor, projectID, f
     try {
       const response = await Axios.post('/object-evaluation/assignments', body, {headers})
       peticionReverse(response.data.data.objects)
-      console.log(response.data.data.objects)
+      console.log(availableForm(response.data.data.objects, response.data.data.assignments, forms))
       setObjects(availableForm(response.data.data.objects, response.data.data.assignments, forms))
     } catch (error) {
       if (error?.response?.status === 401) {
@@ -355,8 +325,6 @@ const assignmentColorByForm = (objectAssign, forms=[], form=[]) => {
 }
 
 export {
-  getAssignments, getAssignmentsByViewPort,
-  AssignmentMove, createAssign, updateAssign, 
-  deleteAssign, findAssignment, getAssignmentsByForm,
-  availableForm
+  getAssignmentsByViewPort, AssignmentMove, createAssign, updateAssign, 
+  deleteAssign, findAssignment, getAssignmentsByForm, availableForm
 }

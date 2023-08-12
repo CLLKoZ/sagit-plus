@@ -10,20 +10,26 @@ import { AssignmentMove, getAssignmentsByForm } from '../../../Functions/assignm
 import { icon } from 'leaflet'
 import { useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { GetPolygon, getForms } from '../../../Functions'
+import { getForms } from '../../../Functions'
+import ModalAssignmentByForm from '../../Structure/AssignmentMap/ModalAssignmentByForm'
 
 export default function MapAssignmentByForm() {
   const [coordinates, setCoordinates] = useState();
   const [objects, setObjects] = useState(null);
-  const [assignment, setAssignment] = useState(null);
+  const [objectAssignments, setObjectAssignments] = useState(null);
   const [forms, setForms] = useState(null);
   const [project, setProject] = useState(null);
   const [objectSelected, setObjectSelected] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const customIcon = new icon({
     iconUrl: require(`../../../Images/Markers/domain-marker-base-blue.png`),
     iconSize: [25, 32]
   })
+
+  useEffect(() => {
+    console.log(project)
+  }, [project])
 
   useEffect(() => {
     document.title = "SAGIT | Asignaciones Form";
@@ -41,13 +47,14 @@ export default function MapAssignmentByForm() {
 
   useEffect(() => {
     if (project !== null && coordinates)
-      getAssignmentsByForm(setObjects, coordinates, project, getForms(project));
+      getAssignmentsByForm(setObjects, coordinates, project.value, getForms(project.value));
     if (project === null)
       setObjects(null);
   }, [project, coordinates]);
 
-  const addObject = (object) => {
-    setObjectSelected(object);
+  const openModal = (object) => {
+    setIsOpen(true);
+    setObjectAssignments(object);
   }
 
   return (
@@ -65,6 +72,11 @@ export default function MapAssignmentByForm() {
           objectSelected={objectSelected} 
           setObjectSelected={setObjectSelected}
         />
+        {
+          project && (
+            <ModalAssignmentByForm isOpen={isOpen} setIsOpen={setIsOpen} modalAssignments={objectAssignments} projectName={project.label}/>
+          )
+        }
       </div>
       <MapSagit mapCoordinates={setCoordinates}>
       <div className='contenido'>
@@ -73,7 +85,7 @@ export default function MapAssignmentByForm() {
               <AssignmentMove 
                 setAssignment={setObjects}
                 setCoor={setCoordinates}
-                projectID={project}
+                projectID={project.value}
               />
             )
           }
@@ -85,7 +97,7 @@ export default function MapAssignmentByForm() {
                     position={object.address.location.coordinates}
                     icon={object.icono ? object.icono : customIcon}
                   >
-                    <Popup><h5 className='pop-up' onClick={()=> addObject(object)}>{object.name}</h5></Popup>
+                    <Popup><h5 className='pop-up' onClick={()=> openModal(object)}>{object.name}</h5></Popup>
                   </Marker>
                 </div>
               ))
